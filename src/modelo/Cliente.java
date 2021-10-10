@@ -16,5 +16,17 @@ public class Cliente
 	private String estadoCivil;
 	private String situacionLaboral;
 	private int cedula;
+	public Cliente(boolean inscritoSistemaPuntos, ArrayList<Integer> acumuladoPuntos, int edad, String sexo,
+			String estadoCivil, String situacionLaboral, int cedula) {
+		super();
+		this.inscritoSistemaPuntos = inscritoSistemaPuntos;
+		this.acumuladoPuntos = acumuladoPuntos;
+		this.edad = edad;
+		this.sexo = sexo;
+		this.estadoCivil = estadoCivil;
+		this.situacionLaboral = situacionLaboral;
+		this.cedula = cedula;
+	}
+
 	
 }
