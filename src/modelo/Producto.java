@@ -14,20 +14,32 @@ public class Producto
 	private double precioPorUnidadDeMedida;
 	private int codigoDeBarras;
 	private int fechaDeVencimiento;
+	private boolean empacados;
 	private float peso;
 	private String categoria;
 	
 	public Producto(double precio, double precioPorUnidadDeMedida, int codigoDeBarras, int fechaDeVencimiento,
-			float peso,String categoria) {
+			float peso,String categoria,boolean empacados) {
 		super();
 		this.precio = precio;
 		this.precioPorUnidadDeMedida = precioPorUnidadDeMedida;
 		this.codigoDeBarras = codigoDeBarras;
 		this.fechaDeVencimiento = fechaDeVencimiento;
+		this.empacados = empacados;
 		this.peso = peso;
 		this.categoria = categoria;
 		
 	
+	}
+
+
+	public boolean isEmpacados() {
+		return empacados;
+	}
+
+
+	public void setEmpacados(boolean empacados) {
+		this.empacados = empacados;
 	}
 
 
