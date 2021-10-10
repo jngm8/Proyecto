@@ -15,17 +15,29 @@ public class Producto
 	private int codigoDeBarras;
 	private int fechaDeVencimiento;
 	private float peso;
+	private String categoria;
 	
 	public Producto(double precio, double precioPorUnidadDeMedida, int codigoDeBarras, int fechaDeVencimiento,
-			float peso) {
+			float peso,String categoria) {
 		super();
 		this.precio = precio;
 		this.precioPorUnidadDeMedida = precioPorUnidadDeMedida;
 		this.codigoDeBarras = codigoDeBarras;
 		this.fechaDeVencimiento = fechaDeVencimiento;
 		this.peso = peso;
+		this.categoria = categoria;
 		
 	
+	}
+
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 
