@@ -7,7 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import uniandes.dpoo.taller1.modelo.Producto;
 
-public class Inventario {
+
+
+public class Inventario 
+{
+	private ArrayList<String> productos;
 
 }
