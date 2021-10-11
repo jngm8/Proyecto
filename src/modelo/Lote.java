@@ -11,12 +11,12 @@ import java.util.Set;
 
 public class Lote 
 {
+	private int idLote;
+	private int cantidad;
 	private Calendar fechaDeEntrega;
 	private Calendar fechaDeVencimiento;
 	private double precioPagoProveedor;
 	private double precioVentaPublico;
-	private int idLote;
-	private int cantidad;
 	
 
 }

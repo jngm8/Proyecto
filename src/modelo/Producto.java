@@ -20,7 +20,7 @@ public abstract class Producto
 	private boolean refrigerado;
 	private boolean congelado;
 	
-	protected int codigoDeBarras;
+	private int codigoDeBarras;
 	protected int cantidad;
 	
 	

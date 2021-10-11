@@ -14,6 +14,7 @@ public class ProductoEmpaquetado extends Producto {
 	@Override
 	public void mostrarInfo() {
 		System.out.println("Precio por unidad: "+ precio);
+		System.out.println("Peso por unidad: "+ precio);
 		System.out.println("Cantidad Disponible: " + cantidad + " unidades");
 	}
 	
