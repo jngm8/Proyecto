@@ -36,7 +36,12 @@ public class EncargadoInventario {
             double precioPagoProveedor = Double.parseDouble(partes[4]);
             double precioAlPublico = Double.parseDouble(partes[5]);
             boolean empacado = intToBoolean(Integer.parseInt(partes[8]));
-            
+            boolean fresco = intToBoolean(Integer.parseInt(partes[9]));
+            boolean refrigerado = intToBoolean(Integer.parseInt(partes[10]));
+            boolean congelado = intToBoolean(Integer.parseInt(partes[11]));
+            String unidadDeMedida = partes[12];
+            int peso = Integer.parseInt(partes[13]);
+            int cantidad = Integer.parseInt(partes[14]);
             linea = br.readLine();
         }
 	    }	
