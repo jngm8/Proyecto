@@ -15,5 +15,8 @@ public class Lote
 	private Calendar fechaDeVencimiento;
 	private double precioPagoProveedor;
 	private double precioVentaPublico;
+	private int idLote;
+	private int cantidad;
+	
 
 }

@@ -20,6 +20,6 @@ public class Inventario
 		Categorias = new HashMap<String,ArrayList<Integer>>();
 	}
 	
-	
+
 
 }
