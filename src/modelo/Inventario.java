@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Inventario 
 {
-	private ArrayList<String> productos;
+	private HashMap<Integer, Producto> Productos;
 	
 
 }

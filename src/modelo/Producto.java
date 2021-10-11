@@ -1,96 +1,93 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Producto 
-{
 
-	private double precio;
-	private double precioPorUnidadDeMedida;
-	private int codigoDeBarras;
-	private int fechaDeVencimiento;
-	private boolean empacados;
-	private float peso;
+public abstract class Producto 
+{
+	//ATRIBUTOS
+	protected double peso;
+	protected double precio;
+	
+	private boolean empacado;
+	private boolean fresco;
+	private boolean refrigerado;
+	private boolean congelado;
+	
+	protected int codigoDeBarras;
+	protected int cantidad;
+	
+	
+	private String nombre;
+	protected String unidadDeMedida;
 	private String categoria;
 	
-	public Producto(double precio, double precioPorUnidadDeMedida, int codigoDeBarras, int fechaDeVencimiento,
-			float peso,String categoria,boolean empacados) {
-		super();
-		this.precio = precio;
-		this.precioPorUnidadDeMedida = precioPorUnidadDeMedida;
-		this.codigoDeBarras = codigoDeBarras;
-		this.fechaDeVencimiento = fechaDeVencimiento;
-		this.empacados = empacados;
-		this.peso = peso;
-		this.categoria = categoria;
-		
+	private ArrayList<Lote> lotes;
+
 	
-	}
-
-
-	public boolean isEmpacados() {
-		return empacados;
-	}
-
-
-	public void setEmpacados(boolean empacados) {
-		this.empacados = empacados;
-	}
-
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
-
+	//METODOS NO ABSTRACTOS - IMPLEMENTADOS
 	public double getPrecio() {
 		return precio;
 	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
+	
+	public boolean isFresco() {
+		return fresco;
+	}
+	
+	public boolean isEmpacado() {
+		return empacado;
 	}
 
-	public double getPrecioPorUnidadDeMedida() {
-		return precioPorUnidadDeMedida;
+	public boolean isRefrigerado() {
+		return refrigerado;
 	}
 
-	public void setPrecioPorUnidadDeMedida(double precioPorUnidadDeMedida) {
-		this.precioPorUnidadDeMedida = precioPorUnidadDeMedida;
+	public boolean isCongelado() {
+		return congelado;
 	}
 
 	public int getCodigoDeBarras() {
 		return codigoDeBarras;
 	}
 
-	public void setCodigoDeBarras(int codigoDeBarras) {
-		this.codigoDeBarras = codigoDeBarras;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public int getFechaDeVencimiento() {
-		return fechaDeVencimiento;
+	public String getUnidadDeMedida() {
+		return unidadDeMedida;
 	}
 
-	public void setFechaDeVencimiento(int fechaDeVencimiento) {
-		this.fechaDeVencimiento = fechaDeVencimiento;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public float getPeso() {
-		return peso;
-	}
-
-	public void setPeso(float peso) {
-		this.peso = peso;
+	public ArrayList<Lote> getLotes() {
+		return lotes;
 	}
 	
+	public void printInfo() {
+		System.out.println("Nombre: " + nombre);
+		System.out.println("Codigo de barras: " + codigoDeBarras);
+		System.out.println("Categoria: " + categoria);
+		mostrarInfo();
+		System.out.println("Empacado: " + empacado);
+		System.out.println("Fresco: " + fresco);
+		System.out.println("Refrigerado: " + refrigerado);
+		System.out.println("Congelado: " + congelado);
 	}
+	
+	
+	//METODOS ABSTRACTOS
+	abstract public double getPrecioPorUnidadDeMedida();
+	abstract public void mostrarInfo();
+	
+	
+	
+}
