@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import modelo.Producto;
+import modelo.ProductoEmpaquetado;
 
 public class EncargadoInventario {
 
@@ -28,10 +32,18 @@ public class EncargadoInventario {
             String[] partes = linea.split(";");
             int idLote = Integer.parseInt(partes[0]);
             String nombre = partes[1];
+            
             String[] formatoFecha = partes[2].split("-");
-            Calendar fechaEntrega = xd;
+            int anio = Integer.parseInt(formatoFecha[2]);
+            int mes = Integer.parseInt(formatoFecha[1]);
+            int dia = Integer.parseInt(formatoFecha[0]);
+            Calendar fechaEntrega = new GregorianCalendar(anio, mes, dia);
+            
             String[] formatoFecha2 = partes[3].split("-");
-            Calendar fechaVencimiento = xd;
+            int anio2 = Integer.parseInt(formatoFecha2[2]);
+            int mes2 = Integer.parseInt(formatoFecha2[1]);
+            int dia2 = Integer.parseInt(formatoFecha2[0]);
+            Calendar fechaVencimiento = new GregorianCalendar(anio2, mes2, dia2);
             
             double precioPagoProveedor = Double.parseDouble(partes[4]);
             double precioAlPublico = Double.parseDouble(partes[5]);
@@ -40,8 +52,9 @@ public class EncargadoInventario {
             boolean refrigerado = intToBoolean(Integer.parseInt(partes[10]));
             boolean congelado = intToBoolean(Integer.parseInt(partes[11]));
             String unidadDeMedida = partes[12];
-            int peso = Integer.parseInt(partes[13]);
-            int cantidad = Integer.parseInt(partes[14]);
+            double peso = Double.parseDouble(partes[13]);
+            double cantidad = Double.parseDouble(partes[14]);
+            //Crear lote en el inventario
             linea = br.readLine();
         }
 	    }	
@@ -76,5 +89,8 @@ public class EncargadoInventario {
 		return boolValue;
 	}
 	
+	private Calendar createDate(int year, int month, int day) {
+		return new GregorianCalendar();
+	}
 	
 }

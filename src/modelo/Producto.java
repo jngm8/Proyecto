@@ -10,10 +10,11 @@ import java.util.Set;
 
 
 public abstract class Producto 
-{
+{	
 	//ATRIBUTOS
 	protected double peso;
 	protected double precio;
+	protected double cantidad;
 	
 	private boolean empacado;
 	private boolean fresco;
@@ -21,7 +22,7 @@ public abstract class Producto
 	private boolean congelado;
 	
 	private int codigoDeBarras;
-	protected int cantidad;
+	
 	
 	
 	private String nombre;
@@ -29,13 +30,36 @@ public abstract class Producto
 	private String categoria;
 	
 	private ArrayList<Lote> lotes;
-
 	
+	//Constructor
+	
+	
+	public Producto(double peso, double precio, boolean empacado, boolean fresco, boolean refrigerado,
+			boolean congelado, int codigoDeBarras, double cantidad, String nombre, String unidadDeMedida, String categoria,
+			ArrayList<Lote> lotes) {
+		this.peso = peso;
+		this.precio = precio;
+		this.empacado = empacado;
+		this.fresco = fresco;
+		this.refrigerado = refrigerado;
+		this.congelado = congelado;
+		this.codigoDeBarras = codigoDeBarras;
+		this.cantidad = cantidad;
+		this.nombre = nombre;
+		this.unidadDeMedida = unidadDeMedida;
+		this.categoria = categoria;
+		this.lotes = lotes;
+	}
+
 	//METODOS NO ABSTRACTOS - IMPLEMENTADOS
 	public double getPrecio() {
 		return precio;
 	}
 	
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
 	public boolean isFresco() {
 		return fresco;
 	}
@@ -54,6 +78,14 @@ public abstract class Producto
 
 	public int getCodigoDeBarras() {
 		return codigoDeBarras;
+	}
+
+	public double getCantidad() {
+		return cantidad;
+	}
+
+	public void agregarCantidad(double cantidad) {
+		this.cantidad += cantidad;
 	}
 
 	public String getNombre() {
