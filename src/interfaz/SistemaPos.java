@@ -1,4 +1,4 @@
-package controlador;
+package interfaz;
 
 import modelo.Cliente;
 
