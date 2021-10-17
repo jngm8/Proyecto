@@ -16,9 +16,12 @@ public class Cliente
 	private String estadoCivil;
 	private String situacionLaboral;
 	private int cedula;
+	
+	
+	
 	public Cliente(boolean inscritoSistemaPuntos, ArrayList<Integer> acumuladoPuntos, int edad, char sexo,
 			String estadoCivil, String situacionLaboral, int cedula) {
-		super();
+	
 		this.inscritoSistemaPuntos = inscritoSistemaPuntos;
 		this.acumuladoPuntos = acumuladoPuntos;
 		this.edad = edad;

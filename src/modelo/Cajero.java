@@ -1,5 +1,9 @@
 package modelo;
 
-public class Cajero {
+public class Cajero 
 
+
+{
+	
+	public 
 }
