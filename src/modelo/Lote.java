@@ -1,12 +1,6 @@
 package modelo;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 public class Lote 
@@ -17,7 +11,8 @@ public class Lote
 	private Calendar fechaDeVencimiento;
 	private double precioPagoProveedor;
 	private double precioVentaPublico;
-	private int codigoDeBarras;
+	private long codigoDeBarras;
+	private String categoria;
 	private boolean empacado;
 	private boolean fresco;
 	private boolean refrigerado;
@@ -26,9 +21,21 @@ public class Lote
 	private double peso;
 	private double cantidad;
 	
-	public Lote(int idLote, String nombreProducto, Calendar fechaDeEntrega, Calendar fechaDeVencimiento,
-			double precioPagoProveedor, double precioVentaPublico, int codigoDeBarras, boolean empacado, boolean fresco,
-			boolean refrigerado, boolean congelado, String unidadDeMedida, double peso, double cantidad) {
+	public Lote(int idLote,
+				String nombreProducto,
+				Calendar fechaDeEntrega,
+				Calendar fechaDeVencimiento,
+				double precioPagoProveedor, 
+				double precioVentaPublico,
+				long codigoDeBarras,
+				String categoria,
+				boolean empacado,
+				boolean fresco,
+				boolean refrigerado,
+				boolean congelado,
+				String unidadDeMedida,
+				double peso,
+				double cantidad) {
 
 		this.idLote = idLote;
 		this.nombreProducto = nombreProducto;
@@ -44,9 +51,66 @@ public class Lote
 		this.unidadDeMedida = unidadDeMedida;
 		this.peso = peso;
 		this.cantidad = cantidad;
-		
+	}
+
+	public int getIdLote() {
+		return idLote;
+	}
+
+	public String getNombreProducto() {
+		return nombreProducto;
+	}
+
+	public Calendar getFechaDeEntrega() {
+		return fechaDeEntrega;
+	}
+
+	public Calendar getFechaDeVencimiento() {
+		return fechaDeVencimiento;
+	}
+
+	public double getPrecioPagoProveedor() {
+		return precioPagoProveedor;
+	}
+
+	public double getPrecioVentaPublico() {
+		return precioVentaPublico;
+	}
+
+	public long getCodigoDeBarras() {
+		return codigoDeBarras;
+	}
 	
-		
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public boolean isEmpacado() {
+		return empacado;
+	}
+
+	public boolean isFresco() {
+		return fresco;
+	}
+
+	public boolean isRefrigerado() {
+		return refrigerado;
+	}
+
+	public boolean isCongelado() {
+		return congelado;
+	}
+
+	public String getUnidadDeMedida() {
+		return unidadDeMedida;
+	}
+
+	public double getPeso() {
+		return peso;
+	}
+
+	public double getCantidad() {
+		return cantidad;
 	}
 	
 	

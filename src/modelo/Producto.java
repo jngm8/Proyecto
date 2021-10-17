@@ -21,7 +21,7 @@ public abstract class Producto
 	private boolean refrigerado;
 	private boolean congelado;
 	
-	private int codigoDeBarras;
+	private long codigoDeBarras;
 	
 	
 	
@@ -34,20 +34,29 @@ public abstract class Producto
 	//Constructor
 	
 	
-	public Producto(double peso, double precio, boolean empacado, boolean fresco, boolean refrigerado,
-			boolean congelado, int codigoDeBarras, double cantidad, String nombre, String unidadDeMedida, String categoria,
-			ArrayList<Lote> lotes) {
-		this.peso = peso;
-		this.precio = precio;
+	public Producto(String nombreProducto,
+					double precioAlPublico,
+					long codigoDeBarras,
+					String categoria,
+					boolean empacado, 
+					boolean fresco,
+					boolean refrigerado,
+					boolean congelado,
+					String unidadDeMedida,
+					double peso,
+					double cantidad,
+					ArrayList<Lote> lotes) {
+		this.nombre = nombreProducto;
+		this.precio = precioAlPublico;
+		this.codigoDeBarras = codigoDeBarras;
+		this.categoria = categoria;
 		this.empacado = empacado;
 		this.fresco = fresco;
 		this.refrigerado = refrigerado;
 		this.congelado = congelado;
-		this.codigoDeBarras = codigoDeBarras;
-		this.cantidad = cantidad;
-		this.nombre = nombre;
 		this.unidadDeMedida = unidadDeMedida;
-		this.categoria = categoria;
+		this.peso = peso;
+		this.cantidad = cantidad;
 		this.lotes = lotes;
 	}
 
@@ -76,7 +85,7 @@ public abstract class Producto
 		return congelado;
 	}
 
-	public int getCodigoDeBarras() {
+	public long getCodigoDeBarras() {
 		return codigoDeBarras;
 	}
 

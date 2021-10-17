@@ -15,8 +15,6 @@ public class Factura
 	private double valorTotalCompra;
 	private double puntosAcumulados;
 	
-	public Cajero Compra;
-	
 	
 	
 	public Factura()
@@ -37,7 +35,7 @@ public class Factura
 	
 	public void mostar() {
 		
-		System.out.println("El valor total de la compra es: "+valorTotalCompra+"\nLos puntos acumulados son ": +puntosAcumulados+"")
+		System.out.println("El valor total de la compra es: "+valorTotalCompra+"\nLos puntos acumulados son: " +puntosAcumulados+"");
 	}
 
 
