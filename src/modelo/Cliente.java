@@ -32,6 +32,41 @@ public class Cliente
 		this.situacionLaboral = situacionLaboral;
 		
 	}
-	
+
+	public long getCedula() 
+	{
+		return cedula;
+	}
+
+	public int getAcumuladoPuntos() 
+	{
+		return acumuladoPuntos;
+	}
+
+	public void setAcumuladoPuntos(int acumuladoPuntos) 
+	{
+		this.acumuladoPuntos = acumuladoPuntos;
+	}
+
+	public int getEdad() 
+	{
+		return edad;
+	}
+
+	public char getSexo() 
+	{
+		return sexo;
+	}
+
+	public String getEstadoCivil() 
+	{
+		return estadoCivil;
+	}
+
+	public String getSituacionLaboral() 
+	{
+		return situacionLaboral;
+	}
+
 	
 }
