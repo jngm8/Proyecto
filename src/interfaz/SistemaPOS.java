@@ -1,5 +1,12 @@
 package interfaz;
 
-public class SistemaPOS {
+import modelo.Cliente;
 
+public class SistemaPos 
+
+{
+
+	public Cliente clientes;
+	
+	//hola
 }
