@@ -8,5 +8,5 @@ public class SistemaPos
 
 	public Cliente clientes;
 	
-	
+	//hola
 }
