@@ -9,27 +9,29 @@ import java.util.Set;
 
 public class Cliente 
 {
-	private boolean inscritoSistemaPuntos;
-	private ArrayList<Integer> acumuladoPuntos;
+	private long cedula;
+	private int acumuladoPuntos;
 	private int edad;
 	private char sexo;
 	private String estadoCivil;
 	private String situacionLaboral;
-	private int cedula;
 	
 	
 	
-	public Cliente(boolean inscritoSistemaPuntos, ArrayList<Integer> acumuladoPuntos, int edad, char sexo,
-			String estadoCivil, String situacionLaboral, int cedula) {
 	
-		this.inscritoSistemaPuntos = inscritoSistemaPuntos;
+	public Cliente(long cedula, 
+				   int acumuladoPuntos,
+				   int edad, char sexo,
+				   String estadoCivil,
+				   String situacionLaboral) {
+		this.cedula = cedula;
 		this.acumuladoPuntos = acumuladoPuntos;
 		this.edad = edad;
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
 		this.situacionLaboral = situacionLaboral;
-		this.cedula = cedula;
+		
 	}
-
+	
 	
 }

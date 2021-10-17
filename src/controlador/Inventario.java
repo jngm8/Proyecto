@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import modelo.Cliente;
 import modelo.Lote;
 import modelo.Producto;
 import modelo.ProductoEmpaquetado;
@@ -24,6 +25,7 @@ public class Inventario
 	private HashMap<String, Long> codigosProductos;
 	private HashMap<Integer, Lote> Lotes;	
 	private HashMap<String, ArrayList<Long>> Categorias;
+	private HashMap<Long, Cliente> Clientes;
 	
 	public Inventario()
 	{
