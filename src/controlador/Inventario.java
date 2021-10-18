@@ -2,7 +2,14 @@ package controlador;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,20 +31,74 @@ import modelo.ProductoPorPeso;
 public class Inventario 
 {
 	private HashMap<Long, Producto> Productos;
-	private HashMap<String, Long> codigosProductos;
+	private HashMap<String, Long> CodigosProductos;
 	private HashMap<Integer, Lote> Lotes;	
 	private HashMap<String, ArrayList<Long>> Categorias;
 	private HashMap<Long, Cliente> Clientes;
 	
+	
+	private static final String LOG_FILE = "./data/error.log";
+	/**
+     * Es el nombre del archivo de donde se cargan y salvan los discos
+     */
+    private String archivoProductos = "./persistencia/Productos";
+    private String archivoCodigosProductos = "./persistencia/CodigosProductos";
+    private String archivoLotes = "./persistencia/Lotes";
+    private String archivoCategorias = "./persistencia/Categorias";
+    private String archivoClientes = "./persistencia/Clientes";
+	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	
-	public Inventario()
+	public Inventario() throws controlador.PersistenciaException
 	{
-		Productos = new HashMap<Long, Producto>();
-		codigosProductos = new HashMap<String, Long>();
-		Lotes = new HashMap<Integer, Lote>();
-		Categorias = new HashMap<String,ArrayList<Long>>();
-		Clientes = new HashMap<Long, Cliente>();
+		File fileProductos = new File( archivoProductos );
+		File fileCodigosProductos = new File( archivoCodigosProductos );
+		File fileLotes = new File( archivoLotes );
+		File fileCategorias = new File( archivoCategorias );
+		File fileClientes = new File( archivoClientes );
+        if( fileProductos.exists( ) && fileCodigosProductos.exists( ) && fileLotes.exists( ) && fileCategorias.exists( ) && fileClientes.exists( ) )
+        {
+            // El archivo existe: se debe recuperar de allí el estado del modelo del mundo
+            try
+            {
+                ObjectInputStream oisProductos = new ObjectInputStream( new FileInputStream( fileProductos ) );
+                Productos = ( HashMap<Long, Producto> )oisProductos.readObject( );
+                oisProductos.close( );
+                
+                ObjectInputStream oisCodigosProductos = new ObjectInputStream( new FileInputStream( fileCodigosProductos ) );
+                CodigosProductos = ( HashMap<String, Long> )oisCodigosProductos.readObject( );
+                oisCodigosProductos.close( );
+                
+                ObjectInputStream oisLotes = new ObjectInputStream( new FileInputStream( fileLotes ) );
+                Lotes = ( HashMap<Integer, Lote> )oisLotes.readObject( );
+                oisLotes.close( );
+                
+                ObjectInputStream oisCategorias = new ObjectInputStream( new FileInputStream( fileCategorias ) );
+                Categorias = ( HashMap<String,ArrayList<Long>> )oisCategorias.readObject( );
+                oisCategorias.close( );
+                
+                ObjectInputStream oisClientes = new ObjectInputStream( new FileInputStream( fileClientes ) );
+                Clientes = ( HashMap<Long, Cliente> )oisClientes.readObject( );
+                oisClientes.close( );
+                
+            }
+            catch( Exception e )
+            {
+                // Se atrapan en este bloque todos los tipos de excepción
+                registrarError( e );
+                throw new PersistenciaException( "Error fatal: imposible restaurar el estado del programa (" + e.getMessage( ) + ")" );
+            }
+        }
+        else
+        {
+            // El archivo no existe: es la primera vez que se ejecuta el programa
+        	Productos = new HashMap<Long, Producto>();
+    		CodigosProductos = new HashMap<String, Long>();
+    		Lotes = new HashMap<Integer, Lote>();
+    		Categorias = new HashMap<String,ArrayList<Long>>();
+    		Clientes = new HashMap<Long, Cliente>();
+        }
+		
 	}
 	
 	public void cargarLote(File archivoMenu)
@@ -193,7 +254,7 @@ public class Inventario
 		Producto Producto;
 		//Se agrega el producto al Map para luego poder
 		//buscar facil el codigo de barras a través del nombre
-		codigosProductos.put(nombreProducto, codigoDeBarras);
+		CodigosProductos.put(nombreProducto, codigoDeBarras);
 		// Para productos empacados
 		if (empacado) {
 			//Si ya existe, solo actualiza la cantidad del producto
@@ -311,12 +372,63 @@ public class Inventario
 	
 	public Producto getProducto(String nombreProducto) {
 		Producto Producto = null;
-		if (codigosProductos.containsKey(nombreProducto)) {
-			long codigoDeBarras = codigosProductos.get(nombreProducto);
+		if (CodigosProductos.containsKey(nombreProducto)) {
+			long codigoDeBarras = CodigosProductos.get(nombreProducto);
 			Producto = Productos.get(codigoDeBarras);
 		}
 		return Producto;
 	}
+	
+	public void salvarInventario() throws PersistenciaException{
+		try
+        {
+            ObjectOutputStream oosProductos = new ObjectOutputStream( new FileOutputStream( archivoProductos ) );
+            oosProductos.writeObject( Productos );
+            oosProductos.close( );
+            
+            ObjectOutputStream oosCodigosProductos = new ObjectOutputStream( new FileOutputStream( archivoCodigosProductos ) );
+            oosCodigosProductos.writeObject( CodigosProductos );
+            oosCodigosProductos.close( );
+            
+            ObjectOutputStream oosLotes = new ObjectOutputStream( new FileOutputStream( archivoLotes ) );
+            oosLotes.writeObject( Lotes );
+            oosLotes.close( );
+            
+            ObjectOutputStream oosCategorias = new ObjectOutputStream( new FileOutputStream( archivoCategorias ) );
+            oosCategorias.writeObject( Categorias );
+            oosCategorias.close( );
+            
+            ObjectOutputStream oosClientes = new ObjectOutputStream( new FileOutputStream( archivoClientes ) );
+            oosClientes.writeObject( Clientes );
+            oosClientes.close( );
+            
+        }
+        catch( IOException e )
+        {
+            registrarError( e );
+            throw new PersistenciaException( "Error al salvar: " + e.getMessage( ) );
+        }
+	}
+	
+	public void registrarError( Exception excepcion )
+    {
+        try
+        {
+            FileWriter out = new FileWriter( LOG_FILE, true );
+            PrintWriter log = new PrintWriter( out );
+            log.println( "---------------------------------------" );
+            log.println( "Inventario.java :" + new Date( ).toString( ) );
+            log.println( "---------------------------------------" );
+            excepcion.printStackTrace( log );
+            log.close( );
+            out.close( );
+        }
+        catch( IOException e )
+        {
+            excepcion.printStackTrace( );
+            e.printStackTrace( );
+        }
+    }
 	
 	private boolean intToBoolean(int intValue) {
 		boolean boolValue = false;

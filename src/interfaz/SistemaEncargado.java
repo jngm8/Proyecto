@@ -4,20 +4,26 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import controlador.Inventario;
+import controlador.PersistenciaException;
 import modelo.Producto;
 
-public class SistemaEncargado 
+public class SistemaEncargado implements Serializable
 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 100L;
 	Inventario Inventario;
 	
-	public void ejecutarSistemaEncargado(){
+	public void ejecutarSistemaEncargado() throws PersistenciaException{
 		
 		Inventario = new Inventario();
 		System.out.println("======== BIENVENIDO AL SISTEMA ENCARGADO DEL INVENTARIO ========");
@@ -37,6 +43,7 @@ public class SistemaEncargado
 					ejecutarOpcion(opcion_seleccionada);
 				}
 				else if (opcion_seleccionada == 6){
+					Inventario.salvarInventario();
 					System.out.println("Saliendo de la aplicación ...");
 					continuar = false;
 				}
@@ -160,9 +167,10 @@ public class SistemaEncargado
 		return null;
 	}
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws PersistenciaException
 	 {
 		SistemaEncargado consola = new SistemaEncargado();
 		consola.ejecutarSistemaEncargado();
+		
 	 }
 }

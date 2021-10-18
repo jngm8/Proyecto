@@ -1,10 +1,15 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 
-public class Lote 
+public class Lote implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 100L;
 	private int idLote;
 	private String nombreProducto;
 	private Calendar fechaDeEntrega;

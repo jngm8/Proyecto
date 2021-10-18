@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,8 +11,12 @@ import java.util.Map;
 import java.util.Set;
 
 
-public abstract class Producto 
+public abstract class Producto implements Serializable
 {	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 100L;
 	//ATRIBUTOS
 	protected double peso;
 	protected double precio;

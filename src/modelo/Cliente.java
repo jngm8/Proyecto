@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,8 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Cliente 
+public class Cliente implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 100L;
 	private long cedula;
 	private int acumuladoPuntos;
 	private int edad;
