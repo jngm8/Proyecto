@@ -17,7 +17,7 @@ public class Cliente implements Serializable
 	private long cedula;
 	private int acumuladoPuntos;
 	private int edad;
-	private char sexo;
+	private String sexo;
 	private String estadoCivil;
 	private String situacionLaboral;
 	
@@ -25,12 +25,12 @@ public class Cliente implements Serializable
 	
 	
 	public Cliente(long cedula, 
-				   int acumuladoPuntos,
-				   int edad, char sexo,
+				   int edad, 
+				   String sexo,
 				   String estadoCivil,
 				   String situacionLaboral) {
 		this.cedula = cedula;
-		this.acumuladoPuntos = acumuladoPuntos;
+		this.acumuladoPuntos = 0;
 		this.edad = edad;
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
@@ -58,7 +58,7 @@ public class Cliente implements Serializable
 		return edad;
 	}
 
-	public char getSexo() 
+	public String getSexo() 
 	{
 		return sexo;
 	}

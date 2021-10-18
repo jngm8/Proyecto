@@ -370,6 +370,14 @@ public class Inventario
 		return "Se eliminaron " + totalEliminados + " lotes vencidos despues de la fecha " + sdf.format(fechaVencimiento.getTime());
 	}
 	
+	public void agregarCliente(Cliente Cliente) {
+		Clientes.put(Cliente.getCedula(), Cliente);
+	}
+	
+	public boolean containsCliente(long cedula) {
+		 return Clientes.containsKey(cedula);
+	}
+	
 	public Producto getProducto(String nombreProducto) {
 		Producto Producto = null;
 		if (CodigosProductos.containsKey(nombreProducto)) {
@@ -377,6 +385,14 @@ public class Inventario
 			Producto = Productos.get(codigoDeBarras);
 		}
 		return Producto;
+	}
+	
+	public Cliente getCliente(long cedula) {
+		Cliente Cliente = null;
+		if (Clientes.containsKey(cedula)) {
+			Cliente = Clientes.get(cedula);
+		}
+		return Cliente;
 	}
 	
 	public void salvarInventario() throws PersistenciaException{
