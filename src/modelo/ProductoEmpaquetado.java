@@ -7,6 +7,7 @@ public class ProductoEmpaquetado extends Producto {
 	
 
 	public ProductoEmpaquetado(String nombreProducto,
+							   double precioPagoProveedor,
 							   double precioAlPublico,
 							   long codigoDeBarras,
 							   String categoria,
@@ -20,6 +21,7 @@ public class ProductoEmpaquetado extends Producto {
 							   ArrayList<Lote> lotes) {
 			
 		super(nombreProducto,
+			  precioPagoProveedor,
 			  precioAlPublico,
 			  codigoDeBarras,
 			  categoria,
@@ -40,8 +42,8 @@ public class ProductoEmpaquetado extends Producto {
 
 	@Override
 	public void mostrarInfo() {
-		System.out.println("Precio por unidad: "+ precio);
-		System.out.println("Peso por unidad: "+ precio);
+		System.out.println("Precio por unidad: " + precio);
+		System.out.println("Peso por unidad: " + peso);
 		System.out.println("Cantidad Disponible: " + cantidad + " unidades");
 	}
 	

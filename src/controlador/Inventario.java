@@ -3,8 +3,10 @@ package controlador;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,12 +29,15 @@ public class Inventario
 	private HashMap<String, ArrayList<Long>> Categorias;
 	private HashMap<Long, Cliente> Clientes;
 	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
 	public Inventario()
 	{
 		Productos = new HashMap<Long, Producto>();
 		codigosProductos = new HashMap<String, Long>();
 		Lotes = new HashMap<Integer, Lote>();
 		Categorias = new HashMap<String,ArrayList<Long>>();
+		Clientes = new HashMap<Long, Cliente>();
 	}
 	
 	public void cargarLote(File archivoMenu)
@@ -50,8 +55,6 @@ public class Inventario
         // Lectura del fichero
         String linea;
         linea = br.readLine();
-        String[] encabezados = linea.split(",");
-        System.out.println(encabezados);
         linea = br.readLine();
         while(linea!=null) 
         {
@@ -59,17 +62,17 @@ public class Inventario
             int idLote = Integer.parseInt(partes[0]);
             String nombreProducto = partes[1];
             
-            String[] formatoFecha = partes[2].split("-");
-            int anio = Integer.parseInt(formatoFecha[2]);
-            int mes = Integer.parseInt(formatoFecha[1]);
-            int dia = Integer.parseInt(formatoFecha[0]);
-            Calendar fechaEntrega = new GregorianCalendar(anio, mes, dia);
+            String formatoFecha = partes[2];
+            String formatoFecha2 = partes[3];
             
-            String[] formatoFecha2 = partes[3].split("-");
-            int anio2 = Integer.parseInt(formatoFecha2[2]);
-            int mes2 = Integer.parseInt(formatoFecha2[1]);
-            int dia2 = Integer.parseInt(formatoFecha2[0]);
-            Calendar fechaVencimiento = new GregorianCalendar(anio2, mes2, dia2);
+            Date date1 = sdf.parse(formatoFecha);
+            Date date2 = sdf.parse(formatoFecha2);
+            
+            Calendar fechaEntrega = Calendar.getInstance();
+            Calendar fechaVencimiento = Calendar.getInstance();
+            
+            fechaEntrega.setTime(date1);
+            fechaVencimiento.setTime(date2);
             
             double precioPagoProveedor = Double.parseDouble(partes[4]);
             double precioAlPublico = Double.parseDouble(partes[5]);
@@ -145,7 +148,7 @@ public class Inventario
 	     }
 	}
 	
-	public boolean verificarLote(int idLote) {
+	private boolean verificarLote(int idLote) {
 		
 		//Si ya existe un lote con el mismo ID, no se agrega
 		if (Lotes.containsKey(idLote)) {
@@ -158,7 +161,7 @@ public class Inventario
 		}
 	}
 	
-	public void agregarProductoACategoria(String categoria, long codigoDeBarras) {
+	private void agregarProductoACategoria(String categoria, long codigoDeBarras) {
 		if (Categorias.containsKey(categoria)) {
 			ArrayList<Long> productosCategoria = Categorias.get(categoria);
 			productosCategoria.add(codigoDeBarras);
@@ -170,7 +173,7 @@ public class Inventario
 		}
 	}
 	
-	public void agregarProducto(int idLote,
+	private void agregarProducto(int idLote,
 								String nombreProducto,
 								Calendar fechaEntrega,
 								Calendar fechaVencimiento,
@@ -198,6 +201,7 @@ public class Inventario
 				Producto = Productos.get(codigoDeBarras);
 				Producto.setPrecio(precioAlPublico);
 				Producto.agregarCantidad(cantidad);
+				Producto.sumarTotalProveedor(precioPagoProveedor, cantidad);
 				ArrayList<Lote> lotes = Producto.getLotes();
 				lotes.add(NuevoLote);
 			}
@@ -206,6 +210,7 @@ public class Inventario
 				ArrayList<Lote> lotes = new ArrayList<Lote>();
 				lotes.add(NuevoLote);
 				Producto = new ProductoEmpaquetado(nombreProducto,
+												precioPagoProveedor,
 						  					  	precioAlPublico,
 						  					  	codigoDeBarras,
 						  					  	categoria,
@@ -217,6 +222,7 @@ public class Inventario
 						  					  	peso,
 						  					  	cantidad,
 						  					  	lotes);
+				Producto.sumarTotalProveedor(precioPagoProveedor, cantidad);
 				Productos.put(codigoDeBarras, Producto);
 			}
 		}
@@ -225,12 +231,18 @@ public class Inventario
 			//Si ya existe, solo actualiza la cantidad del producto
 			if (Productos.containsKey(codigoDeBarras)) {
 				Producto = Productos.get(codigoDeBarras);
+				Producto.setPrecio(precioAlPublico);
+				Producto.agregarCantidad(cantidad);
+				Producto.sumarTotalProveedor(precioPagoProveedor, cantidad);
+				ArrayList<Lote> lotes = Producto.getLotes();
+				lotes.add(NuevoLote);
 			}
 			//Si no existe, se crea el producto desde cero
 			else {
 				ArrayList<Lote> lotes = new ArrayList<Lote>();
 				lotes.add(NuevoLote);
 				Producto = new ProductoPorPeso(nombreProducto,
+												precioPagoProveedor,
 						  					  	precioAlPublico,
 						  					  	codigoDeBarras,
 						  					  	categoria,
@@ -242,10 +254,68 @@ public class Inventario
 						  					  	peso,
 						  					  	cantidad,
 						  					  	lotes);
+				Producto.sumarTotalProveedor(precioPagoProveedor, cantidad);
 				Productos.put(codigoDeBarras, Producto);
 			}
 		}
 		
+	}
+	
+	
+	public int sizeProductos() {
+		return Productos.size();
+	}
+	
+	public int sizeLotes() {
+		return Lotes.size();
+	}
+	
+	public int sizeCategorias() {
+		return Categorias.size();
+	}
+	
+	public int sizeClientes() {
+		return Clientes.size();
+	}
+	
+	public String eliminarLote(int idLote) {
+		if (Lotes.containsKey(idLote)) {
+			Lote Lote = Lotes.get(idLote);
+			long codigoDeBarras = Lote.getCodigoDeBarras();
+			Producto Producto = Productos.get(codigoDeBarras);
+			Producto.quitarCantidad(Lote.getCantidad());
+			Producto.borrarLote(idLote);
+			Lotes.remove(idLote);
+			return "El lote " + idLote + " fue eliminado exitosamente.";
+		}
+		else {
+			return "El lote " + idLote + "no existe.";
+		}
+	}
+	
+	public String eliminarLotesVencidos(Calendar fechaVencimiento) {
+		int totalEliminados = 0;
+		ArrayList<Integer> idsEliminados = new ArrayList<Integer>();
+		for (Lote Lote: Lotes.values()) {
+			if (Lote.getFechaDeVencimiento().after(fechaVencimiento)) {
+				int idLote = Lote.getIdLote();
+				idsEliminados.add(idLote);
+				totalEliminados += 1;
+			}
+		}
+		for (int idLote: idsEliminados) {
+			eliminarLote(idLote);
+		}
+		return "Se eliminaron " + totalEliminados + " lotes vencidos despues de la fecha " + sdf.format(fechaVencimiento.getTime());
+	}
+	
+	public Producto getProducto(String nombreProducto) {
+		Producto Producto = null;
+		if (codigosProductos.containsKey(nombreProducto)) {
+			long codigoDeBarras = codigosProductos.get(nombreProducto);
+			Producto = Productos.get(codigoDeBarras);
+		}
+		return Producto;
 	}
 	
 	private boolean intToBoolean(int intValue) {
@@ -255,11 +325,6 @@ public class Inventario
         }
 		return boolValue;
 	}
-	
-	private Calendar createDate(int year, int month, int day) {
-		return new GregorianCalendar();
-	}
-	
 }
 	
 

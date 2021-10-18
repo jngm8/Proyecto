@@ -1,5 +1,6 @@
 package modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,6 +15,10 @@ public abstract class Producto
 	//ATRIBUTOS
 	protected double peso;
 	protected double precio;
+	private double historicoVentas = 0;
+	private double historicoVendidos = 0;
+	private double historicoCantidad = 0;
+	private double totalPagadoAlProveedor;
 	protected double cantidad;
 	
 	private boolean empacado;
@@ -35,6 +40,7 @@ public abstract class Producto
 	
 	
 	public Producto(String nombreProducto,
+					double precioPagoProveedor,
 					double precioAlPublico,
 					long codigoDeBarras,
 					String categoria,
@@ -46,8 +52,9 @@ public abstract class Producto
 					double peso,
 					double cantidad,
 					ArrayList<Lote> lotes) {
-		this.nombre = nombreProducto;
-		this.precio = precioAlPublico;
+		nombre = nombreProducto;
+		precio = precioAlPublico;
+		historicoCantidad = cantidad;
 		this.codigoDeBarras = codigoDeBarras;
 		this.categoria = categoria;
 		this.empacado = empacado;
@@ -68,7 +75,20 @@ public abstract class Producto
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-
+	
+	public void vender(double cantidad) {
+		if (cantidad <= this.cantidad) {
+			historicoVentas += cantidad*precio;
+			historicoVendidos += 1;
+			this.cantidad -= cantidad;
+		}
+		
+	}
+	
+	public void sumarTotalProveedor(double precioPagoProveedor, double cantidad) {
+		totalPagadoAlProveedor += precioPagoProveedor*cantidad;
+	}
+	
 	public boolean isFresco() {
 		return fresco;
 	}
@@ -95,6 +115,11 @@ public abstract class Producto
 
 	public void agregarCantidad(double cantidad) {
 		this.cantidad += cantidad;
+		historicoCantidad += cantidad;
+	}
+	
+	public void quitarCantidad(double cantidad) {
+		this.cantidad -= cantidad;
 	}
 
 	public String getNombre() {
@@ -113,11 +138,43 @@ public abstract class Producto
 		return lotes;
 	}
 	
+	public void borrarLote(int idLote) {
+		boolean encontrado = false;
+		int index = 0;
+		while (!encontrado) {
+			Lote Lote = lotes.get(index);
+			if (Lote.getIdLote() == idLote) {
+				lotes.remove(index);
+				encontrado = true;
+			}
+			index += 1;
+		}
+	}
+	
+	public void desempenoFinanciero() {
+		System.out.println("Ganancia Neta: " + totalPagadoAlProveedor);
+		double utilidades = historicoVentas - totalPagadoAlProveedor;
+		System.out.println("Utilidades: " + utilidades);
+		System.out.println("Ganancia promedio por producto vendido: " + (utilidades/cantidad));
+	}
+	
 	public void printInfo() {
 		System.out.println("Nombre: " + nombre);
 		System.out.println("Codigo de barras: " + codigoDeBarras);
 		System.out.println("Categoria: " + categoria);
+		System.out.println("Ganancia neta: " + historicoVentas);
+		System.out.println("Numero de ventas: " + historicoVendidos);
+		System.out.println("Total de productos recibidos: " + historicoCantidad);
+		System.out.println("Total pagado al proveedor: " + totalPagadoAlProveedor);
 		mostrarInfo();
+		System.out.println("Numero de lotes: " + lotes.size());
+		if (lotes.size() > 0) {
+			Lote Lote = lotes.get(0);
+			System.out.println("-Informacion del primer lote-");
+			System.out.println("Id Lote: " + Lote.getIdLote());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			System.out.println("Fecha de vencimiento: " + sdf.format(Lote.getFechaDeVencimiento().getTime()));
+		}
 		System.out.println("Empacado: " + empacado);
 		System.out.println("Fresco: " + fresco);
 		System.out.println("Refrigerado: " + refrigerado);

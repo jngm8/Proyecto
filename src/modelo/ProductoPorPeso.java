@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ProductoPorPeso extends Producto{
 	
 	public ProductoPorPeso(String nombreProducto,
+						   double precioPagoProveedor,
 						   double precioAlPublico,
 						   long codigoDeBarras,
 						   String categoria,
@@ -17,6 +18,7 @@ public class ProductoPorPeso extends Producto{
 						   double cantidad,
 						   ArrayList<Lote> lotes) {
 		super(nombreProducto,
+			  precioPagoProveedor,
 			  precioAlPublico,
 			  codigoDeBarras,
 			  categoria,
