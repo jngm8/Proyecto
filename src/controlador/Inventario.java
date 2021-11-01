@@ -27,7 +27,7 @@ import modelo.Producto;
 import modelo.ProductoEmpaquetado;
 import modelo.ProductoPorPeso;
 
-
+// hola me llamo pedro
 public class Inventario 
 {
 	private HashMap<Long, Producto> Productos;
