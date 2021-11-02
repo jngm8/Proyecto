@@ -14,19 +14,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import modelo.Cliente;
 import modelo.Lote;
 import modelo.Producto;
 import modelo.ProductoEmpaquetado;
 import modelo.ProductoPorPeso;
-
 
 public class Inventario 
 {
@@ -35,6 +29,7 @@ public class Inventario
 	private HashMap<Integer, Lote> Lotes;	
 	private HashMap<String, ArrayList<Long>> Categorias;
 	private HashMap<Long, Cliente> Clientes;
+	private ArrayList<Producto> Venta;
 	
 	
 	private static final String LOG_FILE = "./data/error.log";
@@ -452,6 +447,28 @@ public class Inventario
             boolValue = true;
         }
 		return boolValue;
+	}
+
+	public void iniciarVenta() {
+		Venta = new ArrayList<Producto>();
+	}
+
+	public boolean verificarProducto(long codigoDeBarras) {
+		if (Productos.containsKey(codigoDeBarras)){
+			return true;
+		}
+		return false;
+	}
+
+	public void venderProducto(long codigoDeBarras) {
+		Producto Producto = Productos.get(codigoDeBarras);
+		Venta.add(Producto);
+		
+	}
+
+	public void terminarVenta(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 	

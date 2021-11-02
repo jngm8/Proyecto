@@ -14,6 +14,7 @@ public class Cliente implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 100L;
+	private String nombre;
 	private long cedula;
 	private int acumuladoPuntos;
 	private int edad;
@@ -24,17 +25,22 @@ public class Cliente implements Serializable
 	
 	
 	
-	public Cliente(long cedula, 
+	
+	public Cliente(String nombre, 
+				   long cedula, 
 				   int edad, 
 				   String sexo,
 				   String estadoCivil,
-				   String situacionLaboral) {
+				   String situacionLaboral) 
+	
+	{
 		this.cedula = cedula;
 		this.acumuladoPuntos = 0;
 		this.edad = edad;
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
 		this.situacionLaboral = situacionLaboral;
+		this.nombre = nombre;
 		
 	}
 
@@ -71,6 +77,16 @@ public class Cliente implements Serializable
 	public String getSituacionLaboral() 
 	{
 		return situacionLaboral;
+	}
+	
+	public void PrintInfo()
+	{
+		System.out.println("Nombre: "+ nombre);
+		System.out.println("Numero de cedula: " + cedula);
+		System.out.println("Con edad: " + edad);
+		System.out.println("Sexo: "+ sexo);
+		System.out.println("Estado civil: "+ estadoCivil );
+		System.out.println("Situación Laboral: "+ situacionLaboral );
 	}
 
 	

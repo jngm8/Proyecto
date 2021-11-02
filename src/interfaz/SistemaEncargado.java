@@ -74,7 +74,7 @@ public class SistemaEncargado implements Serializable
 	
 	private void ejecutarCargarLote() {
 		String nombreArchivo = input("Ingrese el nombre del archivo .csv de lotes ubicado en la carpeta data");
-		File archivo = new File ("./data/" + nombreArchivo);
+		File archivo = new File ("./data/" + nombreArchivo + ".csv");
 		System.out.println("Cargando la informacion del lote en el inventario...");
 		Inventario.cargarLote(archivo);
 	}
