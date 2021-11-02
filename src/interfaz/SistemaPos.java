@@ -52,18 +52,20 @@ public class SistemaPos
 				System.out.println("\n¿El cliente se encuentra registrado en el sistema de puntos?\n");
 				System.out.println("\t1. Si");
 				System.out.println("\t2. No");
-				System.out.println("\t3. Volver al menú");
+				System.out.println("\t3. Volver al menú principal");
 				System.out.println();
-				int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
+				int opcion_seleccionada = Integer.parseInt(input("Por favor ingrese el numero de una opción"));
 				if (opcion_seleccionada == 1){
 					ventaClienteRegistrado();
 					continuar = false;
 				}
-				else if (opcion_seleccionada == 2){
+				else if (opcion_seleccionada == 2)
+				{
 					ventaClienteNoRegistrado();
 					continuar = false;
 				}
-				else if (opcion_seleccionada == 3){
+				else if (opcion_seleccionada == 3)
+				{
 					continuar = false;
 				}
 				else{
@@ -76,11 +78,15 @@ public class SistemaPos
 		}
 	}
 	
-	private void ventaClienteRegistrado() {
+	private void ventaClienteRegistrado() 
+	{
 		long cedula = Long.parseLong(input("Por favor ingrese el número de cédula"));
 		Cliente Cliente = Inventario.getCliente(cedula);
-		if (Cliente != null) {
-			venta(Cliente);
+		if (Cliente != null) 
+		{
+			System.out.println("Esta es la información del cliente con el número de cedula ingresado: \n");
+			Cliente.PrintInfo();
+			Inventario.iniciarVenta(Cliente);
 		}
 		else {
 			System.out.println("\nEl cliente no fue encontrado \n");
@@ -94,12 +100,13 @@ public class SistemaPos
 				System.out.println("\n¿El cliente desea registrarse en el sistema de puntos?\n");
 				System.out.println("\t1. Si");
 				System.out.println("\t2. No");
-				System.out.println("\t3. Volver al menú");
+				System.out.println("\t3. Volver al menú principal");
 				System.out.println();
-				int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
+				int opcion_seleccionada = Integer.parseInt(input("Por favor ingrese el numero de una opción"));
 				if (opcion_seleccionada == 1){
 					Cliente Cliente = registrarCliente();
 					if (Cliente != null) {
+						Inventario.iniciarVenta();
 						venta(Cliente);
 						continuar = false;
 					}
@@ -108,6 +115,7 @@ public class SistemaPos
 					}
 				}
 				else if (opcion_seleccionada == 2){
+					Inventario.iniciarVenta();
 					venta(null);
 				}
 				else if (opcion_seleccionada == 3){
@@ -124,24 +132,47 @@ public class SistemaPos
 	}
 	
 	private void venta(Cliente Cliente) {
-		if (Cliente != null) {
-			
-		}
-		else {
-			
-		}
-		
+		boolean continuar = true;
+		while (continuar) {
+			try {
+				System.out.println("VENTA");
+				System.out.println("\t1. Agregar un producto");
+				System.out.println("\t2. Terminar venta");
+				System.out.println();
+				int opcion_seleccionada = Integer.parseInt(input("Por favor ingrese el numero de una opción"));
+				if (opcion_seleccionada == 1){
+					long codigoDeBarras = Long.parseLong(input("Ingrese el codigo de barras del producto"));
+					boolean existeProducto = Inventario.verificarProducto(codigoDeBarras);
+					if (existeProducto) {
+						Inventario.venderProducto(codigoDeBarras);
+					}
+					else {
+						System.out.println("El producto con codigo de barras " + codigoDeBarras + " no fue encontrado");
+					}
+				}
+				else if (opcion_seleccionada == 2){
+					Inventario.terminarVenta(Cliente);
+				}
+				else{
+					System.out.println("\nPor favor seleccione una opción válida.\n");
+				}
+			}
+			catch (NumberFormatException e){
+				System.out.println("\nDebe seleccionar uno de los números de las opciones.\n");
+			}
+		}		
 	}
-	
 	private Cliente registrarCliente() {
 		Cliente Cliente;
 		long cedula = Long.parseLong(input("Ingrese el numero de cedula del cliente"));
-		if (!Inventario.containsCliente(cedula)) {
+		if (!Inventario.containsCliente(cedula)) 
+		{
+			String nombre = input("Ingrese su nombre");
 			int edad = Integer.parseInt(input("Ingrese la edad del cliente"));
 			String sexo = input("Ingrese el sexo del cliente al nacer");
 			String estadoCivil = input("Ingrese el estado civil del cliente");
 			String situacionLaboral = input("Ingrese la situacion laboral del cliente");
-			Cliente = new Cliente(cedula, edad, sexo, estadoCivil, situacionLaboral);
+			Cliente = new Cliente(nombre,cedula, edad, sexo, estadoCivil, situacionLaboral);
 			Inventario.agregarCliente(Cliente);
 			return Cliente;
 		}
