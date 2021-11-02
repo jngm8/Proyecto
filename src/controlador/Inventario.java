@@ -21,6 +21,7 @@ import modelo.Lote;
 import modelo.Producto;
 import modelo.ProductoEmpaquetado;
 import modelo.ProductoPorPeso;
+import modelo.Factura;
 
 public class Inventario 
 {
@@ -29,7 +30,8 @@ public class Inventario
 	private HashMap<Integer, Lote> Lotes;	
 	private HashMap<String, ArrayList<Long>> Categorias;
 	private HashMap<Long, Cliente> Clientes;
-	private ArrayList<Producto> Venta;
+	private Factura Factura;
+	private int numeroFacturas;
 	
 	
 	private static final String LOG_FILE = "./data/error.log";
@@ -41,6 +43,7 @@ public class Inventario
     private String archivoLotes = "./persistencia/Lotes";
     private String archivoCategorias = "./persistencia/Categorias";
     private String archivoClientes = "./persistencia/Clientes";
+    private String archivoFacturas = "./persistencia/Facturas";
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	
@@ -51,6 +54,7 @@ public class Inventario
 		File fileLotes = new File( archivoLotes );
 		File fileCategorias = new File( archivoCategorias );
 		File fileClientes = new File( archivoClientes );
+		File fileFacturas = new File( archivoFacturas);
         if( fileProductos.exists( ) && fileCodigosProductos.exists( ) && fileLotes.exists( ) && fileCategorias.exists( ) && fileClientes.exists( ) )
         {
             // El archivo existe: se debe recuperar de allí el estado del modelo del mundo
@@ -75,6 +79,10 @@ public class Inventario
                 ObjectInputStream oisClientes = new ObjectInputStream( new FileInputStream( fileClientes ) );
                 Clientes = ( HashMap<Long, Cliente> )oisClientes.readObject( );
                 oisClientes.close( );
+                
+                ObjectInputStream oisFacturas = new ObjectInputStream( new FileInputStream( fileFacturas ) );
+                numeroFacturas = ( Integer )oisFacturas.readObject( );
+                oisFacturas.close( );
                 
             }
             catch( Exception e )
@@ -373,12 +381,18 @@ public class Inventario
 		 return Clientes.containsKey(cedula);
 	}
 	
-	public Producto getProducto(String nombreProducto) {
+	public Producto getProductoByName(String nombreProducto) {
 		Producto Producto = null;
 		if (CodigosProductos.containsKey(nombreProducto)) {
 			long codigoDeBarras = CodigosProductos.get(nombreProducto);
 			Producto = Productos.get(codigoDeBarras);
 		}
+		return Producto;
+	}
+	
+	public Producto getProductoByCodigoDeBarras(long codigoDeBarras) {
+		Producto Producto = null;
+		Producto = Productos.get(codigoDeBarras);
 		return Producto;
 	}
 	
@@ -412,6 +426,10 @@ public class Inventario
             ObjectOutputStream oosClientes = new ObjectOutputStream( new FileOutputStream( archivoClientes ) );
             oosClientes.writeObject( Clientes );
             oosClientes.close( );
+            
+            ObjectOutputStream oosFacturas = new ObjectOutputStream( new FileOutputStream( archivoFacturas ) );
+            oosFacturas.writeObject( numeroFacturas );
+            oosFacturas.close( );
             
         }
         catch( IOException e )
@@ -450,7 +468,7 @@ public class Inventario
 	}
 
 	public void iniciarVenta() {
-		Venta = new ArrayList<Producto>();
+		Factura = new Factura();
 	}
 
 	public boolean verificarProducto(long codigoDeBarras) {
@@ -460,14 +478,16 @@ public class Inventario
 		return false;
 	}
 
-	public void venderProducto(long codigoDeBarras) {
+	public void venderProducto(long codigoDeBarras, int cantidad) {
 		Producto Producto = Productos.get(codigoDeBarras);
-		Venta.add(Producto);
-		
+		Producto.vender(cantidad);
+		Factura.agregarProducto(Producto, cantidad);
 	}
 
-	public void terminarVenta(Cliente cliente) {
-		// TODO Auto-generated method stub
+	public void terminarVenta(Cliente Cliente) {
+		Factura.generarFactura(Cliente, numeroFacturas);
+		Factura.sumarPuntos(Cliente);
+		numeroFacturas += 1;
 		
 	}
 }

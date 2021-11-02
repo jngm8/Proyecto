@@ -131,7 +131,7 @@ public class SistemaEncargado implements Serializable
 	
 	private void ejecutarDesempenoProducto() {
 		String nombreProducto = input("Ingrese el nombre del producto");
-		Producto Producto = Inventario.getProducto(nombreProducto);
+		Producto Producto = Inventario.getProductoByName(nombreProducto);
 		if (Producto != null) {
 			Producto.desempenoFinanciero();
 		}
@@ -142,7 +142,7 @@ public class SistemaEncargado implements Serializable
 	
 	private void ejecutarInformacionProducto() {
 		String nombreProducto = input("Ingrese el nombre del producto");
-		Producto Producto = Inventario.getProducto(nombreProducto);
+		Producto Producto = Inventario.getProductoByName(nombreProducto);
 		if (Producto != null) {
 			Producto.printInfo();
 		}

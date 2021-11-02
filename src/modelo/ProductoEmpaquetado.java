@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 public class ProductoEmpaquetado extends Producto {
 
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 100L;
 
 	public ProductoEmpaquetado(String nombreProducto,
 							   double precioPagoProveedor,

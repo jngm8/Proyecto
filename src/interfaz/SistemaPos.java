@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import controlador.Inventario;
 import controlador.PersistenciaException;
 import modelo.Cliente;
+import modelo.Producto;
 
 public class SistemaPos
 {
@@ -25,13 +26,17 @@ public class SistemaPos
 			try {
 				System.out.println("\nOPCIONES\n");
 				System.out.println("\t1. Iniciar Venta");
-				System.out.println("\t2. Salir de la aplicación");
+				System.out.println("\t2. Consultar informacion de un cliente");
+				System.out.println("\t3. Salir de la aplicación");
 				System.out.println();
 				int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 				if (opcion_seleccionada == 1){
 					iniciarVenta();
 				}
 				else if (opcion_seleccionada == 2){
+					consultarPuntos();
+				}
+				else if (opcion_seleccionada == 3){
 					Inventario.salvarInventario();
 					System.out.println("Saliendo de la aplicación ...");
 					continuar = false;
@@ -44,6 +49,24 @@ public class SistemaPos
 				System.out.println("\nDebe seleccionar uno de los números de las opciones.\n");
 			}
 		}
+	}
+	private void consultarPuntos() {
+		Cliente Cliente;
+		try {
+			long cedula = Long.parseLong(input("Por favor ingrese el numero de una opción"));
+			Cliente = Inventario.getCliente(cedula);
+			if (Cliente != null) {
+				Cliente.PrintInfo();
+			}
+			else {
+				System.out.println("\nEl cliente con numero de cedula " + cedula + " no fue encontrado\n");
+			}
+			
+		}
+		catch (NumberFormatException e){
+			System.out.println("\nDebe seleccionar uno de los números de las opciones.\n");
+		}
+		
 	}
 	public void iniciarVenta() {
 		boolean continuar = true;
@@ -145,8 +168,23 @@ public class SistemaPos
 					long codigoDeBarras = Long.parseLong(input("Ingrese el codigo de barras del producto"));
 					boolean existeProducto = Inventario.verificarProducto(codigoDeBarras);
 					if (existeProducto) {
-						
-						Inventario.venderProducto(codigoDeBarras);
+						Producto Producto = Inventario.getProductoByCodigoDeBarras(codigoDeBarras);
+						System.out.println("Producto: " + Producto.getNombre());
+						if (Producto.getPeso() == 1.0) {
+							System.out.println("Precio: " + Producto.getPrecio() + "/" + Producto.getUnidadDeMedida());
+							System.out.print("Ingrese cuantos " + Producto.getUnidadDeMedida() + " desea del producto (disponibles: " + Producto.getCantidad() + Producto.getUnidadDeMedida() + ")");
+						}
+						else {
+							System.out.println("Precio: " + Producto.getPrecio());
+							System.out.print("Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
+						}
+						int cantidad = Integer.parseInt(input(""));
+						if (cantidad > 0 && cantidad < Producto.getCantidad()) {
+							Inventario.venderProducto(codigoDeBarras, cantidad);
+						}
+						else {
+							System.out.println("La cantidad ingresada no es válida");
+						}
 					}
 					else {
 						System.out.println("El producto con codigo de barras " + codigoDeBarras + " no fue encontrado");
@@ -154,6 +192,7 @@ public class SistemaPos
 				}
 				else if (opcion_seleccionada == 2){
 					Inventario.terminarVenta(Cliente);
+					continuar = false;
 				}
 				else{
 					System.out.println("\nPor favor seleccione una opción válida.\n");

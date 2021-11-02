@@ -3,12 +3,6 @@ package modelo;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 public abstract class Producto implements Serializable
@@ -84,7 +78,7 @@ public abstract class Producto implements Serializable
 	public void vender(double cantidad) {
 		if (cantidad <= this.cantidad) {
 			historicoVentas += cantidad*precio;
-			historicoVendidos += 1;
+			historicoVendidos += cantidad;
 			this.cantidad -= cantidad;
 		}
 		
@@ -133,6 +127,10 @@ public abstract class Producto implements Serializable
 
 	public String getUnidadDeMedida() {
 		return unidadDeMedida;
+	}
+	
+	public double getPeso() {
+		return peso;
 	}
 
 	public String getCategoria() {
@@ -185,7 +183,6 @@ public abstract class Producto implements Serializable
 		System.out.println("Refrigerado: " + refrigerado);
 		System.out.println("Congelado: " + congelado);
 	}
-	
 	
 	//METODOS ABSTRACTOS
 	abstract public double getPrecioPorUnidadDeMedida();

@@ -34,14 +34,19 @@ public class Cliente implements Serializable
 				   String situacionLaboral) 
 	
 	{
+		this.nombre = nombre;
 		this.cedula = cedula;
 		this.acumuladoPuntos = 0;
 		this.edad = edad;
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
 		this.situacionLaboral = situacionLaboral;
-		this.nombre = nombre;
 		
+		
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 
 	public long getCedula() 
@@ -54,7 +59,7 @@ public class Cliente implements Serializable
 		return acumuladoPuntos;
 	}
 
-	public void setAcumuladoPuntos(int acumuladoPuntos) 
+	public void sumarAcumuladoPuntos(int acumuladoPuntos) 
 	{
 		this.acumuladoPuntos = acumuladoPuntos;
 	}
@@ -83,11 +88,14 @@ public class Cliente implements Serializable
 	{
 		System.out.println("Nombre: "+ nombre);
 		System.out.println("Numero de cedula: " + cedula);
+		System.out.println("Puntos: " + acumuladoPuntos);
 		System.out.println("Con edad: " + edad);
 		System.out.println("Sexo: "+ sexo);
 		System.out.println("Estado civil: "+ estadoCivil );
 		System.out.println("Situación Laboral: "+ situacionLaboral );
 	}
+
+	
 
 	
 }
