@@ -464,6 +464,11 @@ public class Inventario
 		Producto Producto = Productos.get(codigoDeBarras);
 		
 	}
+
+	public void terminarVenta(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 	
 

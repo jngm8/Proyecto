@@ -86,7 +86,7 @@ public class SistemaPos
 		{
 			System.out.println("Esta es la información del cliente con el número de cedula ingresado: \n");
 			Cliente.PrintInfo();
-			Inventario.iniciarVenta(Cliente);
+			venta(Cliente);
 		}
 		else {
 			System.out.println("\nEl cliente no fue encontrado \n");
@@ -106,7 +106,7 @@ public class SistemaPos
 				if (opcion_seleccionada == 1){
 					Cliente Cliente = registrarCliente();
 					if (Cliente != null) {
-						Inventario.iniciarVenta();
+						
 						venta(Cliente);
 						continuar = false;
 					}
@@ -115,7 +115,7 @@ public class SistemaPos
 					}
 				}
 				else if (opcion_seleccionada == 2){
-					Inventario.iniciarVenta();
+					
 					venta(null);
 				}
 				else if (opcion_seleccionada == 3){
@@ -132,6 +132,7 @@ public class SistemaPos
 	}
 	
 	private void venta(Cliente Cliente) {
+		Inventario.iniciarVenta();
 		boolean continuar = true;
 		while (continuar) {
 			try {
@@ -144,6 +145,7 @@ public class SistemaPos
 					long codigoDeBarras = Long.parseLong(input("Ingrese el codigo de barras del producto"));
 					boolean existeProducto = Inventario.verificarProducto(codigoDeBarras);
 					if (existeProducto) {
+						
 						Inventario.venderProducto(codigoDeBarras);
 					}
 					else {
