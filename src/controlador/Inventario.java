@@ -462,6 +462,7 @@ public class Inventario
 
 	public void venderProducto(long codigoDeBarras) {
 		Producto Producto = Productos.get(codigoDeBarras);
+		Venta.add(Producto);
 		
 	}
 
