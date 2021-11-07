@@ -11,6 +11,8 @@ public class VentanaPrincipalPOS extends JFrame
 	
 	private BotonesVenta panelDerecha;
 	
+	private ImagenPOS panelArriba;	
+	
 	
 	public VentanaPrincipalPOS()
 	{
@@ -27,6 +29,12 @@ public class VentanaPrincipalPOS extends JFrame
 		panelDerecha = new BotonesVenta();
 		// Agrego el panel(que agrego,donde lo agrego)
 		add(panelDerecha,BorderLayout.EAST);
+		
+		//Mismo procedimiento para ImagenPOS
+		
+		panelArriba = new ImagenPOS();
+		add(panelArriba,BorderLayout.NORTH);
+		
 	}
 	
 	
