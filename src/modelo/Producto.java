@@ -14,10 +14,10 @@ public abstract class Producto implements Serializable
 	//ATRIBUTOS
 	protected double peso;
 	protected double precio;
-	private double historicoVentas = 0;
+	private double gananciaNeta = 0;
 	private double historicoVendidos = 0;
-	private double historicoCantidad = 0;
-	private double totalPagadoAlProveedor;
+	private double historicoCantidad;	// Total de productos recibidos en toda la historia
+	private double totalPagadoAlProveedor;	// Suma total del precio pagado al proveedor por el producto
 	protected double cantidad;
 	
 	private boolean empacado;
@@ -77,7 +77,7 @@ public abstract class Producto implements Serializable
 	
 	public void vender(double cantidad) {
 		if (cantidad <= this.cantidad) {
-			historicoVentas += cantidad*precio;
+			gananciaNeta += cantidad*precio;
 			historicoVendidos += cantidad;
 			this.cantidad -= cantidad;
 		}
@@ -155,8 +155,8 @@ public abstract class Producto implements Serializable
 	}
 	
 	public void desempenoFinanciero() {
-		System.out.println("Ganancia Neta: " + totalPagadoAlProveedor);
-		double utilidades = historicoVentas - totalPagadoAlProveedor;
+		System.out.println("Ganancia Neta: " + gananciaNeta);
+		double utilidades = gananciaNeta - totalPagadoAlProveedor;
 		System.out.println("Utilidades: " + utilidades);
 		System.out.println("Ganancia promedio por producto vendido: " + (utilidades/cantidad));
 	}
@@ -165,7 +165,7 @@ public abstract class Producto implements Serializable
 		System.out.println("Nombre: " + nombre);
 		System.out.println("Codigo de barras: " + codigoDeBarras);
 		System.out.println("Categoria: " + categoria);
-		System.out.println("Ganancia neta: " + historicoVentas);
+		System.out.println("Ganancia neta: " + gananciaNeta);
 		System.out.println("Numero de ventas: " + historicoVendidos);
 		System.out.println("Total de productos recibidos: " + historicoCantidad);
 		System.out.println("Total pagado al proveedor: " + totalPagadoAlProveedor);

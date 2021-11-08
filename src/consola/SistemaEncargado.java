@@ -1,4 +1,4 @@
-package interfaz;
+package consola;
 
 import java.io.BufferedReader;
 import java.io.File;
