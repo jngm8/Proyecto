@@ -1,5 +1,7 @@
 ﻿IdLote,nombreProducto,fechaEntrega,fechaVencimiento,precioPagoProveedor,precioAlPublico,codigoDeBarras,categoria,empacado,fresco,refrigerado,congelado,unidadDeMedida,peso,cantidad
-1,Balones Jabulani,11-10-2021,11-10-2031,50000,159000,7701103093342,Deportes,1,0,0,0,gr,440,20
-2,Carne de cerdo,11-10-2021,11-02-2022,6000,14000,9781501144325,Carnes,0,0,1,0,kg,1,150
-3,Balones Jabulani,15-06-2022,15-06-2028,60000,179000,7701103093342,Deportes,1,0,0,0,gr,440,50
-4,Carne de cerdo,01-10-2022,15-12-2023,5000,13000,9781501144325,Carnes,0,0,1,0,kg,1,340
+1,Balones Jabulani,11-10-21,11-10-31,50000,159000,7.7011E+12,Deportes,1,0,0,0,gr,440,20
+2,Carne de cerdo,11-10-21,11-02-22,6000,14000,9.7815E+12,Carnes,0,0,1,0,kg,1,150
+3,Balones Jabulani,15-06-22,15-06-28,60000,179000,7.7011E+12,Deportes,1,0,0,0,gr,440,50
+4,Carne de cerdo,01-10-22,07-11-23,5000,13000,9.7815E+12,Carnes,0,0,1,0,kg,1,340
+5,Coca Cola,07-11-21,16-12-23,1000,2000,1.23457E+12,Bebidas,0,0,1,0,ml,330,1000
+6,Pan Fresco,08-11-21,17-11-21,2000,4000,9.87654E+12,Panaderia,1,1,0,0,gr,300,400
