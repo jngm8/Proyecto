@@ -16,6 +16,8 @@ public class VentanaPrincipalE extends JFrame
 	
 	private Imagen panelArriba;	
 	
+	private panelCentralE panelCentro;
+	
 	
 	public VentanaPrincipalE()
 	{
@@ -35,6 +37,9 @@ public class VentanaPrincipalE extends JFrame
 		
 		panelArriba = new Imagen();
 		add(panelArriba,BorderLayout.NORTH);
+		
+		panelCentro = new panelCentralE();
+		add(panelCentro,BorderLayout.WEST);
 	}
 	
 	

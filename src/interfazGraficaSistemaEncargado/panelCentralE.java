@@ -22,8 +22,6 @@ public class panelCentralE extends JPanel
 		ImageIcon imagen = new ImageIcon("./data/superEncargado.jpg");
 		lblMercado.setIcon(imagen);
 		add(lblMercado);
-		
-		
-		
+			
 	}
 }
