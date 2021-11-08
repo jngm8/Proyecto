@@ -13,6 +13,7 @@ public class VentanaPrincipalPOS extends JFrame
 	
 	private ImagenPOS panelArriba;	
 	
+	private panelCentralPOS panelCentral;
 	
 	public VentanaPrincipalPOS()
 	{
@@ -34,6 +35,9 @@ public class VentanaPrincipalPOS extends JFrame
 		
 		panelArriba = new ImagenPOS();
 		add(panelArriba,BorderLayout.NORTH);
+		
+		panelCentral = new panelCentralPOS();
+		add(panelCentral,BorderLayout.WEST);
 		
 	}
 	
