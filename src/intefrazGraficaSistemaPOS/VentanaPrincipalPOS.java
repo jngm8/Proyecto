@@ -17,7 +17,7 @@ public class VentanaPrincipalPOS extends JFrame
 	public VentanaPrincipalPOS()
 	{
 		// Tamaño del JFrame principal
-		setSize(500,500);
+		setSize(700,700);
 		// Titulo del JFrame principal
 		setTitle("CAJERO");
 		// Termina la ejecución cuando se cierre el JFrame

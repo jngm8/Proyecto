@@ -3,6 +3,9 @@ package interfazGraficaSistemaEncargado;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+
+import intefrazGraficaSistemaPOS.ImagenPOS;
+
 import java.awt.BorderLayout;
 
 public class VentanaPrincipalE extends JFrame
@@ -11,11 +14,13 @@ public class VentanaPrincipalE extends JFrame
 	
 	private BotonesCargarInfo panelDerecha;
 	
+	private Imagen panelArriba;	
+	
 	
 	public VentanaPrincipalE()
 	{
 		// Tamaño del JFrame principal
-		setSize(500,500);
+		setSize(700,700);
 		// Titulo del JFrame principal
 		setTitle("INVENTARIO");
 		// Termina la ejecución cuando se cierre el JFrame
@@ -27,6 +32,9 @@ public class VentanaPrincipalE extends JFrame
 		panelDerecha = new BotonesCargarInfo();
 		// Agrego el panel(que agrego,donde lo agrego)
 		add(panelDerecha,BorderLayout.EAST);
+		
+		panelArriba = new Imagen();
+		add(panelArriba,BorderLayout.NORTH);
 	}
 	
 	
