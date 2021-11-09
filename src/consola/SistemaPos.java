@@ -9,7 +9,7 @@ import controlador.PersistenciaException;
 import modelo.Cliente;
 import modelo.Producto;
 
-public class SistemaPos
+public class SistemaPOS
 {
 	Inventario Inventario;
 	
@@ -241,7 +241,7 @@ public class SistemaPos
      */
 	public static void main(String[] args)
 	 {
-		SistemaPos consola = new SistemaPos();
+		SistemaPOS consola = new SistemaPOS();
 		try {
 			consola.ejecutarSistemaPos();
 		} catch (PersistenciaException e) {

@@ -70,19 +70,17 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		btnDesempeñoProducto.setActionCommand(DESEMPENO);
 		panelBotonesE.add(btnDesempeñoProducto);
 		
-		Color Azul = new Color(252, 248, 171);
-		panelBotonesE.setBackground(Azul);
+		Color colores = new Color(252, 248, 171);
+		panelBotonesE.setBackground(colores);
 		//Se agrega el panel
 		add(panelBotonesE);
 		
 		//Fondo del panel
-		Color Azull = new Color(252, 248, 171);
-		setBackground(Azull);
+		Color color = new Color(252, 248, 171);
+		setBackground(color);
 
 		
 	}
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
