@@ -1,4 +1,4 @@
-package interfaz;
+package consola;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,10 +11,6 @@ import modelo.Producto;
 
 public class SistemaPos
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 100L;
 	Inventario Inventario;
 	
 	public void ejecutarSistemaPos() throws PersistenciaException{
@@ -238,10 +234,19 @@ public class SistemaPos
 		}
 		return null;
 	}
-	public static void main(String[] args) throws PersistenciaException
+	
+	/**
+     * Ejecuta la aplicación
+     * @param args son parámetros de ejecución de la aplicación. No se usan en este programa
+     */
+	public static void main(String[] args)
 	 {
 		SistemaPos consola = new SistemaPos();
-		consola.ejecutarSistemaPos();
+		try {
+			consola.ejecutarSistemaPos();
+		} catch (PersistenciaException e) {
+			e.printStackTrace();
+		}
 		
 	 }
 }
