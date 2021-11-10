@@ -1,15 +1,9 @@
-Id: 1007914443
-Cliente: Daniel Escobar
+Id: 1000286716
+Cliente: Jairo 
 
 Productos:
-Coca Cola		2000.0 x3
-	6000.0
-Pan Fresco		4000.0 x3
-	12000.0
-Carne de cerdo		13000.0
-		(1kg x 13000.0)
 
 
-Precio Neto: $31000.0
-IVA: $5890.0
-Precio Total: $36890.0
+Precio Neto: $0.0
+IVA: $0.0
+Precio Total: $0.0
