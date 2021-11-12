@@ -29,10 +29,17 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private final static String DESEMPENO = "DESEMPEÑO PRODUCTOS";
 
 
-
+	/// Atributo ventana pricipal
 	
-	public BotonesCargarInfo()
+	private VentanaPrincipalE principal;
+	
+	public BotonesCargarInfo(VentanaPrincipalE principalp)
+	
 	{
+		
+		principal = principalp;
+		
+		
 		// Define que forma deben tener los botones y su distribución
 		setLayout(new GridLayout(3,1));
 		setBorder(new TitledBorder("                          ¡Seleccione una opción!"));
@@ -88,8 +95,9 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		String comando = e.getActionCommand();
 		if (comando.equals(CARGAR)) 
 		{
-			JOptionPane.showMessageDialog(this, "CARGAR LOTE");
-
+			
+			principal.cargarArchivo();
+			
 		}
 		else if (comando.equals(CONSULTAR))
 		{

@@ -1,9 +1,13 @@
 package interfazGraficaSistemaEncargado;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import controlador.Inventario;
+import controlador.PersistenciaException;
 import intefrazGraficaSistemaPOS.ImagenPOS;
 
 import java.awt.BorderLayout;
@@ -18,6 +22,10 @@ public class VentanaPrincipalE extends JFrame
 	
 	private panelCentralE panelCentro;
 	
+	// Importa la lógica del programa
+	
+	private Inventario modelo;
+	
 	
 	public VentanaPrincipalE()
 	{
@@ -31,7 +39,7 @@ public class VentanaPrincipalE extends JFrame
 		// La forma que va tomar el panel de BotonesCargarInfo
 		setLayout(new BorderLayout());
 		// Inicializa los paneles
-		panelDerecha = new BotonesCargarInfo();
+		panelDerecha = new BotonesCargarInfo(this);
 		// Agrego el panel(que agrego,donde lo agrego)
 		add(panelDerecha,BorderLayout.EAST);
 		
@@ -40,10 +48,33 @@ public class VentanaPrincipalE extends JFrame
 		
 		panelCentro = new panelCentralE();
 		add(panelCentro,BorderLayout.WEST);
+		
+		try 
+		{
+			modelo = new Inventario();
+		} 
+		catch (PersistenciaException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	
-	
+	public void cargarArchivo()
+	{
+		
+		String nombreArchivo = JOptionPane.showInputDialog("Ingrese el nombre del archivo .csv de los lotes ubicado en la carpeta data");
+		try
+		{
+			File archivo = new File ("./data/" + nombreArchivo + ".csv");
+			modelo.cargarLote(archivo);
+		}
+		catch(Exception e)
+		{
+			//Referencia el medio del panel,mensaje,titulo,logo del error
+			JOptionPane.showMessageDialog(this,"No se encontro: "+ nombreArchivo + ". Digite de nuevo","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	// Main para iniciar la aplicación
 	public static void main (String[] args) throws IOException
 	{
