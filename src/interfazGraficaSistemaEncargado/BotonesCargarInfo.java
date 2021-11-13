@@ -30,8 +30,6 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private final static String DESEMPENO = "DESEMPEÑO PRODUCTOS";
 	private final static String INFOPROD = "INFORMACION DE UN PRODUCTO";
 
-
-
 	/// Atributo ventana pricipal
 	
 	private VentanaPrincipalE principal;
@@ -47,7 +45,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		setLayout(new GridLayout(5,1));
 		setBorder(new TitledBorder("                          ¡Seleccione una opción!"));
 		panelBotonesE = new JPanel();
-		panelBotonesE.setLayout(new GridLayout(5,1,0,5));// filas,columnas,espacio columnas,espacio filas
+		panelBotonesE.setLayout(new GridLayout(5,1,0,6));// fi6las,columnas,espacio columnas,espacio filas
 		add(new JLabel());
 		
 		//Creación de los botones
@@ -117,7 +115,8 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 		else if (comando.equals(ELIMINAR))
 		{
-			JOptionPane.showMessageDialog(this, "ELIMINAR UN LOTE");
+			principal.EliminarLote();
+
 		}
 		else if (comando.equals(DESEMPENO))
 		{

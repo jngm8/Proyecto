@@ -8,7 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
 
 import controlador.Inventario;
 import controlador.PersistenciaException;
@@ -26,9 +30,12 @@ public class VentanaPrincipalE extends JFrame
 	
 	private panelCentralE panelCentro;
 	
+	private JPanel panelInfo;
+	
 	// Importa la lógica del programa
 	
 	private Inventario modelo;	
+
 	
 	public VentanaPrincipalE()
 	{
@@ -82,17 +89,25 @@ public class VentanaPrincipalE extends JFrame
 	
 	public void InformacionInventario() 
 	{
-		JDialog dialogoInventario = new JDialog();
-		dialogoInventario.setSize(400,300);
-		dialogoInventario.setLocationRelativeTo(this);
+
+		panelInfo= new JPanel();
+		add(panelInfo, BorderLayout.SOUTH);
+		panelInfo.setLayout(new GridLayout(5,1));
+		panelInfo.setBorder(new TitledBorder("                       Informacion del cliente "));
 	
-		dialogoInventario.setTitle("INFORMACION DEL INVENTARIO");
-		dialogoInventario.add(new JLabel("Numero de productos disponibles: " + modelo.sizeProductos()));
-		dialogoInventario.add(new JLabel("Total de lotes disponibles: " + modelo.sizeLotes()));
-		dialogoInventario.add(new JLabel("Numero de góndolas creadas: " + modelo.sizeCategorias()));
-		dialogoInventario.add(new JLabel("Numero de clientes registrados: " + modelo.sizeClientes()));
+		panelInfo.add(new JLabel("Numero de productos disponibles: " + modelo.sizeProductos()));
+		panelInfo.add(new JLabel("Total de lotes disponibles: " + modelo.sizeLotes()));
+		panelInfo.add(new JLabel("Numero de góndolas creadas: " + modelo.sizeCategorias()));
+		panelInfo.add(new JLabel("Numero de clientes registrados: " + modelo.sizeClientes()));
 		
-		dialogoInventario.setVisible(true);
+		panelInfo.setVisible(true);
+		
+		panelDerecha.add(panelInfo);
+		
+	}
+	
+	public void EliminarLote()
+	{
 		
 	}
 	
