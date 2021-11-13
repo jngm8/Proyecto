@@ -44,10 +44,10 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 		
 		// Define que forma deben tener los botones y su distribución
-		setLayout(new GridLayout(4,1));
+		setLayout(new GridLayout(5,1));
 		setBorder(new TitledBorder("                          ¡Seleccione una opción!"));
 		panelBotonesE = new JPanel();
-		panelBotonesE.setLayout(new GridLayout(5,1,0,10));// filas,columnas,espacio columnas,espacio filas
+		panelBotonesE.setLayout(new GridLayout(5,1,0,5));// filas,columnas,espacio columnas,espacio filas
 		add(new JLabel());
 		
 		//Creación de los botones
@@ -111,7 +111,8 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		}
 		else if (comando.equals(CONSULTAR))
 		{
-			JOptionPane.showMessageDialog(this, "CONSULTAR INFORMACIÓN DEL INVENTARIO");
+			principal.InformacionInventario();
+
 		}
 		
 		else if (comando.equals(ELIMINAR))

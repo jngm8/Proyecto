@@ -112,7 +112,7 @@ public class VentanaPrincipalPOS extends JFrame
 		}
 		else 
 		{
-			JOptionPane.showMessageDialog(this,"\nEl cliente con numero de cedula " + cedula + " no fue encontrado\n");
+			JOptionPane.showMessageDialog(this,"\nEl cliente con número de cedula " + cedula + " no fue encontrado\n","Mensaje de error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

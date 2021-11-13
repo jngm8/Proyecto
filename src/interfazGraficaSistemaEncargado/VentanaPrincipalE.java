@@ -3,8 +3,12 @@ package interfazGraficaSistemaEncargado;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import controlador.Inventario;
 import controlador.PersistenciaException;
@@ -24,8 +28,7 @@ public class VentanaPrincipalE extends JFrame
 	
 	// Importa la lógica del programa
 	
-	private Inventario modelo;
-	
+	private Inventario modelo;	
 	
 	public VentanaPrincipalE()
 	{
@@ -75,6 +78,25 @@ public class VentanaPrincipalE extends JFrame
 			JOptionPane.showMessageDialog(this,"No se encontro: "+ nombreArchivo + ". Digite de nuevo","Mensaje de error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	
+	public void InformacionInventario() 
+	{
+		JDialog dialogoInventario = new JDialog();
+		dialogoInventario.setSize(400,300);
+		dialogoInventario.setLocationRelativeTo(this);
+	
+		dialogoInventario.setTitle("INFORMACION DEL INVENTARIO");
+		dialogoInventario.add(new JLabel("Numero de productos disponibles: " + modelo.sizeProductos()));
+		dialogoInventario.add(new JLabel("Total de lotes disponibles: " + modelo.sizeLotes()));
+		dialogoInventario.add(new JLabel("Numero de góndolas creadas: " + modelo.sizeCategorias()));
+		dialogoInventario.add(new JLabel("Numero de clientes registrados: " + modelo.sizeClientes()));
+		
+		dialogoInventario.setVisible(true);
+		
+	}
+	
+	
 	// Main para iniciar la aplicación
 	public static void main (String[] args) throws IOException
 	{
