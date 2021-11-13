@@ -2,13 +2,17 @@ package intefrazGraficaSistemaPOS;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import interfazGraficaSistemaEncargado.VentanaPrincipalE;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -23,24 +27,46 @@ public class BotonesVenta extends JPanel implements ActionListener
 	private JButton btnInfoCliente;
 	private JButton btnSalirApp;
 	private JPanel panelBotones;
+	private JPanel panelClientes;
+	
+	// Inicia los botones del información del cliente
+	private JLabel lblNombre;
+	private JTextField txtNombre;
+	private JLabel lblCedula;
+	private JTextField txtCedula;
+	private JLabel lblPuntos;
+	private JTextField txtPuntos;
+	private JLabel lblEdad;
+	private JTextField txtEdad;
+	private JLabel lblSexo;
+	private JTextField txtSexo;
 	
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
 	private final static String VENTA = "INICIAR VENTA";
 	private final static String INFO = "INFO CLIENTE";
 	private final static String SALIR = "SALIR DEL APP";
+	
+	/// Atributo ventana pricipal
+	
+	private VentanaPrincipalPOS principal;
 
 	
 	// Constructor
-	public BotonesVenta()
+	public BotonesVenta(VentanaPrincipalPOS principalp)
 	
 	{
+		
+		principal = principalp;
+		
 		// Define que forma deben tener los botones y su distribución
 		setLayout(new GridLayout(3,1));
 		setBorder(new TitledBorder("                    ¡Seleccione una opción!"));
 		panelBotones = new JPanel();
+		add(panelBotones, BorderLayout.NORTH);
 		panelBotones.setLayout(new GridLayout(3,1,0,10));// filas,columnas,espacio columnas,espacio filas
-		add(new JLabel());
+
+
 		
 		//Creación de los botones,fondos,listener para que el botón reaccione,command para que reaccione distinto a los demás,agregar el botón,agregar al panel
 		
@@ -65,16 +91,47 @@ public class BotonesVenta extends JPanel implements ActionListener
 		btnSalirApp.setActionCommand(SALIR);
 		panelBotones.add(btnSalirApp);
 		
-		Color Verdee = new Color(223, 143, 252);
-		panelBotones.setBackground(Verdee);
-
-		
 		//Se agrega el panel
 		add(panelBotones);
 		
-		// agregar fondo al panel 
-		Color Verde = new Color(223, 143, 252);
-		setBackground(Verde);
+		// Se crea el panel de abajo del información del cliente
+		panelClientes= new JPanel();
+		add(panelClientes, BorderLayout.SOUTH);
+		panelClientes.setLayout(new GridLayout(5,2));
+		panelClientes.setBorder(new TitledBorder("                       Informacion del cliente "));
+
+		
+		lblNombre = new JLabel("Nombre del cliente");
+		panelClientes.add(lblNombre);
+		txtNombre= new JTextField(" ");
+		txtNombre.setEditable(false);
+		panelClientes.add(txtNombre);
+
+		lblCedula = new JLabel("Número de cedula");
+		panelClientes.add(lblCedula);
+		txtCedula= new JTextField(" ");
+		txtCedula.setEditable(false);
+		panelClientes.add(txtCedula);
+		
+		lblPuntos = new JLabel("Número de cedula");
+		panelClientes.add(lblPuntos);
+		txtPuntos= new JTextField(" ");
+		txtPuntos.setEditable(false);
+		panelClientes.add(txtPuntos);
+		
+		lblEdad = new JLabel("Edad");
+		panelClientes.add(lblEdad);
+		txtEdad= new JTextField(" ");
+		txtEdad.setEditable(false);
+		panelClientes.add(txtEdad);
+		
+		lblSexo = new JLabel("Sexo");
+		panelClientes.add(lblSexo);
+		txtSexo= new JTextField(" ");
+		txtSexo.setEditable(false);
+		panelClientes.add(txtSexo);
+
+
 
 		
 		
@@ -90,14 +147,12 @@ public class BotonesVenta extends JPanel implements ActionListener
 		String comando = e.getActionCommand();
 		if (comando.equals(VENTA)) 
 		{
-			JOptionPane.showMessageDialog(this, "La venta se inicia");
-
+			principal.Inicioventa();
 		}
 		else if (comando.equals(INFO))
 		{
-			JOptionPane.showMessageDialog(this, "Informacion del cliente");
+			principal.ConsultarInfoPuntos();
 		}
-		
 		else if (comando.equals(SALIR))
 		{
 			JOptionPane.showMessageDialog(this, "Saliendo de la App");

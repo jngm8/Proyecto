@@ -1,14 +1,9 @@
-Id: 1005966025
-Cliente: Daniel
+Id: 1000286716
+Cliente: Jairo
 
 Productos:
-Balones Jabulani	179000.0
-Carne de cerdo	39000.0
-(3kg x 13000.0
-Balones Jabulani	179000.0 x2
-	358000.0
 
 
-Precio Neto: $576000.0
-IVA: $109440.0
-Precio Total: $685440.0
+Precio Neto: $0.0
+IVA: $0.0
+Precio Total: $0.0
