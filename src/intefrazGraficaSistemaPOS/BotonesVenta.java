@@ -1,6 +1,7 @@
 package intefrazGraficaSistemaPOS;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -9,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import interfazGraficaSistemaEncargado.VentanaPrincipalE;
+import modelo.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -130,14 +132,21 @@ public class BotonesVenta extends JPanel implements ActionListener
 		txtSexo= new JTextField(" ");
 		txtSexo.setEditable(false);
 		panelClientes.add(txtSexo);
-
-
-
-		
-		
 		
 		
 	}
+
+
+	public void refrescar (Cliente cliente)
+	{
+		txtNombre.setText(cliente.getNombre());
+		txtCedula.setText(String.valueOf(cliente.getCedula()));
+		txtPuntos.setText(String.valueOf(cliente.getAcumuladoPuntos()));
+		txtEdad.setText(String.valueOf(cliente.getEdad()));
+		txtSexo.setText(cliente.getSexo());
+
+	}
+
 	
 	// Metodos del action listener para que cuando se presione el botón salga un mensaje
 	
