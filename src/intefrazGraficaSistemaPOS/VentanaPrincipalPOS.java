@@ -88,7 +88,13 @@ public class VentanaPrincipalPOS extends JFrame
 
 		else if (rta.equals("No"))
 		{
+			String registrarse = JOptionPane.showInputDialog("¿Se quiere registrar(Si o No)");
 			
+			if (registrarse.equals("Si"))
+			{
+
+			}
+
 		}
 		
 		else

@@ -39,7 +39,15 @@ public class VentanaPrincipalE extends JFrame
 	// Importa la lógica del programa
 	
 	private Inventario modelo;	
+	// labels de consultar informacion inventario
 	
+	private JLabel lblDisponible;
+	
+	private JLabel lblTotalLotes;
+	
+	private JLabel lblGondolas;
+	
+	private JLabel lblClientesReg;
 	// Declaro botones de eliminar un lote
 	
 	private JButton btnPorID;
@@ -101,25 +109,28 @@ public class VentanaPrincipalE extends JFrame
 	{
 
 		panelInfo= new JPanel();
-		add(panelInfo, BorderLayout.SOUTH);
-		panelInfo.setLayout(new GridLayout(5,1));
-		panelInfo.setBorder(new TitledBorder("                       Informacion del cliente "));
-	
-		panelInfo.add(new JLabel("Numero de productos disponibles: " + modelo.sizeProductos()));
-		panelInfo.add(new JLabel("Total de lotes disponibles: " + modelo.sizeLotes()));
-		panelInfo.add(new JLabel("Numero de góndolas creadas: " + modelo.sizeCategorias()));
-		panelInfo.add(new JLabel("Numero de clientes registrados: " + modelo.sizeClientes()));
+		panelInfo.setLayout(new GridLayout(4,1));
+		JDialog dialog = new JDialog();
+		dialog.setSize(300,300);
+		dialog.setLocationRelativeTo(this);
+		dialog.add(panelInfo);
+		dialog.setVisible(true);
 		
-		panelInfo.setVisible(true);
-		
-		panelDerecha.add(panelInfo);
-		
+		lblDisponible = new JLabel("Numero de productos disponibles: " + modelo.sizeProductos());
+		panelInfo.add(lblDisponible);
+		lblTotalLotes = new JLabel("Total de lotes disponibles: " + modelo.sizeLotes());
+		panelInfo.add(lblTotalLotes);
+		lblGondolas = new JLabel("Numero de góndolas creadas: " + modelo.sizeCategorias());
+		panelInfo.add(lblGondolas);
+		lblClientesReg = new JLabel("Numero de clientes registrados: " + modelo.sizeClientes());
+		panelInfo.add(lblClientesReg);
+				
 	}
 	
 	public void EliminarLote()
 	{
 		panelEliminar = new JPanel();
-
+		panelEliminar.setLayout(new GridLayout(2,1));
 		JDialog dialogo = new JDialog();
 		dialogo.setSize(300,300);
 		dialogo.setLocationRelativeTo(this);
