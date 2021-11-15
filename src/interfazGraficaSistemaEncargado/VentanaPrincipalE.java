@@ -3,6 +3,10 @@ package interfazGraficaSistemaEncargado;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -150,7 +154,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		panelEliminar = new JPanel();
 		panelEliminar.setLayout(new GridLayout(2,1));
 		JDialog dialogo = new JDialog();
-		dialogo.setSize(300,300);
+		dialogo.setSize(300,200);
 		dialogo.setLocationRelativeTo(this);
 		dialogo.add(panelEliminar);
 		dialogo.setVisible(true);
@@ -172,6 +176,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		
 	}
 	
+	// Listener para el boton de elminar lotes
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
@@ -185,12 +190,26 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		}
 		else if (comando.equals(VENCIDOS))
 		{
-			EliminarLote();
-
+			String formatoFecha = JOptionPane.showInputDialog("Ingrese la fecha en formato dd-MM-yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			Date date;
+			try 
+			{
+				date = sdf.parse(formatoFecha);
+			} 
+			catch (ParseException e1) 
+			{
+				date = new Date();
+			}
+			Calendar fechaVencimiento = Calendar.getInstance();
+			fechaVencimiento.setTime(date);
+			JOptionPane.showMessageDialog(this,modelo.eliminarLotesVencidos(fechaVencimiento));
 		}
-		
-		
+
 	}
+		
+		
+	
 	
 	public void ejecutarDesempenoProducto() 
 	

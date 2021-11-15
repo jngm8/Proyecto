@@ -6,13 +6,16 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import controlador.Inventario;
 import controlador.PersistenciaException;
 import modelo.Cliente;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 public class VentanaPrincipalPOS extends JFrame
 {
@@ -27,6 +30,19 @@ public class VentanaPrincipalPOS extends JFrame
 	// Importa la lógica del programa
 	
 	private Inventario modelo;
+	
+	private Cliente cliente;
+
+	
+	// Paneles extra
+	
+	private JPanel panelCliente;
+	
+	// Labels extra
+	
+	private JLabel lblNombre;
+
+	
 	
 	public VentanaPrincipalPOS()
 	
@@ -77,12 +93,22 @@ public class VentanaPrincipalPOS extends JFrame
 			
 			if (numeroCliente != null) 
 			{
-				JOptionPane.showMessageDialog(this,"Esta es la información del cliente con el número de cedula ingresado: \n");
+				panelCliente= new JPanel();
+				panelCliente.setLayout(new GridLayout(4,1));
+				JDialog dialog = new JDialog();
+				dialog.setSize(300,300);
+				dialog.setLocationRelativeTo(this);
+				dialog.add(panelCliente);
+				dialog.setVisible(true);
+				
+				lblNombre = new JLabel("Nombre del cliente: " + cliente.getNombre());
+				panelCliente.add(lblNombre);
 
 			}
 			else 
 			{
-				JOptionPane.showMessageDialog(this,"\nEl cliente no fue encontrado \n");
+				JOptionPane.showMessageDialog(this,"\nEl cliente no fue encontrado \n","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+
 			}
 		}
 
