@@ -226,6 +226,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			dialog.add(panelDesempeno);
 			dialog.setVisible(true);
 			
+			
 		}
 		else 
 		{
