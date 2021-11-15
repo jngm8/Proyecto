@@ -178,13 +178,14 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		String comando = e.getActionCommand();
 		if (comando.equals(PORID)) 
 		{
-			
-			principal.cargarArchivo();
-			
+			int idLote = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del lote que desea eliminar"));
+
+			JOptionPane.showMessageDialog(this,modelo.eliminarLote(idLote));
+
 		}
 		else if (comando.equals(VENCIDOS))
 		{
-			principal.InformacionInventario();
+			EliminarLote();
 
 		}
 		
