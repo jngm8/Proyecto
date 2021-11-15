@@ -148,7 +148,7 @@ public class VentanaPrincipalPOS extends JFrame
 			
 			if (registrarse.equals("Si"))
 			{
-
+				registrarCliente();
 			}
 
 		}
@@ -160,6 +160,28 @@ public class VentanaPrincipalPOS extends JFrame
 		}
 	}
 	
+	// Metodo para regitrar a un cliente si asi lo decide
+	
+	private Cliente registrarCliente() {
+		Cliente Cliente;
+		long cedula = Long.parseLong(JOptionPane.showInputDialog("Ingrese el numero de cedula del cliente"));
+		if (!modelo.containsCliente(cedula)) 
+		{
+			String nombre = JOptionPane.showInputDialog("Ingrese su nombre");
+			int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del cliente"));
+			String sexo = JOptionPane.showInputDialog("Ingrese el sexo del cliente al nacer");
+			String estadoCivil = JOptionPane.showInputDialog("Ingrese el estado civil del cliente");
+			String situacionLaboral = JOptionPane.showInputDialog("Ingrese la situacion laboral del cliente");
+			Cliente = new Cliente(nombre,cedula, edad, sexo, estadoCivil, situacionLaboral);
+			modelo.agregarCliente(Cliente);
+			return Cliente;
+		}
+		else 
+		{
+			JOptionPane.showMessageDialog(this,"El número de cedula ya esta agregado","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+	}
 	
 	public void ConsultarInfoPuntos()
 	
