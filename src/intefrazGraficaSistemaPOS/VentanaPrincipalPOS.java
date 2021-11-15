@@ -13,11 +13,15 @@ import javax.swing.JPanel;
 import controlador.Inventario;
 import controlador.PersistenciaException;
 import modelo.Cliente;
+import modelo.Producto;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class VentanaPrincipalPOS extends JFrame
+public class VentanaPrincipalPOS extends JFrame implements ActionListener
 {
 	// Declaro el atributo de cada panel
 	
@@ -38,23 +42,19 @@ public class VentanaPrincipalPOS extends JFrame
 	
 	private JPanel panelCliente;
 	
-	// Labels extra
 	
-	private JLabel lblNombre;
+	// Botone venta incluye todo
 	
-	private JLabel lblCedula;
+	private JPanel panelVenta;
 	
-	private JLabel lblPuntos;
+	private JButton btnAgregarProducto;
 	
-	private JLabel lblEdad;
+	private JButton btnTerminarVenta;
 	
-	private JLabel lblSexo;
+	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
-	private JLabel lblEstado;
-	
-	private JLabel lblLaboral;
-
-	
+	private final static String AGREGAR = "AGREGAR";
+	private final static String TERMINAR= "TERMINARVENTA";
 	
 	public VentanaPrincipalPOS()
 	
@@ -112,6 +112,8 @@ public class VentanaPrincipalPOS extends JFrame
 				dialog.setLocationRelativeTo(this);
 				dialog.add(panelCliente);
 				dialog.setVisible(true);
+				
+				venta(cliente);
 				
 				
 				
@@ -192,6 +194,89 @@ public class VentanaPrincipalPOS extends JFrame
 		}
 	}
 	
+	private void venta(Cliente cliente) 
+	{
+		modelo.iniciarVenta();
+
+		panelVenta= new JPanel();
+		panelVenta.setLayout(new GridLayout(2,1));
+		JDialog dialogo = new JDialog();
+		dialogo.setSize(300,200);
+		dialogo.setLocationRelativeTo(this);
+		dialogo.add(panelVenta);
+		dialogo.setVisible(true);
+		
+		btnAgregarProducto = new JButton("AGREGAR UN PRODUCTO");
+		btnAgregarProducto.setBackground(new java.awt.Color(143,171,237));
+		btnAgregarProducto.setForeground(Color.BLACK);
+		btnAgregarProducto.addActionListener(this);
+		btnAgregarProducto.setActionCommand(AGREGAR);
+		panelVenta.add(btnAgregarProducto);
+		
+		
+		btnTerminarVenta = new JButton("TERMINAR VENTA");
+		btnTerminarVenta.setBackground(new java.awt.Color(143,171,237));
+		btnTerminarVenta.setForeground(Color.BLACK);
+		btnTerminarVenta.addActionListener(this);
+		btnTerminarVenta.setActionCommand(TERMINAR);
+		panelVenta.add(btnTerminarVenta);
+				
+	
+	}
+	
+	// Listener para los botones de venta
+	
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		String comando = e.getActionCommand();
+
+		if (comando.equals(AGREGAR)) 
+		{
+			long codigoDeBarras = Long.parseLong(JOptionPane.showInputDialog("Ingrese el codigo de barras del producto"));
+			boolean existeProducto = modelo.verificarProducto(codigoDeBarras);
+			if (existeProducto) 
+			{
+				Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
+				System.out.println("Producto: " + Producto.getNombre());
+				if (Producto.getPeso() == 1.0) 
+				{
+					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio() + "/" + Producto.getUnidadDeMedida());
+					JOptionPane.showMessageDialog(this,"Ingrese cuantos " + Producto.getUnidadDeMedida() + " desea del producto (disponibles: " + Producto.getCantidad() + Producto.getUnidadDeMedida() + ")");
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio());
+					JOptionPane.showMessageDialog(this,"Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
+				}
+				int cantidad = Integer.parseInt(JOptionPane.showInputDialog(""));
+				if (cantidad > 0 && cantidad < Producto.getCantidad()) {
+					modelo.venderProducto(codigoDeBarras, cantidad);
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(this,"La cantidad ingresada no es válida","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else 
+			{
+				JOptionPane.showMessageDialog(this,"El producto con codigo de barras " + codigoDeBarras + " no fue encontrado","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+			}
+		}
+
+		
+		else if (comando.equals(TERMINAR))
+		
+		{
+			modelo.terminarVenta(cliente);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(this,"\nPor favor seleccione una opción válida.\n");
+		}
+			
+	}
+	
 	
 	// Main para iniciar la aplicación
 	public static void main (String[] args) throws IOException
@@ -203,4 +288,6 @@ public class VentanaPrincipalPOS extends JFrame
 		ventana.setVisible(true);
 
 	}
+
+
 }
