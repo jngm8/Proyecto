@@ -113,26 +113,8 @@ public class VentanaPrincipalPOS extends JFrame
 				dialog.add(panelCliente);
 				dialog.setVisible(true);
 				
-				lblNombre = new JLabel("Nombre del cliente: " + cliente.getNombre());
-				panelCliente.add(lblNombre);
 				
-				lblCedula= new JLabel("Número de cedula: " + cliente.getCedula());
-				panelCliente.add(lblCedula);
 				
-				lblPuntos = new JLabel("Puntos Acumulados: " + cliente.getAcumuladoPuntos());
-				panelCliente.add(lblPuntos);
-				
-				lblEdad = new JLabel("Edad: " + cliente.getEdad());
-				panelCliente.add(lblEdad);
-				
-				lblSexo = new JLabel("Sexo: " + cliente.getSexo());
-				panelCliente.add(lblSexo);
-				
-				lblEstado = new JLabel(" Estado civil: " + cliente.getEstadoCivil());
-				panelCliente.add(lblEstado);
-				
-				lblLaboral = new JLabel("Situación Laboral: " + cliente.getEstadoCivil());
-				panelCliente.add(lblLaboral);
 
 			}
 			else 
@@ -149,6 +131,11 @@ public class VentanaPrincipalPOS extends JFrame
 			if (registrarse.equals("Si"))
 			{
 				registrarCliente();
+			}
+			
+			else
+			{
+				JOptionPane.showMessageDialog(this,"Puede hacer la compra sin acumular puntos","Venta Anonima",JOptionPane.CANCEL_OPTION);
 			}
 
 		}
@@ -192,7 +179,7 @@ public class VentanaPrincipalPOS extends JFrame
 		Cliente = modelo.getCliente(cedula);
 		if (Cliente != null) 
 		{
-			Cliente.PrintInfo();
+			panelDerecha.refrescar(Cliente);
 		}
 		else 
 		{

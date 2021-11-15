@@ -42,6 +42,10 @@ public class BotonesVenta extends JPanel implements ActionListener
 	private JTextField txtEdad;
 	private JLabel lblSexo;
 	private JTextField txtSexo;
+	private JLabel lblEstado;
+	private JTextField txtEstado;
+	private JLabel lblLaboral;
+	private JTextField txtLaboral;
 	
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
@@ -99,7 +103,7 @@ public class BotonesVenta extends JPanel implements ActionListener
 		// Se crea el panel de abajo del información del cliente
 		panelClientes= new JPanel();
 		add(panelClientes, BorderLayout.SOUTH);
-		panelClientes.setLayout(new GridLayout(5,2));
+		panelClientes.setLayout(new GridLayout(7,1));
 		panelClientes.setBorder(new TitledBorder("                       Informacion del cliente "));
 
 		
@@ -115,7 +119,7 @@ public class BotonesVenta extends JPanel implements ActionListener
 		txtCedula.setEditable(false);
 		panelClientes.add(txtCedula);
 		
-		lblPuntos = new JLabel("Número de cedula");
+		lblPuntos = new JLabel("Acumulado Puntos");
 		panelClientes.add(lblPuntos);
 		txtPuntos= new JTextField(" ");
 		txtPuntos.setEditable(false);
@@ -133,6 +137,18 @@ public class BotonesVenta extends JPanel implements ActionListener
 		txtSexo.setEditable(false);
 		panelClientes.add(txtSexo);
 		
+		lblEstado = new JLabel("Estado Civil");
+		panelClientes.add(lblEstado);
+		txtEstado= new JTextField(" ");
+		txtEstado.setEditable(false);
+		panelClientes.add(txtEstado);
+		
+		lblLaboral = new JLabel("Situacion Laboral");
+		panelClientes.add(lblLaboral);
+		txtLaboral= new JTextField(" ");
+		txtLaboral.setEditable(false);
+		panelClientes.add(txtLaboral);
+		
 		
 	}
 
@@ -144,6 +160,10 @@ public class BotonesVenta extends JPanel implements ActionListener
 		txtPuntos.setText(String.valueOf(cliente.getAcumuladoPuntos()));
 		txtEdad.setText(String.valueOf(cliente.getEdad()));
 		txtSexo.setText(cliente.getSexo());
+		txtEstado.setText(cliente.getEstadoCivil());
+		txtLaboral.setText(cliente.getSituacionLaboral());
+
+		
 
 	}
 
