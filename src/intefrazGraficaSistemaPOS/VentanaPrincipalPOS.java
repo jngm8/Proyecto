@@ -104,20 +104,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			Cliente numeroCliente = modelo.getCliente(registrado);
 			
 			if (numeroCliente != null) 
-			{
-				panelCliente= new JPanel();
-				panelCliente.setLayout(new GridLayout(4,1));
-				JDialog dialog = new JDialog();
-				dialog.setSize(300,300);
-				dialog.setLocationRelativeTo(this);
-				dialog.add(panelCliente);
-				dialog.setVisible(true);
-				
-				venta(cliente);
-				
-				
-				
-
+			{	
+				venta(cliente);	
 			}
 			else 
 			{
@@ -140,7 +128,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				JOptionPane.showMessageDialog(this,"Puede hacer la compra sin acumular puntos","Venta Anonima",JOptionPane.CANCEL_OPTION);
 				
 				//Continua el proceso de venta para agregar un producto de forma anonima
-				
+				venta(cliente);	
+
 			}
 
 		}
@@ -250,7 +239,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 					JOptionPane.showMessageDialog(this,"Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
 				}
 				int cantidad = Integer.parseInt(JOptionPane.showInputDialog(""));
-				if (cantidad > 0 && cantidad < Producto.getCantidad()) {
+				if (cantidad > 0 && cantidad < Producto.getCantidad()) 
+				{
 					modelo.venderProducto(codigoDeBarras, cantidad);
 				}
 				else 
@@ -269,6 +259,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		{
 			modelo.terminarVenta(cliente);
+			JOptionPane.showMessageDialog(this,"Gracias por venir, feliz dia","Hasta luego",JOptionPane.INFORMATION_MESSAGE);
+
 		}
 		else
 		{
