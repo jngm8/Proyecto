@@ -41,6 +41,18 @@ public class VentanaPrincipalPOS extends JFrame
 	// Labels extra
 	
 	private JLabel lblNombre;
+	
+	private JLabel lblCedula;
+	
+	private JLabel lblPuntos;
+	
+	private JLabel lblEdad;
+	
+	private JLabel lblSexo;
+	
+	private JLabel lblEstado;
+	
+	private JLabel lblLaboral;
 
 	
 	
@@ -103,6 +115,24 @@ public class VentanaPrincipalPOS extends JFrame
 				
 				lblNombre = new JLabel("Nombre del cliente: " + cliente.getNombre());
 				panelCliente.add(lblNombre);
+				
+				lblCedula= new JLabel("Número de cedula: " + cliente.getCedula());
+				panelCliente.add(lblCedula);
+				
+				lblPuntos = new JLabel("Puntos Acumulados: " + cliente.getAcumuladoPuntos());
+				panelCliente.add(lblPuntos);
+				
+				lblEdad = new JLabel("Edad: " + cliente.getEdad());
+				panelCliente.add(lblEdad);
+				
+				lblSexo = new JLabel("Sexo: " + cliente.getSexo());
+				panelCliente.add(lblSexo);
+				
+				lblEstado = new JLabel(" Estado civil: " + cliente.getEstadoCivil());
+				panelCliente.add(lblEstado);
+				
+				lblLaboral = new JLabel("Situación Laboral: " + cliente.getEstadoCivil());
+				panelCliente.add(lblLaboral);
 
 			}
 			else 
