@@ -50,7 +50,8 @@ public abstract class Producto implements Serializable
 					String unidadDeMedida,
 					double peso,
 					double cantidad,
-					ArrayList<Lote> lotes) {
+					ArrayList<Lote> lotes) 
+	{
 		nombre = nombreProducto;
 		precio = precioAlPublico;
 		historicoCantidad = cantidad;
@@ -75,13 +76,17 @@ public abstract class Producto implements Serializable
 		this.precio = precio;
 	}
 	
-	public void vender(double cantidad) {
-		if (cantidad <= this.cantidad) {
+	public void vender(double cantidad) 
+	{
+		if (cantidad <= this.cantidad) 
+		{
 			gananciaNeta += cantidad*precio;
 			historicoVendidos += cantidad;
 			this.cantidad -= cantidad;
 		}
-		
+	
+
+	
 	}
 	
 	public void sumarTotalProveedor(double precioPagoProveedor, double cantidad) {
@@ -154,7 +159,8 @@ public abstract class Producto implements Serializable
 		}
 	}
 	
-	public void desempenoFinanciero() {
+	public void desempenoFinanciero() 
+	{
 		System.out.println("Ganancia Neta: " + gananciaNeta);
 		double utilidades = gananciaNeta - totalPagadoAlProveedor;
 		System.out.println("Utilidades: " + utilidades);

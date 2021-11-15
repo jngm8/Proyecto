@@ -136,7 +136,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 		else if (comando.equals(INFOPROD))
 		{
-			JOptionPane.showMessageDialog(this, "INFORMACION DEL PRODUCTO");
+			principal.ejecutarInformacionProducto();
 		}
 		
 		else if (comando.equals(SALIR))

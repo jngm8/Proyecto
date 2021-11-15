@@ -47,6 +47,8 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	
 	private JPanel panelDesempeno;
 	
+	private JPanel panelInfoProducto;
+	
 	// Importa la lógica del programa
 	
 	private Inventario modelo;	
@@ -66,6 +68,16 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	private JButton btnPorID;
 	
 	private JButton btnVencido;
+	
+	// Declara los labels de cosultar desemepeño financiero
+	
+	private JLabel lblGananciaNeta;
+	
+	// Declara los labels de cosultar información del producto
+	
+	private JLabel lblNombreProducto;
+
+	
 	
 	
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
@@ -208,8 +220,8 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 
 	}
 		
-		
 	
+
 	
 	public void ejecutarDesempenoProducto() 
 	
@@ -226,6 +238,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			dialog.add(panelDesempeno);
 			dialog.setVisible(true);
 			
+
 			
 		}
 		else 
@@ -234,6 +247,34 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 
 		}
 	}
+	
+	public void ejecutarInformacionProducto() 
+	{
+		String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto");
+		Producto produ = modelo.getProductoByName(nombreProducto);
+		
+		if (produ != null) 
+		{
+			panelInfoProducto= new JPanel();
+			panelInfoProducto.setLayout(new GridLayout(4,1));
+			JDialog dialog = new JDialog();
+			dialog.setSize(300,300);
+			dialog.setLocationRelativeTo(this);
+			dialog.add(panelInfoProducto);
+			dialog.setVisible(true);
+			
+			lblNombreProducto = new JLabel("Numero de productos disponibles: " + producto.getNombre());
+			panelInfoProducto.add(lblNombreProducto);
+			
+			
+		}
+		else 
+		{
+			JOptionPane.showMessageDialog(this,"El producto " + nombreProducto + " no fue encontrado","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	
 	
 	public void salir()
 	{

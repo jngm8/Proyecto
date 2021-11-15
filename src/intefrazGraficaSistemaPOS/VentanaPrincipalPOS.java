@@ -136,6 +136,9 @@ public class VentanaPrincipalPOS extends JFrame
 			else
 			{
 				JOptionPane.showMessageDialog(this,"Puede hacer la compra sin acumular puntos","Venta Anonima",JOptionPane.CANCEL_OPTION);
+				
+				//Continua el proceso de venta para agregar un producto de forma anonima
+				
 			}
 
 		}
@@ -181,6 +184,8 @@ public class VentanaPrincipalPOS extends JFrame
 		{
 			panelDerecha.refrescar(Cliente);
 		}
+		
+
 		else 
 		{
 			JOptionPane.showMessageDialog(this,"\nEl cliente con número de cedula " + cedula + " no fue encontrado\n","Mensaje de error",JOptionPane.ERROR_MESSAGE);
