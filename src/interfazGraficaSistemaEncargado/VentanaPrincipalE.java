@@ -2,6 +2,7 @@ package interfazGraficaSistemaEncargado;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,15 +15,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 import controlador.Inventario;
 import controlador.PersistenciaException;
 import intefrazGraficaSistemaPOS.ImagenPOS;
+import modelo.Producto;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-public class VentanaPrincipalE extends JFrame
+public class VentanaPrincipalE extends JFrame implements ActionListener
 {
 	// Declaro el atributo de cada panel
 	
@@ -36,9 +41,13 @@ public class VentanaPrincipalE extends JFrame
 	
 	private JPanel panelEliminar;
 	
+	private JPanel panelDesempeno;
+	
 	// Importa la lógica del programa
 	
 	private Inventario modelo;	
+	
+	private Producto producto;
 	// labels de consultar informacion inventario
 	
 	private JLabel lblDisponible;
@@ -53,6 +62,12 @@ public class VentanaPrincipalE extends JFrame
 	private JButton btnPorID;
 	
 	private JButton btnVencido;
+	
+	
+	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
+	
+	private final static String PORID = " ELIMINAR POR ID";
+	private final static String VENCIDOS= "ELIMINAR VENCIDOS";
 
 	
 	public VentanaPrincipalE()
@@ -124,6 +139,9 @@ public class VentanaPrincipalE extends JFrame
 		panelInfo.add(lblGondolas);
 		lblClientesReg = new JLabel("Numero de clientes registrados: " + modelo.sizeClientes());
 		panelInfo.add(lblClientesReg);
+		
+		Color colores = new Color(159, 189, 234);
+		panelInfo.setBackground(colores);
 				
 	}
 	
@@ -140,16 +158,66 @@ public class VentanaPrincipalE extends JFrame
 		btnPorID = new JButton("ELIMINAR LOTE POR ID");
 		btnPorID.setBackground(new java.awt.Color(143,171,237));
 		btnPorID.setForeground(Color.BLACK);
+		btnPorID.addActionListener(this);
+		btnPorID.setActionCommand(PORID);
 		panelEliminar.add(btnPorID);
 		
 		
 		btnVencido = new JButton("ELIMINAR LOTES VENCIDOS");
 		btnVencido.setBackground(new java.awt.Color(143,171,237));
 		btnVencido.setForeground(Color.BLACK);
+		btnVencido.addActionListener(this);
+		btnVencido.setActionCommand(VENCIDOS);
 		panelEliminar.add(btnVencido);
 		
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		String comando = e.getActionCommand();
+		if (comando.equals(PORID)) 
+		{
+			
+			principal.cargarArchivo();
+			
+		}
+		else if (comando.equals(VENCIDOS))
+		{
+			principal.InformacionInventario();
+
+		}
+		
+		
+	}
+	
+	public void ejecutarDesempenoProducto() 
+	
+	{
+		String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto");
+		Producto prod = modelo.getProductoByName(nombreProducto);
+		if (prod != null) 
+		{
+			panelDesempeno= new JPanel();
+			panelDesempeno.setLayout(new GridLayout(4,1));
+			JDialog dialog = new JDialog();
+			dialog.setSize(300,300);
+			dialog.setLocationRelativeTo(this);
+			dialog.add(panelDesempeno);
+			dialog.setVisible(true);
+			
+		}
+		else 
+		{
+			JOptionPane.showMessageDialog(this,"No se encontro: "+ nombreProducto + ". Digite de nuevo","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+
+		}
+	}
+	
+	public void salir()
+	{
+		
+	}
 	
 	// Main para iniciar la aplicación
 	public static void main (String[] args) throws IOException

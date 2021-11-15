@@ -20,7 +20,9 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private JButton btnEliminarLote;
 	private JButton btnDesempeñoProducto;
 	private JButton btnInfoProducto;
+	private JButton btnSalir;
 	private JPanel panelBotonesE;
+	
 	
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
@@ -29,6 +31,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private final static String ELIMINAR = "ELIMINAR LOTE";
 	private final static String DESEMPENO = "DESEMPEÑO PRODUCTOS";
 	private final static String INFOPROD = "INFORMACION DE UN PRODUCTO";
+	private final static String SALIR = "SALIR";
 
 	/// Atributo ventana pricipal
 	
@@ -42,10 +45,10 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 		
 		// Define que forma deben tener los botones y su distribución
-		setLayout(new GridLayout(5,1));
+		setLayout(new GridLayout(3,1));
 		setBorder(new TitledBorder("                          ¡Seleccione una opción!"));
 		panelBotonesE = new JPanel();
-		panelBotonesE.setLayout(new GridLayout(5,1,0,6));// fi6las,columnas,espacio columnas,espacio filas
+		panelBotonesE.setLayout(new GridLayout(6,1,0,7));// filas,columnas,espacio columnas,espacio filas
 		add(new JLabel());
 		
 		//Creación de los botones
@@ -85,6 +88,13 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		btnInfoProducto.setActionCommand(INFOPROD);
 		panelBotonesE.add(btnInfoProducto);
 		
+		btnSalir = new JButton("SALIR DE LA APP");
+		btnSalir.setBackground(new java.awt.Color(143,171,237));
+		btnSalir.setForeground(Color.BLACK);
+		btnSalir .addActionListener(this);
+		btnSalir .setActionCommand(SALIR);
+		panelBotonesE.add(btnSalir );
+		
 		Color colores = new Color(252, 248, 171);
 		panelBotonesE.setBackground(colores);
 		//Se agrega el panel
@@ -120,12 +130,18 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		}
 		else if (comando.equals(DESEMPENO))
 		{
-			JOptionPane.showMessageDialog(this, "DESEMPEÑO FINANCIERO DE UN PRODUCTO");
+			principal.ejecutarDesempenoProducto();
+
 		}
 		
 		else if (comando.equals(INFOPROD))
 		{
 			JOptionPane.showMessageDialog(this, "INFORMACION DEL PRODUCTO");
+		}
+		
+		else if (comando.equals(SALIR))
+		{
+			JOptionPane.showMessageDialog(this, "SALIR");
 		}
 		
 	}
