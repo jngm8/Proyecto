@@ -31,7 +31,7 @@ import modelo.Producto;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-public class VentanaPrincipalE extends JFrame implements ActionListener
+public class VentanaPrincipalE extends JFrame implements ActionListener 
 {
 	// Declaro el atributo de cada panel
 	
@@ -77,13 +77,13 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	
 	private JLabel lblNombreProducto;
 
-	
-	
-	
+
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
 	private final static String PORID = " ELIMINAR POR ID";
 	private final static String VENCIDOS= "ELIMINAR VENCIDOS";
+	
+	private static final long serialVersionUID = 100L;
 
 	
 	public VentanaPrincipalE()
@@ -263,8 +263,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			dialog.add(panelInfoProducto);
 			dialog.setVisible(true);
 			
-			lblNombreProducto = new JLabel("Numero de productos disponibles: " + producto.getNombre());
-			panelInfoProducto.add(lblNombreProducto);
+
 			
 			
 		}
@@ -275,11 +274,6 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	}
 
 	
-	
-	public void salir()
-	{
-		
-	}
 	
 	// Main para iniciar la aplicación
 	public static void main (String[] args) throws IOException

@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controlador.Inventario;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -23,6 +25,8 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private JButton btnSalir;
 	private JPanel panelBotonesE;
 	
+	private Inventario modelo;	
+
 	
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
@@ -146,6 +150,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 	}
 	
+
 }
 
 
