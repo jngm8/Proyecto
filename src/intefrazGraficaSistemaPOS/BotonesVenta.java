@@ -184,7 +184,14 @@ public class BotonesVenta extends JPanel implements ActionListener
 		}
 		else if (comando.equals(SALIR))
 		{
-			JOptionPane.showMessageDialog(this, "Saliendo de la App");
+			try 
+			{
+				principal.salir();
+			} 
+			catch (Exception e1) 
+			{
+				e1.printStackTrace();
+			}
 		}
 		
 		

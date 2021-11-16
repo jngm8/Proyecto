@@ -295,6 +295,12 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			
 	}
 	
+	public void salir() throws PersistenciaException
+	{
+		modelo.salvarInventario();
+
+	}
+	
 	
 	// Main para iniciar la aplicación
 	public static void main (String[] args) throws IOException

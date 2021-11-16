@@ -277,6 +277,14 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			JOptionPane.showMessageDialog(this,"El producto " + nombreProducto + " no fue encontrado","Mensaje de error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public void salirAPP() throws PersistenciaException
+	{
+		modelo.salvarInventario();
+		JOptionPane.showMessageDialog(this,"Los datos han sido guaradados","Mensaje de guardado",JOptionPane.YES_OPTION);
+
+
+	}
 
 	
 	

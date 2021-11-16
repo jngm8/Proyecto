@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import controlador.Inventario;
+import controlador.PersistenciaException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -145,7 +146,14 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 		else if (comando.equals(SALIR))
 		{
-			JOptionPane.showMessageDialog(this, "SALIR");
+			try 
+			{
+				principal.salirAPP();
+			} 
+			catch (PersistenciaException e1) 
+			{
+				e1.printStackTrace();
+			}
 		}
 		
 	}
