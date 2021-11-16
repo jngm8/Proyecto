@@ -95,8 +95,8 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		btnSalir = new JButton("SALIR DE LA APP");
 		btnSalir.setBackground(new java.awt.Color(143,171,237));
 		btnSalir.setForeground(Color.BLACK);
-		btnSalir .addActionListener(this);
-		btnSalir .setActionCommand(SALIR);
+		btnSalir.addActionListener(this);
+		btnSalir.setActionCommand(SALIR);
 		panelBotonesE.add(btnSalir );
 		
 		Color colores = new Color(252, 248, 171);
