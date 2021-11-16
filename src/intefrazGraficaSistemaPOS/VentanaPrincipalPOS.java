@@ -298,6 +298,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	public void salir() throws PersistenciaException
 	{
 		modelo.salvarInventario();
+		JOptionPane.showMessageDialog(this,"Los datos han sido guaradados","Mensaje de guardado",JOptionPane.YES_OPTION);
+
 
 	}
 	
