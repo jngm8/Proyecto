@@ -1,0 +1,13 @@
+Id: 1005966025
+Cliente: Daniel Osorio
+
+Productos:
+Pan Fresco		4000.0 x400
+	1600000.0
+Coca Cola		2000.0 x500
+	1000000.0
+
+
+Precio Neto: $2600000.0
+IVA: $494000.0
+Precio Total: $3094000.0

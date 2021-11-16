@@ -84,6 +84,9 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	private final static String VENCIDOS= "ELIMINAR VENCIDOS";
 	
 	private static final long serialVersionUID = 100L;
+	
+
+	
 
 	
 	public VentanaPrincipalE()
@@ -281,7 +284,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	public void salirAPP() throws PersistenciaException
 	{
 		modelo.salvarInventario();
-		JOptionPane.showMessageDialog(this,"Los datos han sido guaradados","Mensaje de guardado",JOptionPane.YES_OPTION);
+		JOptionPane.showMessageDialog(this,"Los datos han sido guardados","Mensaje de guardado",JOptionPane.YES_NO_CANCEL_OPTION);
 
 
 	}
