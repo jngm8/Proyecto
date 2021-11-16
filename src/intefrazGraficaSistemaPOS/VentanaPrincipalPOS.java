@@ -57,6 +57,10 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	
 	Icon coca;
 	
+	Icon PanFresco;
+	
+	Icon cerdo;
+	
 	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
 	private final static String AGREGAR = "AGREGAR";
@@ -234,7 +238,22 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			{
 				Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
 				coca = new ImageIcon("./data/coca.jpg");
-				JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,coca);
+				PanFresco = new ImageIcon("./data/pan.jpg");
+				cerdo = new ImageIcon("./data/cerdo.jpg");
+				if (Producto.getNombre().equals("Coca Cola"))
+					{
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"COCA COLA",JOptionPane.INFORMATION_MESSAGE,coca);
+					}
+				else if (Producto.getNombre().equals("Pan Fresco"))
+					{
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PAN FRESCO",JOptionPane.INFORMATION_MESSAGE,PanFresco);
+					}
+				
+				else if (Producto.getNombre().equals("Carne de cerdo"))
+					{
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"CARNE DE CERDO",JOptionPane.INFORMATION_MESSAGE,cerdo);
+					}
+				
 				if (Producto.getPeso() == 1.0) 
 				{
 					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio() + "/" + Producto.getUnidadDeMedida());
