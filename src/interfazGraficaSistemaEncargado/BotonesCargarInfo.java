@@ -52,7 +52,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		setLayout(new GridLayout(3,1));
 		setBorder(new TitledBorder("                          ¡Seleccione una opción!"));
 		panelBotonesE = new JPanel();
-		panelBotonesE.setLayout(new GridLayout(6,1,0,7));// filas,columnas,espacio columnas,espacio filas
+		panelBotonesE.setLayout(new GridLayout(6,1,0,8));// filas,columnas,espacio columnas,espacio filas
 		add(new JLabel());
 		
 		//Creación de los botones

@@ -156,7 +156,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		lblClientesReg = new JLabel("Numero de clientes registrados: " + modelo.sizeClientes());
 		panelInfo.add(lblClientesReg);
 		
-		Color colores = new Color(159, 189, 234);
+		Color colores = new Color(252, 205, 148);
 		panelInfo.setBackground(colores);
 				
 	}
