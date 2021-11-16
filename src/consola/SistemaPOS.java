@@ -49,7 +49,7 @@ public class SistemaPOS
 	private void consultarPuntos() {
 		Cliente Cliente;
 		try {
-			long cedula = Long.parseLong(input("Por favor ingrese el numero de una opción"));
+			long cedula = Long.parseLong(input("Por favor ingrese el numero de cedula del cliente"));
 			Cliente = Inventario.getCliente(cedula);
 			if (Cliente != null) {
 				Cliente.PrintInfo();
@@ -175,7 +175,7 @@ public class SistemaPOS
 							System.out.print("Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
 						}
 						int cantidad = Integer.parseInt(input(""));
-						if (cantidad > 0 && cantidad < Producto.getCantidad()) {
+						if (cantidad > 0 && cantidad <= Producto.getCantidad()) {
 							Inventario.venderProducto(codigoDeBarras, cantidad);
 						}
 						else {
