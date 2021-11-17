@@ -136,6 +136,7 @@ public class SistemaPOS
 				else if (opcion_seleccionada == 2){
 					
 					venta(null);
+					continuar = false;
 				}
 				else if (opcion_seleccionada == 3){
 					continuar = false;
@@ -202,7 +203,7 @@ public class SistemaPOS
 	private Cliente registrarCliente() {
 		Cliente Cliente;
 		long cedula = Long.parseLong(input("Ingrese el numero de cedula del cliente"));
-		if (!Inventario.containsCliente(cedula)) 
+		if (!Inventario.containsCliente(cedula))
 		{
 			String nombre = input("Ingrese su nombre");
 			int edad = Integer.parseInt(input("Ingrese la edad del cliente"));

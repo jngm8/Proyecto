@@ -468,9 +468,10 @@ public class Inventario
 	}
 
 	public void iniciarVenta() {
+		//	Crea una nueva instancia de la factura para empezar la venta
 		Factura = new Factura();
 	}
-
+	
 	public boolean verificarProducto(long codigoDeBarras) {
 		if (Productos.containsKey(codigoDeBarras)){
 			return true;
@@ -485,9 +486,16 @@ public class Inventario
 	}
 
 	public void terminarVenta(Cliente Cliente) {
-		Factura.generarFactura(Cliente, numeroFacturas);
-		Factura.sumarPuntos(Cliente);
-		numeroFacturas += 1;
+		if (Cliente != null) {
+			Factura.generarFactura(Cliente, numeroFacturas);
+			Factura.sumarPuntos(Cliente);
+			numeroFacturas += 1;
+		}
+		else {
+			Factura.generarFacturaSinCliente(numeroFacturas);
+			numeroFacturas += 1;
+			
+		}
 		
 	}
 }
