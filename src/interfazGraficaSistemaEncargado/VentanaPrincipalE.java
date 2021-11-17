@@ -71,7 +71,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	
 	// Declara los labels de cosultar desemepeño financiero
 	
-	private JLabel lblGananciaNeta;
+	private JTextField txtDesempenoFinanciero;
 	
 	// Declara los labels de cosultar información del producto
 	
@@ -238,6 +238,13 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			dialog.add(panelDesempeno);
 			dialog.setVisible(true);
 			
+			txtDesempenoFinanciero= new JTextField();
+			txtDesempenoFinanciero.setEditable(false);
+			panelDesempeno.add(txtDesempenoFinanciero);
+			add(panelDesempeno);
+			
+			
+			
 
 			
 		}
@@ -262,9 +269,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			dialog.setLocationRelativeTo(this);
 			dialog.add(panelInfoProducto);
 			dialog.setVisible(true);
-			
-
-			
+						
 			
 		}
 		else 

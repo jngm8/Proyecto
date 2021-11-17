@@ -109,7 +109,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			}
 			else 
 			{
-				JOptionPane.showMessageDialog(this,"\nEl cliente no fue encontrado \n","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this,"El cliente no fue encontrado","Mensaje de error",JOptionPane.ERROR_MESSAGE);
 
 			}
 		}
