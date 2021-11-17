@@ -36,7 +36,7 @@ public class Inventario
 	
 	private static final String LOG_FILE = "./data/error.log";
 	/**
-     * Es el nombre del archivo de donde se cargan y salvan los discos
+     * Es el nombre de los archivos de donde se cargan y salvan los datos del inventario
      */
     private String archivoProductos = "./persistencia/Productos";
     private String archivoCodigosProductos = "./persistencia/CodigosProductos";

@@ -3,6 +3,8 @@ package intefrazGraficaSistemaPOS;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -50,6 +52,14 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	private JButton btnAgregarProducto;
 	
 	private JButton btnTerminarVenta;
+	
+	// Iconos
+	
+	Icon coca;
+	
+	Icon PanFresco;
+	
+	Icon cerdo;
 	
 	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
@@ -227,18 +237,34 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			if (existeProducto) 
 			{
 				Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
-				System.out.println("Producto: " + Producto.getNombre());
+				coca = new ImageIcon("./data/coca.jpg");
+				PanFresco = new ImageIcon("./data/pan.jpg");
+				cerdo = new ImageIcon("./data/cerdo.jpg");
+				if (Producto.getNombre().equals("Coca Cola"))
+					{
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"COCA COLA",JOptionPane.INFORMATION_MESSAGE,coca);
+					}
+				else if (Producto.getNombre().equals("Pan Fresco"))
+					{
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PAN FRESCO",JOptionPane.INFORMATION_MESSAGE,PanFresco);
+					}
+				
+				else if (Producto.getNombre().equals("Carne de cerdo"))
+					{
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"CARNE DE CERDO",JOptionPane.INFORMATION_MESSAGE,cerdo);
+					}
+				
 				if (Producto.getPeso() == 1.0) 
 				{
 					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio() + "/" + Producto.getUnidadDeMedida());
-					JOptionPane.showMessageDialog(this,"Ingrese cuantos " + Producto.getUnidadDeMedida() + " desea del producto (disponibles: " + Producto.getCantidad() + Producto.getUnidadDeMedida() + ")");
+					JOptionPane.showInputDialog(this,"Ingrese cuantos " + Producto.getUnidadDeMedida() + " desea del producto (disponibles: " + Producto.getCantidad() + Producto.getUnidadDeMedida() + ")");
 				}
 				else 
 				{
 					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio());
-					JOptionPane.showMessageDialog(this,"Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
+					JOptionPane.showInputDialog(this,"Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
 				}
-				int cantidad = Integer.parseInt(JOptionPane.showInputDialog(""));
+				int cantidad = Integer.parseInt("");
 				if (cantidad > 0 && cantidad < Producto.getCantidad()) 
 				{
 					modelo.venderProducto(codigoDeBarras, cantidad);
@@ -267,6 +293,14 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			JOptionPane.showMessageDialog(this,"\nPor favor seleccione una opción válida.\n");
 		}
 			
+	}
+	
+	public void salir() throws PersistenciaException
+	{
+		modelo.salvarInventario();
+		JOptionPane.showMessageDialog(this,"Los datos han sido guaradados","Mensaje de guardado",JOptionPane.YES_OPTION);
+
+
 	}
 	
 	

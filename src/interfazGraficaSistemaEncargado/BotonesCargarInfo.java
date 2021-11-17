@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import controlador.Inventario;
+import controlador.PersistenciaException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +53,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		setLayout(new GridLayout(3,1));
 		setBorder(new TitledBorder("                          ¡Seleccione una opción!"));
 		panelBotonesE = new JPanel();
-		panelBotonesE.setLayout(new GridLayout(6,1,0,7));// filas,columnas,espacio columnas,espacio filas
+		panelBotonesE.setLayout(new GridLayout(6,1,0,8));// filas,columnas,espacio columnas,espacio filas
 		add(new JLabel());
 		
 		//Creación de los botones
@@ -145,7 +146,14 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 		else if (comando.equals(SALIR))
 		{
-			JOptionPane.showMessageDialog(this, "SALIR");
+			try 
+			{
+				principal.salirAPP();
+			} 
+			catch (PersistenciaException e1) 
+			{
+				e1.printStackTrace();
+			}
 		}
 		
 	}

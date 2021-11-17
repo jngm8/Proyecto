@@ -84,6 +84,9 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	private final static String VENCIDOS= "ELIMINAR VENCIDOS";
 	
 	private static final long serialVersionUID = 100L;
+	
+
+	
 
 	
 	public VentanaPrincipalE()
@@ -156,7 +159,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		lblClientesReg = new JLabel("Numero de clientes registrados: " + modelo.sizeClientes());
 		panelInfo.add(lblClientesReg);
 		
-		Color colores = new Color(159, 189, 234);
+		Color colores = new Color(252, 205, 148);
 		panelInfo.setBackground(colores);
 				
 	}
@@ -276,6 +279,14 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		{
 			JOptionPane.showMessageDialog(this,"El producto " + nombreProducto + " no fue encontrado","Mensaje de error",JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	public void salirAPP() throws PersistenciaException
+	{
+		modelo.salvarInventario();
+		JOptionPane.showMessageDialog(this,"Los datos han sido guardados","Mensaje de guardado",JOptionPane.YES_NO_CANCEL_OPTION);
+
+
 	}
 
 	
