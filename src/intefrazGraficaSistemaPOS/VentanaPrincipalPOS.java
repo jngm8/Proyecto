@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import controlador.Inventario;
 import controlador.PersistenciaException;
+import interfazGraficaSistemaEncargado.VentanaPrincipalE;
 import modelo.Cliente;
 import modelo.Producto;
 
@@ -22,6 +23,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaPrincipalPOS extends JFrame implements ActionListener
 {
@@ -38,7 +41,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	private Inventario modelo;
 	
 	private Cliente cliente;
-
+	
+	private VentanaPrincipalE ventanaE;
 	
 	// Paneles extra
 	
@@ -60,6 +64,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	Icon PanFresco;
 	
 	Icon cerdo;
+	
+	Icon imagen;
 	
 	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
@@ -100,14 +106,20 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			e.printStackTrace();
 		}
 		
+		try {
+			salirAPP();
+		} catch (PersistenciaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void Inicioventa()
 	{
 		
-		String rta = JOptionPane.showInputDialog("¿Se encuentra registrado(Si o No)");
+		int rta = JOptionPane.showConfirmDialog(this,"¿Se encuentra registrado(Si o No)","Bienvenido",JOptionPane.YES_NO_OPTION);
 		
-		if (rta.equals("Si"))
+		if (rta == JOptionPane.YES_OPTION)
 		{
 
 			long registrado = Long.parseLong(JOptionPane.showInputDialog("Ingrese su numero de cedula"));
@@ -124,16 +136,16 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			}
 		}
 
-		else if (rta.equals("No"))
+		else if (rta == JOptionPane.NO_OPTION)
 		{
-			String registrarse = JOptionPane.showInputDialog("¿Se quiere registrar(Si o No)");
+			int registrarse = JOptionPane.showConfirmDialog(this,"¿Se encuentra registrado(Si o No)","Bienvenido",JOptionPane.YES_NO_OPTION);
 			
-			if (registrarse.equals("Si"))
+			if (registrarse == JOptionPane.YES_OPTION)
 			{
 				registrarCliente();
 			}
 			
-			else
+			else if (registrarse == JOptionPane.NO_OPTION)
 			{
 				JOptionPane.showMessageDialog(this,"Puede hacer la compra sin acumular puntos","Venta Anonima",JOptionPane.CANCEL_OPTION);
 				
@@ -240,19 +252,11 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				coca = new ImageIcon("./data/coca.jpg");
 				PanFresco = new ImageIcon("./data/pan.jpg");
 				cerdo = new ImageIcon("./data/cerdo.jpg");
-				if (Producto.getNombre().equals("Coca Cola"))
-					{
-						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"COCA COLA",JOptionPane.INFORMATION_MESSAGE,coca);
-					}
-				else if (Producto.getNombre().equals("Pan Fresco"))
-					{
-						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PAN FRESCO",JOptionPane.INFORMATION_MESSAGE,PanFresco);
-					}
+				imagen = new ImageIcon("./data/"+ventanaE.modificar());
 				
-				else if (Producto.getNombre().equals("Carne de cerdo"))
-					{
-						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"CARNE DE CERDO",JOptionPane.INFORMATION_MESSAGE,cerdo);
-					}
+				JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,imagen);
+				
+
 				
 				if (Producto.getPeso() == 1.0) 
 				{
@@ -295,12 +299,45 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			
 	}
 	
-	public void salir() throws PersistenciaException
+	public void salirAPP() throws PersistenciaException
 	{
-		modelo.salvarInventario();
-		JOptionPane.showMessageDialog(this,"Los datos han sido guaradados","Mensaje de guardado",JOptionPane.YES_OPTION);
+		try 
+		
+		{
+			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			addWindowListener(new WindowAdapter()
+			{
+				public void windowClosing(WindowEvent e)
+			{
+				confirmarSalida();
+				try 
+				{
+					modelo.salvarInventario();
+				} catch (PersistenciaException e1) {
+					e1.printStackTrace();
+				}
+			}
+			});
+		
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 
+		}
 
+	}
+	
+	public void confirmarSalida() 
+	{
+		int valor = JOptionPane.showConfirmDialog(this,"Los datos han sido guardados,¿Quiere salir de la APP?","Mensaje de guardado",JOptionPane.YES_NO_CANCEL_OPTION);
+		
+		if ( valor == JOptionPane.YES_OPTION)
+		{
+			JOptionPane.showMessageDialog(this,"Gracias venir, pronto regreso al supermercado!","Mensaje de Salida",JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
+		
 	}
 	
 	

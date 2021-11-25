@@ -51,7 +51,7 @@ public class BotonesVenta extends JPanel implements ActionListener
 	
 	private final static String VENTA = "INICIAR VENTA";
 	private final static String INFO = "INFO CLIENTE";
-	private final static String SALIR = "SALIR DEL APP";
+
 	
 	/// Atributo ventana pricipal
 	
@@ -89,13 +89,6 @@ public class BotonesVenta extends JPanel implements ActionListener
 		btnInfoCliente.addActionListener(this);
 		btnInfoCliente.setActionCommand(INFO);
 		panelBotones.add(btnInfoCliente);
-		
-		btnSalirApp = new JButton("SALIR DE LA APLICACIÓN");
-		btnSalirApp.setBackground(new java.awt.Color(143,171,237));
-		btnSalirApp.setForeground(Color.BLACK);
-		btnSalirApp.addActionListener(this);
-		btnSalirApp.setActionCommand(SALIR);
-		panelBotones.add(btnSalirApp);
 		
 		//Se agrega el panel
 		add(panelBotones);
@@ -182,22 +175,7 @@ public class BotonesVenta extends JPanel implements ActionListener
 		{
 			principal.ConsultarInfoPuntos();
 		}
-		else if (comando.equals(SALIR))
-		{
-			try 
-			{
-				principal.salir();
-			} 
-			catch (Exception e1) 
-			{
-				e1.printStackTrace();
-			}
-		}
-		
-		
-		
-		
-		
+	
 	}
 	
 }
