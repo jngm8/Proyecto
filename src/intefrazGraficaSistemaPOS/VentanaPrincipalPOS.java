@@ -109,7 +109,6 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		try {
 			salirAPP();
 		} catch (PersistenciaException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -241,22 +240,38 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		String comando = e.getActionCommand();
-
+		long codigoDeBarras = Long.parseLong(JOptionPane.showInputDialog("Ingrese el codigo de barras del producto"));
+		boolean existeProducto = modelo.verificarProducto(codigoDeBarras);
+		Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
+		coca = new ImageIcon("./data/coca.jpg");
+		PanFresco = new ImageIcon("./data/pan.jpg");
+		cerdo = new ImageIcon("./data/cerdo.jpg");
+		
 		if (comando.equals(AGREGAR)) 
 		{
-			long codigoDeBarras = Long.parseLong(JOptionPane.showInputDialog("Ingrese el codigo de barras del producto"));
-			boolean existeProducto = modelo.verificarProducto(codigoDeBarras);
 			if (existeProducto) 
 			{
-				Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
-				coca = new ImageIcon("./data/coca.jpg");
-				PanFresco = new ImageIcon("./data/pan.jpg");
-				cerdo = new ImageIcon("./data/cerdo.jpg");
-				imagen = new ImageIcon("./data/"+ventanaE.modificar());
 				
-				JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,imagen);
-				
+				if (Producto.getNombre().equals("Coca Cola"))
+				{
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,coca);
 
+				}
+				else if (Producto.getNombre().equals("Pan Fresco"))
+				{
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,PanFresco);
+
+				}
+				else if (Producto.getNombre().equals("Carne de cerdo"))
+				{
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,cerdo);
+				}
+				
+				else
+				{
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"NO EXISTE",JOptionPane.ERROR_MESSAGE);
+
+				}
 				
 				if (Producto.getPeso() == 1.0) 
 				{
@@ -298,7 +313,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		}
 			
 	}
-	
+
 	public void salirAPP() throws PersistenciaException
 	{
 		try 

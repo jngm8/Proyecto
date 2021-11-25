@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import controlador.Inventario;
+import interfazGraficaSistemaEncargado.VentanaPrincipalE;
 import controlador.PersistenciaException;
 
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private JPanel panelBotonesE;
 	
 	private Inventario modelo;	
+	private VentanaPrincipalE vent;
 
 	
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
@@ -148,6 +150,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		
 		else if (comando.equals(MODIFICAR))
 		{
+
 			principal.modificar();
 		}
 		

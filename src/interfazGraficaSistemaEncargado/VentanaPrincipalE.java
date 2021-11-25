@@ -268,6 +268,9 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			dialog.add(panelDesempeno);
 			dialog.setVisible(true);
 			
+			Color colores = new Color(155, 219,184);
+			panelDesempeno.setBackground(colores);
+			
 			lblNomProd= new JLabel("Ganancia Neta: " + prod.gananciaNeta(prod.getCantidad()));
 			panelDesempeno.add(lblNomProd);
 			
@@ -292,10 +295,13 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			panelInfoProducto= new JPanel();
 			panelInfoProducto.setLayout(new GridLayout(4,1));
 			JDialog dialog = new JDialog();
-			dialog.setSize(450,350);
+			dialog.setSize(450,400);
 			dialog.setLocationRelativeTo(this);
 			dialog.add(panelInfoProducto);
 			dialog.setVisible(true);
+			
+			Color colores = new Color(168, 140, 234);
+			panelInfoProducto.setBackground(colores);
 			
 			lblNombre = new JLabel("Nombre del producto: " + produ.getNombre());
 			panelInfoProducto.add(lblNombre);
@@ -318,9 +324,9 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	
 	public String modificar()
 	{
-		String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto ");
-		
-		return nombreProducto;
+		String nombreProduc = JOptionPane.showInputDialog("Ingrese el nombre del producto ");
+			
+		return nombreProduc;
 	}
 	
 	public void salirAPP() throws PersistenciaException
