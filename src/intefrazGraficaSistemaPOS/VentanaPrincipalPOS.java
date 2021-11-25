@@ -310,12 +310,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				public void windowClosing(WindowEvent e)
 			{
 				confirmarSalida();
-				try 
-				{
-					modelo.salvarInventario();
-				} catch (PersistenciaException e1) {
-					e1.printStackTrace();
-				}
+
 			}
 			});
 		
@@ -335,6 +330,12 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		if ( valor == JOptionPane.YES_OPTION)
 		{
 			JOptionPane.showMessageDialog(this,"Gracias venir, pronto regreso al supermercado!","Mensaje de Salida",JOptionPane.INFORMATION_MESSAGE);
+			try {
+				modelo.salvarInventario();
+			} catch (PersistenciaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.exit(0);
 		}
 		

@@ -334,12 +334,6 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 				public void windowClosing(WindowEvent e)
 			{
 				confirmarSalida();
-				try 
-				{
-					modelo.salvarInventario();
-				} catch (PersistenciaException e1) {
-					e1.printStackTrace();
-				}
 			}
 			});
 		
@@ -359,6 +353,12 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		if ( valor == JOptionPane.YES_OPTION)
 		{
 			JOptionPane.showMessageDialog(this,"Gracias por manejar el inventario, hasta luego!","Mensaje de error",JOptionPane.INFORMATION_MESSAGE);
+			try 
+			{
+				modelo.salvarInventario();
+			} catch (PersistenciaException e1) {
+				e1.printStackTrace();
+			}
 			System.exit(0);
 		}
 		
