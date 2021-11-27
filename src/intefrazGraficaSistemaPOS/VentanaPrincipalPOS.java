@@ -65,6 +65,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	
 	Icon cerdo;
 	
+	Icon jabulani;
+	
 	Icon imagen;
 	
 	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
@@ -246,31 +248,33 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		coca = new ImageIcon("./data/coca.jpg");
 		PanFresco = new ImageIcon("./data/pan.jpg");
 		cerdo = new ImageIcon("./data/cerdo.jpg");
+		jabulani = new ImageIcon("./data/jabulani.png");
 		
 		if (comando.equals(AGREGAR)) 
 		{
 			if (existeProducto) 
 			{
-				
 				if (Producto.getNombre().equals("Coca Cola"))
 				{
-					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,coca);
-
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO COCA COLA",JOptionPane.INFORMATION_MESSAGE,coca);
 				}
 				else if (Producto.getNombre().equals("Pan Fresco"))
 				{
-					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,PanFresco);
-
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO PAN FRESCO",JOptionPane.INFORMATION_MESSAGE,PanFresco);
 				}
 				else if (Producto.getNombre().equals("Carne de cerdo"))
 				{
-					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO",JOptionPane.INFORMATION_MESSAGE,cerdo);
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO CARNE DE CERDO",JOptionPane.INFORMATION_MESSAGE,cerdo);
+				}
+				
+				else if (Producto.getNombre().equals("Balones Jabulani"))
+				{
+					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO BALONES JABULANI",JOptionPane.INFORMATION_MESSAGE,jabulani);
 				}
 				
 				else
 				{
 					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"NO EXISTE",JOptionPane.ERROR_MESSAGE);
-
 				}
 				
 				if (Producto.getPeso() == 1.0) 
@@ -283,7 +287,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio());
 					JOptionPane.showInputDialog(this,"Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
 				}
-				int cantidad = Integer.parseInt("");
+				int cantidad = Integer.parseInt(" ");
 				if (cantidad > 0 && cantidad < Producto.getCantidad()) 
 				{
 					modelo.venderProducto(codigoDeBarras, cantidad);

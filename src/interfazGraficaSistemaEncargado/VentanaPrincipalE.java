@@ -263,7 +263,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			panelDesempeno= new JPanel();
 			panelDesempeno.setLayout(new GridLayout(4,1));
 			JDialog dialog = new JDialog();
-			dialog.setSize(150,200);
+			dialog.setSize(200,250);
 			dialog.setLocationRelativeTo(this);
 			dialog.add(panelDesempeno);
 			dialog.setVisible(true);
