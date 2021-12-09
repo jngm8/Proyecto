@@ -106,7 +106,8 @@ public abstract class Producto implements Serializable
 	}
 	
 	
-	public void sumarTotalProveedor(double precioPagoProveedor, double cantidad) {
+	public void sumarTotalProveedor(double precioPagoProveedor, double cantidad) 
+	{
 		totalPagadoAlProveedor += precioPagoProveedor*cantidad;
 	}
 	
@@ -193,6 +194,33 @@ public abstract class Producto implements Serializable
 			}
 			index += 1;
 		}
+	}
+	
+	public double descuentos()
+	{
+		
+		double descuento = 0;
+		
+		if (getNombre().equals("Pan Fresco"))
+		{
+			descuento += (getPrecio()*30)/100;
+		}
+		
+		else if (getNombre().equals("Coca Cola"))
+		{
+			descuento += (getPrecio()*50)/100;
+		}
+		
+		else if (getNombre().equals("Carne de cerdo"))
+		{
+			descuento += (getPrecio()*25)/100;
+		}
+		else if (getNombre().equals("Balones Jabulani"))
+		{
+			descuento += (getPrecio()*40)/100;
+		}
+		
+		return descuento;
 	}
 	
 	public void desempenoFinanciero() 

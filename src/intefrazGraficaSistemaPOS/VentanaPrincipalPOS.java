@@ -44,6 +44,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	
 	private Cliente cliente;
 	
+	private Producto producto;
+	
 	private VentanaPrincipalE ventanaE;
 	
 	// Paneles extra
@@ -356,7 +358,14 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		else if (comando.equals(DESCUENTOS))
 			
 		{
-			JOptionPane.showMessageDialog(this,"OLA","¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
+			String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto");
+
+			Producto Producto = modelo.getProductoByName(nombre);
+
+			JOptionPane.showMessageDialog(this,"Esta es la promoción para el producto: "+Producto.getNombre()+Producto.descuentos(),"¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
+			
+			JOptionPane.showMessageDialog(this,"Este descuento es valido desde"+"9/12/21"+"hasta"+"13/12/21","¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
+
 		}
 		
 		
