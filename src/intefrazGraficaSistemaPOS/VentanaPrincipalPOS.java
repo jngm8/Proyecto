@@ -334,9 +334,10 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				else 
 				{
 					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio());
-					JOptionPane.showInputDialog(this,"Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
 				}
-				int cantidad = Integer.parseInt(" ");
+				
+				int cantidad = 	Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")"));
+
 				if (cantidad > 0 && cantidad < Producto.getCantidad()) 
 				{
 					modelo.venderProducto(codigoDeBarras, cantidad);

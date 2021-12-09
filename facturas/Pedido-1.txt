@@ -1,9 +1,0 @@
-Id: No registrado
-Cliente: No registrado
-
-Productos:
-
-
-Precio Neto: $0.0
-IVA: $0.0
-Precio Total: $0.0
