@@ -392,6 +392,9 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		else if (comando.equals(TERMINAR))
 			
 		{
+			
+			
+			
 			modelo.terminarVenta(cliente);
 			JOptionPane.showMessageDialog(this,"Gracias por venir, feliz dia","¡FELIZ NAVIDAD!",JOptionPane.INFORMATION_MESSAGE);
 		}

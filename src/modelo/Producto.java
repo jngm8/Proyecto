@@ -201,21 +201,6 @@ public abstract class Producto implements Serializable
 		
 		double descuento = 0;
 		
-		if (getNombre().equals("Pan Fresco"))
-		{
-			descuento += (getPrecio()*30)/100;
-		}
-		
-		else if (getNombre().equals("Coca Cola"))
-		{
-			descuento += (getPrecio()*50)/100;
-		}
-		
-		else if (getNombre().equals("Carne de cerdo"))
-		{
-			descuento += (getPrecio()*25)/100;
-		}
-		else if (getNombre().equals("Balones Jabulani"))
 		{
 			descuento += (getPrecio()*40)/100;
 		}
