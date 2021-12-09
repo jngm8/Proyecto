@@ -21,11 +21,14 @@ import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 import controlador.Inventario;
 import controlador.PersistenciaException;
 import intefrazGraficaSistemaPOS.ImagenPOS;
+import intefrazGraficaSistemaPOS.VentanaPrincipalPOS;
 import modelo.Producto;
 
 import java.awt.BorderLayout;
@@ -53,7 +56,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	
 	private Inventario modelo;	
 	
-	private Producto producto;
+	private  Producto producto;
 	// labels de consultar informacion inventario
 	
 	private JLabel lblDisponible;
@@ -68,10 +71,26 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	private JButton btnPorID;
 	
 	private JButton btnVencido;
+
+	
+	// labels info producto
+	
+	private JLabel lblNombre;
+	
+	private JLabel lblCodigoDebarras;
+	
+	private JLabel lblCategoria;
+	
+	private JLabel lblGanancia;
+	
+	private JLabel lblHistorico;
 	
 	// Declara los labels de cosultar desemepeño financiero
 	
-	private JTextField txtDesempenoFinanciero;
+	private JLabel lblUtilidades;
+	
+	private JLabel lblNomProd;
+	
 	
 	// Declara los labels de cosultar información del producto
 	
@@ -84,6 +103,8 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	private final static String VENCIDOS= "ELIMINAR VENCIDOS";
 	
 	private static final long serialVersionUID = 100L;
+	
+	// labels desepeño financiero
 	
 
 	
@@ -117,6 +138,12 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		} 
 		catch (PersistenciaException e) 
 		{
+			e.printStackTrace();
+		}
+		
+		try {
+			salirAPP();
+		} catch (PersistenciaException e) {
 			e.printStackTrace();
 		}
 	}
@@ -236,19 +263,19 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			panelDesempeno= new JPanel();
 			panelDesempeno.setLayout(new GridLayout(4,1));
 			JDialog dialog = new JDialog();
-			dialog.setSize(300,300);
+			dialog.setSize(200,250);
 			dialog.setLocationRelativeTo(this);
 			dialog.add(panelDesempeno);
 			dialog.setVisible(true);
 			
-			txtDesempenoFinanciero= new JTextField();
-			txtDesempenoFinanciero.setEditable(false);
-			panelDesempeno.add(txtDesempenoFinanciero);
-			add(panelDesempeno);
+			Color colores = new Color(155, 219,184);
+			panelDesempeno.setBackground(colores);
 			
+			lblNomProd= new JLabel("Ganancia Neta: " + prod.gananciaNeta(prod.getCantidad()));
+			panelDesempeno.add(lblNomProd);
 			
-			
-
+			lblUtilidades= new JLabel("Utilidades: " + prod.gananciaNeta(prod.getCantidad()));
+			panelDesempeno.add(lblUtilidades);	
 			
 		}
 		else 
@@ -268,11 +295,25 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 			panelInfoProducto= new JPanel();
 			panelInfoProducto.setLayout(new GridLayout(4,1));
 			JDialog dialog = new JDialog();
-			dialog.setSize(300,300);
+			dialog.setSize(450,400);
 			dialog.setLocationRelativeTo(this);
 			dialog.add(panelInfoProducto);
 			dialog.setVisible(true);
-						
+			
+			Color colores = new Color(168, 140, 234);
+			panelInfoProducto.setBackground(colores);
+			
+			lblNombre = new JLabel("Nombre del producto: " + produ.getNombre());
+			panelInfoProducto.add(lblNombre);
+			lblCodigoDebarras = new JLabel("Codigo de barras: " + produ.getCodigoDeBarras());
+			panelInfoProducto.add(lblCodigoDebarras);
+			lblCategoria= new JLabel("La categoria es: " + produ.getCategoria());
+			panelInfoProducto.add(lblCategoria);
+			lblGanancia= new JLabel("La ganancia neta es: " + produ.gananciaNeta(produ.getCantidad()));
+			panelInfoProducto.add(lblGanancia);
+			lblHistorico= new JLabel("Historico de ventas es: " + produ.historico(produ.getCantidad()));
+			panelInfoProducto.add(lblHistorico);
+
 			
 		}
 		else 
@@ -281,14 +322,53 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		}
 	}
 	
+	public String modificar()
+	{
+		String nombreProduc = JOptionPane.showInputDialog("Ingrese el nombre del producto ");
+			
+		return nombreProduc;
+	}
+	
 	public void salirAPP() throws PersistenciaException
 	{
-		modelo.salvarInventario();
-		JOptionPane.showMessageDialog(this,"Los datos han sido guardados","Mensaje de guardado",JOptionPane.YES_NO_CANCEL_OPTION);
+		try 
+		
+		{
+			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			addWindowListener(new WindowAdapter()
+			{
+				public void windowClosing(WindowEvent e)
+			{
+				confirmarSalida();
+			}
+			});
+		
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 
+		}
 
 	}
-
+	
+	public void confirmarSalida() 
+	{
+		int valor = JOptionPane.showConfirmDialog(this,"Los datos han sido guardados,¿Quiere salir de la APP?","Mensaje de guardado",JOptionPane.YES_NO_CANCEL_OPTION);
+		
+		if ( valor == JOptionPane.YES_OPTION)
+		{
+			JOptionPane.showMessageDialog(this,"Gracias por manejar el inventario, Feliz Navidad!","Mensaje de error",JOptionPane.INFORMATION_MESSAGE);
+			try 
+			{
+				modelo.salvarInventario();
+			} catch (PersistenciaException e1) {
+				e1.printStackTrace();
+			}
+			System.exit(0);
+		}
+		
+	}
 	
 	
 	// Main para iniciar la aplicación

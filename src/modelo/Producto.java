@@ -24,9 +24,10 @@ public abstract class Producto implements Serializable
 	private boolean fresco;
 	private boolean refrigerado;
 	private boolean congelado;
+	private String imagen = "";
 	
 	private long codigoDeBarras;
-	
+		
 	
 	
 	private String nombre;
@@ -84,13 +85,47 @@ public abstract class Producto implements Serializable
 			historicoVendidos += cantidad;
 			this.cantidad -= cantidad;
 		}
-	
-
-	
 	}
+	public double gananciaNeta(double cantidad)
+	{
+		double ganancia = 0;
+		
+		ganancia += cantidad*precio;
+				
+		this.cantidad -= cantidad;
+				
+		return ganancia;
+	}
+	
+	public int historico(double cantidad)
+	{
+		
+		int historico = 0;
+		historico += cantidad;
+		return historico;
+	}
+	
 	
 	public void sumarTotalProveedor(double precioPagoProveedor, double cantidad) {
 		totalPagadoAlProveedor += precioPagoProveedor*cantidad;
+	}
+	
+	public double utilidades(double precioPagoProveedor, double cantidad)
+	{
+		totalPagadoAlProveedor += precioPagoProveedor*cantidad;
+		
+		double resultado = gananciaNeta - totalPagadoAlProveedor;
+		
+		return resultado;
+	}
+	
+	public double gananciaPromedio(double cantidad,double precioPagoProveedor, double cantidades)
+	{
+		double resultado = 0;
+		
+		resultado = utilidades(precioPagoProveedor, cantidades)/cantidad;
+		
+		return resultado;
 	}
 	
 	public boolean isFresco() {
@@ -100,6 +135,7 @@ public abstract class Producto implements Serializable
 	public boolean isEmpacado() {
 		return empacado;
 	}
+	
 
 	public boolean isRefrigerado() {
 		return refrigerado;
@@ -141,7 +177,7 @@ public abstract class Producto implements Serializable
 	public String getCategoria() {
 		return categoria;
 	}
-
+	
 	public ArrayList<Lote> getLotes() {
 		return lotes;
 	}
