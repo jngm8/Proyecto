@@ -425,7 +425,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		if ( valor == JOptionPane.YES_OPTION)
 		{
-			JOptionPane.showMessageDialog(this,"Gracias venir, pronto regreso al supermercado y Feliz Navidad!","Mensaje de Salida",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this,"Gracias por venir, pronto regreso al supermercado y Feliz Navidad!","¡FELIZ NAVIDAD!",JOptionPane.INFORMATION_MESSAGE);
 			try {
 				modelo.salvarInventario();
 			} catch (PersistenciaException e) {
