@@ -39,7 +39,7 @@ public class Factura implements Serializable
 	}
 	
 	
-	public void generarFactura(Cliente cliente, int numFactura) 
+	public void generarFactura(Cliente cliente, int numFactura,int puntosRedimidos) 
 	{
 		String Path="./facturas/Pedido-" + numFactura + ".txt";
 		File Factura =new File(Path);

@@ -1,0 +1,12 @@
+Id: No registrado
+Cliente: No registrado
+-----------------------------------------------
+
+PRODUCTOS:
+Pan Fresco		4000.0x5
+			20000.0
+
+
+Precio Neto: $20000.0
+IVA: $3800.0
+Precio Total: $23800.0

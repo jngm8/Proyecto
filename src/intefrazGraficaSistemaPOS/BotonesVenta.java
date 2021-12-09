@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import controlador.Inventario;
 import interfazGraficaSistemaEncargado.VentanaPrincipalE;
 import modelo.Cliente;
 
@@ -146,11 +147,11 @@ public class BotonesVenta extends JPanel implements ActionListener
 	}
 
 
-	public void refrescar (Cliente cliente)
+	public void refrescar (Cliente cliente, Inventario modelo)
 	{
 		txtNombre.setText(cliente.getNombre());
 		txtCedula.setText(String.valueOf(cliente.getCedula()));
-		txtPuntos.setText(String.valueOf(cliente.getAcumuladoPuntos()));
+		txtPuntos.setText(String.valueOf(modelo.getPuntosCliente(cliente)));
 		txtEdad.setText(String.valueOf(cliente.getEdad()));
 		txtSexo.setText(cliente.getSexo());
 		txtEstado.setText(cliente.getEstadoCivil());

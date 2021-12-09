@@ -52,7 +52,16 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	
 	private JPanel panelCliente;
 	
+	private JPanel panelTerminarVenta;
 	
+	
+	// Labels terminar venta
+	
+	private JLabel lblValorCompra;
+	
+	private JLabel lblPuntosAcumulados;
+	
+	private JLabel lblClientes;
 	// Botone venta incluye todo
 	
 	private JPanel panelVenta;
@@ -68,6 +77,12 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	private JButton btnCombos;
 	
 	private JButton btnMultiplicados;
+	
+	// Botón de puntos
+	
+	private JButton btnRedimirPuntos;
+	
+	private JButton btnTerminar;
 	
 	// Iconos
 	
@@ -88,6 +103,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	private final static String REGALOS = "REGALOS";
 	private final static String COMBOS = "COMBOS";
 	private final static String MULTIPLICADOS = "MULTIPLICADOS";
+	private final static String SIGUIENTE = "SIGUIENTE";
+	private final static String TERMINARV = "TERMINARV";
 	private final static String TERMINAR= "TERMINARVENTA";
 	
 	
@@ -130,6 +147,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		} catch (PersistenciaException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void Inicioventa()
@@ -141,9 +159,10 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		{
 
 			long registrado = Long.parseLong(JOptionPane.showInputDialog("Ingrese su numero de cedula"));
-			Cliente numeroCliente = modelo.getCliente(registrado);
 			
-			if (numeroCliente != null) 
+			cliente = modelo.getCliente(registrado);
+			
+			if (cliente != null) 
 			{	
 				venta(cliente);	
 			}
@@ -213,7 +232,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		Cliente = modelo.getCliente(cedula);
 		if (Cliente != null) 
 		{
-			panelDerecha.refrescar(Cliente);
+			panelDerecha.refrescar(Cliente,modelo);
 		}
 		
 
@@ -300,9 +319,9 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		if (comando.equals(AGREGAR)) 
 		{
-			long codigoDeBarras = Long.parseLong(JOptionPane.showInputDialog("Ingrese el codigo de barras del producto"));
-			boolean existeProducto = modelo.verificarProducto(codigoDeBarras);
-			Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
+			String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto");
+			boolean existeProducto = modelo.verificarProductoNombre(nombre);
+			Producto Producto = modelo.getProductoByName(nombre);
 			if (existeProducto) 
 			{
 				if (Producto.getNombre().equals("Coca Cola"))
@@ -331,7 +350,6 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				if (Producto.getPeso() == 1.0) 
 				{
 					JOptionPane.showMessageDialog(this,"Precio: " + Producto.getPrecio() + "/" + Producto.getUnidadDeMedida());
-					JOptionPane.showInputDialog(this,"Ingrese cuantos " + Producto.getUnidadDeMedida() + " desea del producto (disponibles: " + Producto.getCantidad() + Producto.getUnidadDeMedida() + ")");
 				}
 				else 
 				{
@@ -392,21 +410,107 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		else if (comando.equals(TERMINAR))
 			
 		{
+			panelTerminarVenta= new JPanel();
+			panelTerminarVenta.setLayout(new GridLayout(4,1));
+			JDialog dialogVenta = new JDialog();
+			dialogVenta.setSize(300,250);
+			dialogVenta.setLocationRelativeTo(this);
+			dialogVenta.add(panelTerminarVenta);
+			dialogVenta.setVisible(true);
+			
+			Color colores = new Color(174, 255, 115);
+			panelTerminarVenta.setBackground(colores);
 			
 			
 			
-			modelo.terminarVenta(cliente);
-			JOptionPane.showMessageDialog(this,"Gracias por venir, feliz dia","¡FELIZ NAVIDAD!",JOptionPane.INFORMATION_MESSAGE);
-		}
-		
-		
-		else
-		{
-			JOptionPane.showMessageDialog(this,"\nPor favor seleccione una opción válida.\n");
-		}
-			
-	}
+			if (cliente != null)
+			{
+				lblValorCompra= new JLabel("Valor total de la compra: " + modelo.getTotalFactura());
+				panelTerminarVenta.add(lblValorCompra);
+				lblClientes = new JLabel("Los puntos acumulados por el cliente son: " + modelo.getPuntosCliente(cliente));
+				panelTerminarVenta.add(lblClientes);
+								
+				if (modelo.getPuntosCliente(cliente) > 0)
+				{
+					
+					btnRedimirPuntos = new JButton("Siguiente");
+					btnRedimirPuntos.setBackground(new java.awt.Color(143,171,237));
+					btnRedimirPuntos.setForeground(Color.BLACK);
+					btnRedimirPuntos.addActionListener(this);
+					btnRedimirPuntos.setActionCommand(SIGUIENTE);
+					btnRedimirPuntos.setFont(new Font("cooper black",3,20));
+					panelTerminarVenta.add(btnRedimirPuntos,BorderLayout.WEST);
+				}
+				
+				else
+				{
+					btnTerminar = new JButton("TERMINAR VENTA");
+					btnTerminar.setBackground(new java.awt.Color(143,171,237));
+					btnTerminar.setForeground(Color.BLACK);
+					btnTerminar.addActionListener(this);
+					btnTerminar.setActionCommand(TERMINARV);
+					btnTerminar.setFont(new Font("cooper black",3,20));
+					panelTerminarVenta.add(btnTerminar,BorderLayout.WEST);
+					modelo.terminarVenta(cliente,0);
 
+				}
+				
+			}
+			
+			else
+				
+			{
+
+				lblValorCompra= new JLabel("Valor total de la compra: " + modelo.getTotalFactura());
+				panelTerminarVenta.add(lblValorCompra);
+				
+				btnTerminar = new JButton("TERMINAR VENTA");
+				btnTerminar.setBackground(new java.awt.Color(143,171,237));
+				btnTerminar.setForeground(Color.BLACK);
+				btnTerminar.addActionListener(this);
+				btnTerminar.setActionCommand(TERMINARV);
+				btnTerminar.setFont(new Font("cooper black",3,20));
+				panelTerminarVenta.add(btnTerminar,BorderLayout.WEST);
+			}
+
+		}
+		
+		if (comando.equals(SIGUIENTE))
+		{
+			int rta = JOptionPane.showConfirmDialog(this,"QUIERE REDIMIR LOS PUNTOS ACUMULADOS","REDIMIR PUNTOS",JOptionPane.YES_NO_CANCEL_OPTION);
+			
+			if ( rta == JOptionPane.YES_OPTION)
+			{
+				int valor = Integer.parseInt(JOptionPane.showInputDialog(this,"Cuanto puntos quiere redimir"));
+				
+				cliente.restarPuntos(valor);
+				
+				modelo.terminarVenta(cliente,valor);
+			}
+			
+		}
+			
+		else if (comando.equals(TERMINARV))
+		{
+			confirmarSalida1();
+		}
+		
+		
+		
+
+	}
+	
+	public void confirmarSalida1() 
+	{		
+		
+		
+		modelo.terminarVenta(cliente,0);
+		dialogVenta.dispose();
+		
+		
+	}
+	
+	//Salida aplicacion grande
 	public void salirAPP() throws PersistenciaException
 	{
 		try 
@@ -417,7 +521,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			{
 				public void windowClosing(WindowEvent e)
 			{
-				confirmarSalida();
+				confirmarSalidaPrincipal();
 
 			}
 			});
@@ -431,7 +535,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 
 	}
 	
-	public void confirmarSalida() 
+	public void confirmarSalidaPrincipal() 
 	{
 		int valor = JOptionPane.showConfirmDialog(this,"Los datos han sido guardados,¿Quiere salir de la APP?","Mensaje de guardado",JOptionPane.YES_NO_CANCEL_OPTION);
 		

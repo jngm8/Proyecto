@@ -460,6 +460,40 @@ public class Inventario
 		return false;
 	}
 	
+	public boolean verificarProductoNombre(String nombre) {
+		if (CodigosProductos.containsKey(nombre))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Metodos de Factura
+	 * @throws PersistenciaException
+	 */
+	
+	public int getTotalFactura()
+	{
+		return (int) factura.getValorTotalCompra();
+	}
+	
+	public int getPuntosCompra()
+	{
+		int puntos = factura.getPuntosCompra();
+		
+		return puntos;
+	}
+	
+	public int getPuntosCliente(Cliente cliente)
+	{
+		int puntosCliente = cliente.getAcumuladoPuntos();
+		
+		return puntosCliente;
+	}
+	
+	
+	
 	/*
 	 *  Metodos para guardar el inventario - PERSISTENCIA
 	 *  +salvarInventario(): void
@@ -539,11 +573,11 @@ public class Inventario
 		factura.agregarProducto(registroFactura, Producto.getPrecio()*cantidad);
 	}
 
-	public void terminarVenta(Cliente cliente) 
+	public void terminarVenta(Cliente cliente, int puntosRedimidos) 
 	{
 		if (cliente != null) 
 		{
-			factura.generarFactura(cliente, numeroFacturas);
+			factura.generarFactura(cliente, numeroFacturas,puntosRedimidos);
 			numeroFacturas += 1;
 		}
 		else 
@@ -551,6 +585,8 @@ public class Inventario
 			factura.generarFacturaSinCliente(numeroFacturas);
 			numeroFacturas += 1;
 		}
+		
+		
 	}
 }
 	

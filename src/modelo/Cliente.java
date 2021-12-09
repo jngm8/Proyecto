@@ -59,7 +59,12 @@ public class Cliente implements Serializable
 	{
 		this.acumuladoPuntos = acumuladoPuntos;
 	}
-
+	
+	
+	public void restarPuntos(int resta)
+	{
+		acumuladoPuntos -= resta;
+	}
 	public int getEdad() 
 	{
 		return edad;

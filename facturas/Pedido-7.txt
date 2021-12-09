@@ -1,0 +1,12 @@
+Id: No registrado
+Cliente: No registrado
+-----------------------------------------------
+
+PRODUCTOS:
+Carne de cerdo		13000.0x10
+			130000.0
+
+
+Precio Neto: $130000.0
+IVA: $24700.0
+Precio Total: $154700.0
