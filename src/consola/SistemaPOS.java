@@ -165,18 +165,18 @@ public class SistemaPOS
 					long codigoDeBarras = Long.parseLong(input("Ingrese el codigo de barras del producto"));
 					boolean existeProducto = Inventario.verificarProducto(codigoDeBarras);
 					if (existeProducto) {
-						Producto Producto = Inventario.getProductoByCodigoDeBarras(codigoDeBarras);
-						System.out.println("Producto: " + Producto.getNombre());
-						if (Producto.getPeso() == 1.0) {
-							System.out.println("Precio: " + Producto.getPrecio() + "/" + Producto.getUnidadDeMedida());
-							System.out.print("Ingrese cuantos " + Producto.getUnidadDeMedida() + " desea del producto (disponibles: " + Producto.getCantidad() + Producto.getUnidadDeMedida() + ")");
+						Producto producto = Inventario.getProductoByCodigoDeBarras(codigoDeBarras);
+						System.out.println("Producto: " + producto.getNombre());
+						if (producto.getPeso() == 1.0) {
+							System.out.println("Precio: " + producto.getPrecio() + "/" + producto.getUnidadDeMedida());
+							System.out.print("Ingrese cuantos " + producto.getUnidadDeMedida() + " desea del producto (disponibles: " + producto.getCantidad() + producto.getUnidadDeMedida() + ")");
 						}
 						else {
-							System.out.println("Precio: " + Producto.getPrecio());
-							System.out.print("Ingrese cuantas unidades desea del producto (disponibles: " + (int)Producto.getCantidad() + ")");
+							System.out.println("Precio: " + producto.getPrecio());
+							System.out.print("Ingrese cuantas unidades desea del producto (disponibles: " + (int)producto.getCantidad() + ")");
 						}
 						int cantidad = Integer.parseInt(input(""));
-						if (cantidad > 0 && cantidad <= Producto.getCantidad()) {
+						if (cantidad > 0 && cantidad <= producto.getCantidad()) {
 							Inventario.venderProducto(codigoDeBarras, cantidad);
 						}
 						else {
@@ -188,6 +188,8 @@ public class SistemaPOS
 					}
 				}
 				else if (opcion_seleccionada == 2){
+					
+					
 					Inventario.terminarVenta(Cliente);
 					continuar = false;
 				}

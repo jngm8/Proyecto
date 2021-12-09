@@ -10,9 +10,6 @@ import java.util.Set;
 
 public class Cliente implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 100L;
 	private String nombre;
 	private long cedula;
@@ -21,10 +18,6 @@ public class Cliente implements Serializable
 	private String sexo;
 	private String estadoCivil;
 	private String situacionLaboral;
-	
-	
-	
-	
 	
 	public Cliente(String nombre, 
 				   long cedula, 
@@ -41,11 +34,14 @@ public class Cliente implements Serializable
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
 		this.situacionLaboral = situacionLaboral;
-		
-		
 	}
 	
-	public String getNombre() {
+	/*
+	 *  Getters
+	 */
+	
+	public String getNombre() 
+	{
 		return nombre;
 	}
 
@@ -83,6 +79,10 @@ public class Cliente implements Serializable
 	{
 		return situacionLaboral;
 	}
+	
+	/*
+	 *  Metodo para imprimir en consola
+	 */
 	
 	public void PrintInfo()
 	{

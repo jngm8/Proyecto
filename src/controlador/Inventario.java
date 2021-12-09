@@ -30,7 +30,7 @@ public class Inventario
 	private HashMap<Integer, Lote> Lotes;	
 	private HashMap<String, ArrayList<Long>> Categorias;
 	private HashMap<Long, Cliente> Clientes;
-	private Factura Factura;
+	private Factura factura;
 	private int numeroFacturas;
 	
 	
@@ -46,6 +46,12 @@ public class Inventario
     private String archivoFacturas = "./persistencia/Facturas";
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+	/*		CONSTRUCTOR
+	 * 
+	 * CARGAR INVENTARIO - RECUPERAR INFORMACION PERSISTENCIA
+	 * 
+	 */
 	
 	public Inventario() throws controlador.PersistenciaException
 	{
@@ -103,6 +109,14 @@ public class Inventario
         }
 		
 	}
+	
+	/* 
+	 *  Metodos para cargar los lotes:
+	 *  +cargarLote(): void
+	 *  -verificarLote(): boolean
+	 *  -agregarProductoACategoria(): void
+	 *  -agregarProducto(): void
+	 */
 	
 	public void cargarLote(File archivoMenu)
 	{
@@ -325,6 +339,21 @@ public class Inventario
 		
 	}
 	
+	private boolean intToBoolean(int intValue) {
+		boolean boolValue = false;
+		if (intValue >= 1) {
+            boolValue = true;
+        }
+		return boolValue;
+	}
+	
+	/* 
+	 *  Metodos para ver el tamaño de las estructuras de datos:
+	 *  +sizeProductos(): int
+	 *  +sizeLotes(): int
+	 *  +sizeCategorias(): int
+	 *  +sizeClientes(): int
+	 */
 	
 	public int sizeProductos() {
 		return Productos.size();
@@ -341,6 +370,12 @@ public class Inventario
 	public int sizeClientes() {
 		return Clientes.size();
 	}
+	
+	/*
+	 *  Metodos relacionados con LOTE
+	 *  +eliminarLote(): String
+	 *  +eliminarLotesVencidos(): String
+	 */
 	
 	public String eliminarLote(int idLote) {
 		if (Lotes.containsKey(idLote)) {
@@ -373,6 +408,13 @@ public class Inventario
 		return "Se eliminaron " + totalEliminados + " lotes vencidos despues de la fecha " + sdf.format(fechaVencimiento.getTime());
 	}
 	
+	/*
+	 *  Metodos relacionados con CLIENTE
+	 *  +agregarCliente(): void
+	 *  +containsCliente(): boolean
+	 *  +getCliente(): Cliente
+	 */
+	
 	public void agregarCliente(Cliente Cliente) {
 		Clientes.put(Cliente.getCedula(), Cliente);
 	}
@@ -380,6 +422,21 @@ public class Inventario
 	public boolean containsCliente(long cedula) {
 		 return Clientes.containsKey(cedula);
 	}
+	
+	public Cliente getCliente(long cedula) {
+		Cliente Cliente = null;
+		if (Clientes.containsKey(cedula)) {
+			Cliente = Clientes.get(cedula);
+		}
+		return Cliente;
+	}
+	
+	/*
+	 *  Metodos relacionados con PRODUCTO
+	 *  +getProductoByName(): Producto
+	 *  +getProductoByCodigoDeBarras(): Producto
+	 *  +verificarProducto(): boolean
+	 */
 	
 	public Producto getProductoByName(String nombreProducto) {
 		Producto Producto = null;
@@ -395,14 +452,19 @@ public class Inventario
 		Producto = Productos.get(codigoDeBarras);
 		return Producto;
 	}
-	
-	public Cliente getCliente(long cedula) {
-		Cliente Cliente = null;
-		if (Clientes.containsKey(cedula)) {
-			Cliente = Clientes.get(cedula);
+
+	public boolean verificarProducto(long codigoDeBarras) {
+		if (Productos.containsKey(codigoDeBarras)){
+			return true;
 		}
-		return Cliente;
+		return false;
 	}
+	
+	/*
+	 *  Metodos para guardar el inventario - PERSISTENCIA
+	 *  +salvarInventario(): void
+	 *  +registrarError(): void
+	 */
 	
 	public void salvarInventario() throws PersistenciaException{
 		try
@@ -459,44 +521,36 @@ public class Inventario
         }
     }
 	
-	private boolean intToBoolean(int intValue) {
-		boolean boolValue = false;
-		if (intValue >= 1) {
-            boolValue = true;
-        }
-		return boolValue;
-	}
+	
+	/*
+	 *  Metodos para una venta
+	 */
 
 	public void iniciarVenta() {
 		//	Crea una nueva instancia de la factura para empezar la venta
-		Factura = new Factura();
+		factura = new Factura();
 	}
 	
-	public boolean verificarProducto(long codigoDeBarras) {
-		if (Productos.containsKey(codigoDeBarras)){
-			return true;
-		}
-		return false;
-	}
-
+	
 	public void venderProducto(long codigoDeBarras, int cantidad) {
 		Producto Producto = Productos.get(codigoDeBarras);
 		Producto.vender(cantidad);
-		Factura.agregarProducto(Producto, cantidad);
+		String registroFactura = Producto.getNombre() + "\t\t" + Producto.getPrecio() + "x" + cantidad + "\n\t\t\t" + Producto.getPrecio()*cantidad + "\n";
+		factura.agregarProducto(registroFactura, Producto.getPrecio()*cantidad);
 	}
 
-	public void terminarVenta(Cliente Cliente) {
-		if (Cliente != null) {
-			Factura.generarFactura(Cliente, numeroFacturas);
-			Factura.sumarPuntos(Cliente);
+	public void terminarVenta(Cliente cliente) 
+	{
+		if (cliente != null) 
+		{
+			factura.generarFactura(cliente, numeroFacturas);
 			numeroFacturas += 1;
 		}
-		else {
-			Factura.generarFacturaSinCliente(numeroFacturas);
+		else 
+		{
+			factura.generarFacturaSinCliente(numeroFacturas);
 			numeroFacturas += 1;
-			
 		}
-		
 	}
 }
 	
