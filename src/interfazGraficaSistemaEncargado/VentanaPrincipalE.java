@@ -358,7 +358,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		
 		if ( valor == JOptionPane.YES_OPTION)
 		{
-			JOptionPane.showMessageDialog(this,"Gracias por manejar el inventario, hasta luego!","Mensaje de error",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this,"Gracias por manejar el inventario, Feliz Navidad!","Mensaje de error",JOptionPane.INFORMATION_MESSAGE);
 			try 
 			{
 				modelo.salvarInventario();

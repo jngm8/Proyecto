@@ -20,7 +20,9 @@ import modelo.Producto;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -57,6 +59,14 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	
 	private JButton btnTerminarVenta;
 	
+	private JButton btnDescuentos;
+	
+	private JButton btnRegalos;
+	
+	private JButton btnCombos;
+	
+	private JButton btnMultiplicados;
+	
 	// Iconos
 	
 	Icon coca;
@@ -72,7 +82,12 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
 	private final static String AGREGAR = "AGREGAR";
+	private final static String DESCUENTOS = "DESCUENTOS";
+	private final static String REGALOS = "REGALOS";
+	private final static String COMBOS = "COMBOS";
+	private final static String MULTIPLICADOS = "MULTIPLICADOS";
 	private final static String TERMINAR= "TERMINARVENTA";
+	
 	
 	public VentanaPrincipalPOS()
 	
@@ -211,26 +226,60 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		modelo.iniciarVenta();
 
 		panelVenta= new JPanel();
-		panelVenta.setLayout(new GridLayout(2,1));
+		panelVenta.setLayout(new GridLayout(2,3));
 		JDialog dialogo = new JDialog();
-		dialogo.setSize(300,200);
+		dialogo.setSize(700,600);
 		dialogo.setLocationRelativeTo(this);
 		dialogo.add(panelVenta);
 		dialogo.setVisible(true);
 		
-		btnAgregarProducto = new JButton("AGREGAR UN PRODUCTO");
-		btnAgregarProducto.setBackground(new java.awt.Color(143,171,237));
-		btnAgregarProducto.setForeground(Color.BLACK);
+		btnAgregarProducto = new JButton();
+		btnAgregarProducto.setBounds(0,0,275,275);
+		ImageIcon agregar = new ImageIcon("./data/chulo.png");
+		btnAgregarProducto.setIcon(new ImageIcon(agregar.getImage().getScaledInstance(btnAgregarProducto.getWidth(),btnAgregarProducto.getHeight(), Image.SCALE_DEFAULT)));
 		btnAgregarProducto.addActionListener(this);
 		btnAgregarProducto.setActionCommand(AGREGAR);
+		btnAgregarProducto.setFont(new Font("cooper black",3,20));
 		panelVenta.add(btnAgregarProducto);
 		
+		btnDescuentos = new JButton();
+		btnDescuentos.setBounds(0,0,300,300);
+		ImageIcon descuento = new ImageIcon("./data/descuentos.png");
+		btnDescuentos.setIcon(new ImageIcon(descuento.getImage().getScaledInstance(btnDescuentos.getWidth(),btnDescuentos.getHeight(), Image.SCALE_DEFAULT)));
+		btnDescuentos.addActionListener(this);
+		btnDescuentos.setActionCommand(DESCUENTOS);
+		panelVenta.add(btnDescuentos);
+		
+		btnRegalos= new JButton();
+		btnRegalos.setBounds(0,0,300,300);
+		ImageIcon regalo = new ImageIcon("./data/regalos.png");
+		btnRegalos.setIcon(new ImageIcon(regalo.getImage().getScaledInstance(btnRegalos.getWidth(),btnRegalos.getHeight(), Image.SCALE_DEFAULT)));
+		btnRegalos.addActionListener(this);
+		btnRegalos.setActionCommand(REGALOS);
+		panelVenta.add(btnRegalos);
+		
+		btnCombos = new JButton();
+		btnCombos.setBounds(0,0,300,300);
+		ImageIcon combo = new ImageIcon("./data/combo.jpg");
+		btnCombos.setIcon(new ImageIcon(combo.getImage().getScaledInstance(btnCombos.getWidth(),btnCombos.getHeight(), Image.SCALE_DEFAULT)));
+		btnCombos.addActionListener(this);
+		btnCombos.setActionCommand(COMBOS);
+		panelVenta.add(btnCombos);
+		
+		btnMultiplicados= new JButton("PUNTOS MULTIPLICADOS");
+		btnMultiplicados.setBounds(0,0,300,300);
+		ImageIcon puntos = new ImageIcon("./data/puntos.png");
+		btnMultiplicados.setIcon(new ImageIcon(puntos.getImage().getScaledInstance(btnMultiplicados.getWidth(),btnMultiplicados.getHeight(), Image.SCALE_DEFAULT)));
+		btnMultiplicados.addActionListener(this);
+		btnMultiplicados.setActionCommand(MULTIPLICADOS);
+		panelVenta.add(btnMultiplicados);
 		
 		btnTerminarVenta = new JButton("TERMINAR VENTA");
 		btnTerminarVenta.setBackground(new java.awt.Color(143,171,237));
 		btnTerminarVenta.setForeground(Color.BLACK);
 		btnTerminarVenta.addActionListener(this);
 		btnTerminarVenta.setActionCommand(TERMINAR);
+		btnTerminarVenta.setFont(new Font("cooper black",3,15));
 		panelVenta.add(btnTerminarVenta);
 				
 	
@@ -242,9 +291,6 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		String comando = e.getActionCommand();
-		long codigoDeBarras = Long.parseLong(JOptionPane.showInputDialog("Ingrese el codigo de barras del producto"));
-		boolean existeProducto = modelo.verificarProducto(codigoDeBarras);
-		Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
 		coca = new ImageIcon("./data/coca.jpg");
 		PanFresco = new ImageIcon("./data/pan.jpg");
 		cerdo = new ImageIcon("./data/cerdo.jpg");
@@ -252,6 +298,9 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		if (comando.equals(AGREGAR)) 
 		{
+			long codigoDeBarras = Long.parseLong(JOptionPane.showInputDialog("Ingrese el codigo de barras del producto"));
+			boolean existeProducto = modelo.verificarProducto(codigoDeBarras);
+			Producto Producto = modelo.getProductoByCodigoDeBarras(codigoDeBarras);
 			if (existeProducto) 
 			{
 				if (Producto.getNombre().equals("Coca Cola"))
@@ -303,14 +352,41 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			}
 		}
 
+		else if (comando.equals(DESCUENTOS))
+			
+		{
+			JOptionPane.showMessageDialog(this,"OLA","¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		
+		else if (comando.equals(REGALOS))
+			
+		{
+			JOptionPane.showMessageDialog(this,"COMO","¡REGALOS!",JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		
+		else if (comando.equals(COMBOS))
+			
+		{
+			JOptionPane.showMessageDialog(this," ESTAS","¡COMBOS!",JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		
+		else if (comando.equals(MULTIPLICADOS))
+			
+		{
+			JOptionPane.showMessageDialog(this,"TE","¡PUNTOS MULTIPLICADOS!",JOptionPane.INFORMATION_MESSAGE);
+		}
 		
 		else if (comando.equals(TERMINAR))
-		
+			
 		{
 			modelo.terminarVenta(cliente);
-			JOptionPane.showMessageDialog(this,"Gracias por venir, feliz dia","Hasta luego",JOptionPane.INFORMATION_MESSAGE);
-
+			JOptionPane.showMessageDialog(this,"Gracias por venir, feliz dia","¡FELIZ NAVIDAD!",JOptionPane.INFORMATION_MESSAGE);
 		}
+		
+		
 		else
 		{
 			JOptionPane.showMessageDialog(this,"\nPor favor seleccione una opción válida.\n");
@@ -348,7 +424,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		if ( valor == JOptionPane.YES_OPTION)
 		{
-			JOptionPane.showMessageDialog(this,"Gracias venir, pronto regreso al supermercado!","Mensaje de Salida",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this,"Gracias venir, pronto regreso al supermercado y Feliz Navidad!","Mensaje de Salida",JOptionPane.INFORMATION_MESSAGE);
 			try {
 				modelo.salvarInventario();
 			} catch (PersistenciaException e) {
