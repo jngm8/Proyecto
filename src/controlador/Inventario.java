@@ -589,15 +589,29 @@ public class Inventario
 	public void terminarVenta(Cliente cliente, int puntosRedimidos) 
 	{
 		if (cliente != null) 
-		{
-			factura.generarFactura(cliente, numeroFacturas,puntosRedimidos);
-			numeroFacturas += 1;
+		{			
+			if (puntosRedimidos > 0)
+			{
+				cliente.restarPuntos(puntosRedimidos);
+				cliente.sumarAcumuladoPuntos(factura.getPuntosCompra());
+				factura.generarFactura(cliente, numeroFacturas, puntosRedimidos);
+				numeroFacturas += 1;
+			}
+			
+			else
+			{
+				cliente.sumarAcumuladoPuntos(factura.getPuntosCompra());
+				factura.generarFactura(cliente, numeroFacturas, puntosRedimidos);
+				numeroFacturas += 1;
+			}
 		}
 		else 
 		{
 			factura.generarFacturaSinCliente(numeroFacturas);
 			numeroFacturas += 1;
 		}
+		
+		
 		
 		
 	}

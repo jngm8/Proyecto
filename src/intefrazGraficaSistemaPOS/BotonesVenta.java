@@ -9,11 +9,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.knowm.xchart.BitmapEncoder;
+import org.knowm.xchart.BitmapEncoder.BitmapFormat;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries;
+import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
+import org.knowm.xchart.style.Styler.LegendPosition;
+import org.knowm.xchart.style.markers.SeriesMarkers;
+
 import controlador.Inventario;
 import interfazGraficaSistemaEncargado.VentanaPrincipalE;
 import modelo.Cliente;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -157,10 +169,8 @@ public class BotonesVenta extends JPanel implements ActionListener
 		txtEstado.setText(cliente.getEstadoCivil());
 		txtLaboral.setText(cliente.getSituacionLaboral());
 
-		
-
 	}
-
+	
 	
 	// Metodos del action listener para que cuando se presione el botón salga un mensaje
 	

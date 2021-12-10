@@ -11,6 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
 
 import controlador.Inventario;
 import controlador.PersistenciaException;
@@ -27,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 
 public class VentanaPrincipalPOS extends JFrame implements ActionListener
 {
@@ -53,6 +59,8 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	private JPanel panelCliente;
 	
 	private JPanel panelTerminarVenta;
+	
+	private JPanel panelGrafica;
 	
 	
 	// Labels terminar venta
@@ -84,6 +92,11 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	
 	private JButton btnTerminar;
 	
+	// Graficos con JFreeChart
+	
+	private JTextField txt1;
+	private JTextField txt2;
+	private JTextField txt3;
 	// Iconos
 	
 	Icon coca;
@@ -223,7 +236,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		}
 	}
 	
-	public void ConsultarInfoPuntos()
+	public void ConsultarInfoPuntos() throws IOException
 	
 	{
 		Cliente Cliente;
@@ -440,7 +453,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 					btnRedimirPuntos.addActionListener(this);
 					btnRedimirPuntos.setActionCommand(SIGUIENTE);
 					btnRedimirPuntos.setFont(new Font("cooper black",3,20));
-					panelTerminarVenta.add(btnRedimirPuntos,BorderLayout.WEST);
+					panelTerminarVenta.add(btnRedimirPuntos,BorderLayout.SOUTH);
 				}
 				
 				else
@@ -451,7 +464,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 					btnTerminar.addActionListener(this);
 					btnTerminar.setActionCommand(TERMINARV);
 					btnTerminar.setFont(new Font("cooper black",3,20));
-					panelTerminarVenta.add(btnTerminar,BorderLayout.WEST);
+					panelTerminarVenta.add(btnTerminar,BorderLayout.SOUTH);
 					modelo.terminarVenta(cliente,0);
 
 				}
@@ -471,7 +484,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				btnTerminar.addActionListener(this);
 				btnTerminar.setActionCommand(TERMINARV);
 				btnTerminar.setFont(new Font("cooper black",3,20));
-				panelTerminarVenta.add(btnTerminar,BorderLayout.WEST);
+				panelTerminarVenta.add(btnTerminar,BorderLayout.SOUTH);
 			}
 
 		}
@@ -487,27 +500,22 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				cliente.restarPuntos(valor);
 				
 				modelo.terminarVenta(cliente,valor);
+				
+				this.setVisible(true);
+
 			}
 			
 		}
 			
 		else if (comando.equals(TERMINARV))
 		{
-			confirmarSalida1();
+			this.setVisible(true);
+			modelo.terminarVenta(cliente,0);
+						
 		}
 		
 		
-		
 
-	}
-	
-	public void confirmarSalida1() 
-	{		
-		
-		
-		modelo.terminarVenta(cliente,0);
-		
-		
 	}
 	
 	//Salida aplicacion grande
