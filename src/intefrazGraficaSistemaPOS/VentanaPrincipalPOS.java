@@ -361,7 +361,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 
 				if (cantidad > 0 && cantidad < Producto.getCantidad()) 
 				{
-					modelo.venderProducto(codigoDeBarras, cantidad);
+					modelo.venderProducto(codigoDeBarras, cantidad);//se hace con el codigo de barras
 				}
 				else 
 				{
