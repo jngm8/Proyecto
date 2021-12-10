@@ -361,7 +361,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 
 				if (cantidad > 0 && cantidad < Producto.getCantidad()) 
 				{
-					modelo.venderProducto(codigoDeBarras, cantidad);
+					modelo.venderProducto(nombre, cantidad);
 				}
 				else 
 				{
@@ -493,7 +493,10 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			
 		else if (comando.equals(TERMINARV))
 		{
-			confirmarSalida1();
+			this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			modelo.terminarVenta(cliente,0);
+			//this.dispose();
+
 		}
 		
 		
@@ -501,6 +504,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 
 	}
 	
+<<<<<<< Updated upstream
 	public void confirmarSalida1() 
 	{		
 		
@@ -509,6 +513,9 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		
 	}
+=======
+
+>>>>>>> Stashed changes
 	
 	//Salida aplicacion grande
 	public void salirAPP() throws PersistenciaException
