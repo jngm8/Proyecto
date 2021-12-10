@@ -24,7 +24,8 @@ public abstract class Producto implements Serializable
 	private boolean fresco;
 	private boolean refrigerado;
 	private boolean congelado;
-	private String imagen = "";
+	private boolean descuento;
+	
 	
 	private long codigoDeBarras;
 		
@@ -33,6 +34,7 @@ public abstract class Producto implements Serializable
 	private String nombre;
 	protected String unidadDeMedida;
 	private String categoria;
+	private String imagen = "";
 	
 	private ArrayList<Lote> lotes;
 	
@@ -78,7 +80,8 @@ public abstract class Producto implements Serializable
 	}
 	
 	public void vender(double cantidad) 
-	{
+	{	
+		// hay que verificar que efectivamente haya unidades disponibles para vender
 		if (cantidad <= this.cantidad) 
 		{
 			gananciaNeta += cantidad*precio;
@@ -196,15 +199,18 @@ public abstract class Producto implements Serializable
 		}
 	}
 	
-	public double descuentos()
+	public void activarDescuento() 
 	{
-		
-		double descuento = 0;
-		
-		{
-			descuento += (getPrecio()*40)/100;
-		}
-		
+		descuento = true;
+	}
+	
+	public void desactivarDescuento() 
+	{
+		descuento = false;
+	}
+	
+	public boolean getDescuento() 
+	{		
 		return descuento;
 	}
 	
@@ -242,7 +248,5 @@ public abstract class Producto implements Serializable
 	//METODOS ABSTRACTOS
 	abstract public double getPrecioPorUnidadDeMedida();
 	abstract public void mostrarInfo();
-	
-	
 	
 }

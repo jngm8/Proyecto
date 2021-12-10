@@ -1,12 +1,26 @@
-Id: No registrado
-Cliente: No registrado
+Id: 1005966025
+Cliente: Daniel
 -----------------------------------------------
 
 PRODUCTOS:
-Balones Jabulani		179000.0x2
-			358000.0
+Coca Cola		2000.0x10
+	Descuento del 50% aplicado:	10000.0
 
+-----------------------------------------------
 
-Precio Neto: $358000.0
-IVA: $68020.0
-Precio Total: $426020.0
+Puntos anteriores: 147
+Puntos redimidos: 100
+Puntos ganados: 10
+Puntos disponibles: 57
+Coca Cola		2000.0x10
+	Descuento del 50% aplicado:	10000.0
+
+-----------------------------------------------
+
+Valor Neto A Pagar: $11500.0
+
+Valor puntos redimidos: $1500
+
+Valor Total Sin IVA: $10000.0
+IVA: $1900.0
+Precio Total: $11900.0

@@ -3,13 +3,13 @@ Cliente: Daniel
 -----------------------------------------------
 
 PRODUCTOS:
-Pan Fresco		4000.0x4
-			16000.0
-Carne de cerdo		13000.0x5
-			65000.0
+Balones Jabulani		179000.0x3
+	Descuento del 30% aplicado:	375900.0
+Coca Cola		2000.0x3
+			6000.0
 
 -----------------------------------------------
 
-Precio Neto: $81000.0
-IVA: $15390.0
-Precio Total: $96390.0
+Precio Neto: $381900.0
+IVA: $72561.0
+Precio Total: $454461.0

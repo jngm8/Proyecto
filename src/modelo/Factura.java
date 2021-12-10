@@ -35,7 +35,11 @@ public class Factura implements Serializable
 	public int getPuntosCompra() 
 	{
 		return (int) (valorTotalCompra/1000);
-		//Cliente.sumarAcumuladoPuntos(puntos);
+	}
+	
+	public void descontarPuntosRedimidos(int puntosRedimidos)
+	{
+		valorTotalCompra -= puntosRedimidos*15;
 	}
 	
 	
@@ -53,7 +57,16 @@ public class Factura implements Serializable
  				   "\nPRODUCTOS:\n";
             facturado += stringProductos + "\n-----------------------------------------------\n";
             
-            facturado += "\nPrecio Neto: $" + valorTotalCompra + "\n";
+            facturado += "\nPuntos anteriores: " + (cliente.getAcumuladoPuntos()+puntosRedimidos-getPuntosCompra()) + "\n";
+            facturado += "Puntos redimidos: " + puntosRedimidos + "\n";
+            facturado += "Puntos ganados: " + getPuntosCompra() + "\n";
+            facturado += "Puntos disponibles: " + cliente.getAcumuladoPuntos() + "\n";
+            
+            facturado += "\n-----------------------------------------------\n";
+            
+            facturado += "\nValor Neto A Pagar: $" + (valorTotalCompra+15*puntosRedimidos) + "\n";
+            facturado += "\nValor puntos redimidos: $" + 15*puntosRedimidos + "\n";
+            facturado += "\nValor Total Sin IVA: $" + (valorTotalCompra) + "\n";
 	 		double iva = valorTotalCompra*0.19;
 	 		facturado += "IVA: $" + iva + "\n";
 	 		double total = valorTotalCompra + iva;

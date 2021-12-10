@@ -166,7 +166,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	public void Inicioventa()
 	{
 		
-		int rta = JOptionPane.showConfirmDialog(this,"¿Se encuentra registrado(Si o No)","Bienvenido",JOptionPane.YES_NO_OPTION);
+		int rta = JOptionPane.showConfirmDialog(this,"¿Se encuentra registrado?","Bienvenido",JOptionPane.YES_NO_OPTION);
 		
 		if (rta == JOptionPane.YES_OPTION)
 		{
@@ -188,16 +188,17 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 
 		else if (rta == JOptionPane.NO_OPTION)
 		{
-			int registrarse = JOptionPane.showConfirmDialog(this,"¿Se encuentra registrado(Si o No)","Bienvenido",JOptionPane.YES_NO_OPTION);
+			int registrarse = JOptionPane.showConfirmDialog(this,"¿Desea registrarse como cliente?","Bienvenido",JOptionPane.YES_NO_OPTION);
 			
 			if (registrarse == JOptionPane.YES_OPTION)
 			{
-				registrarCliente();
+				cliente = registrarCliente();
+				venta(cliente);
 			}
 			
 			else if (registrarse == JOptionPane.NO_OPTION)
 			{
-				JOptionPane.showMessageDialog(this,"Puede hacer la compra sin acumular puntos","Venta Anonima",JOptionPane.CANCEL_OPTION);
+				JOptionPane.showMessageDialog(this,"Puede hacer la compra sin acumular puntos","Venta Cliente No Registrado",JOptionPane.CANCEL_OPTION);
 				
 				//Continua el proceso de venta para agregar un producto de forma anonima
 				venta(cliente);	
@@ -394,7 +395,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 
 			Producto Producto = modelo.getProductoByName(nombre);
 
-			JOptionPane.showMessageDialog(this,"Esta es la promoción para el producto: "+Producto.getNombre()+Producto.descuentos(),"¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
+			//JOptionPane.showMessageDialog(this,"Esta es la promoción para el producto: "+Producto.getNombre()+Producto.descuentos(),"¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
 			
 			JOptionPane.showMessageDialog(this,"Este descuento es valido desde"+"9/12/21"+"hasta"+"13/12/21","¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
 
@@ -491,25 +492,44 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		if (comando.equals(SIGUIENTE))
 		{
-			int rta = JOptionPane.showConfirmDialog(this,"QUIERE REDIMIR LOS PUNTOS ACUMULADOS","REDIMIR PUNTOS",JOptionPane.YES_NO_CANCEL_OPTION);
-			
-			if ( rta == JOptionPane.YES_OPTION)
+			boolean success = false;
+			while (!success) 
 			{
-				int valor = Integer.parseInt(JOptionPane.showInputDialog(this,"Cuanto puntos quiere redimir"));
+				int rta = JOptionPane.showConfirmDialog(this,"¿Quiere redimir puntos que tiene acumulados?","REDIMIR PUNTOS",JOptionPane.YES_NO_CANCEL_OPTION);
 				
-				cliente.restarPuntos(valor);
-				
-				modelo.terminarVenta(cliente,valor);
-				
-				this.setVisible(true);
+				if ( rta == JOptionPane.YES_OPTION)
+				{
+					int valor = Integer.parseInt(JOptionPane.showInputDialog(this,"Cuanto puntos quiere redimir"));
+					
+					if (valor*15 <= modelo.getTotalFactura() && valor <= cliente.getAcumuladoPuntos() && valor > 0)
+					{
+						modelo.terminarVenta(cliente,valor);
+						
+						this.setVisible(true);
+						success = true;
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(this, "El valor ingresado no es válido. Puede que no tenga los puntos suficientes o que los puntos que quiere redimir superan el valor de la compra", "ERROR",JOptionPane.INFORMATION_MESSAGE);
+					}
+						
+					
 
+				}
+				else
+				{
+					modelo.terminarVenta(cliente, 0);
+					this.setVisible(true);
+					success = true;
+				}
 			}
+			
 			
 		}
 			
 		else if (comando.equals(TERMINARV))
 		{
-			this.setVisible(true);
+			this.setVisible(false);
 			modelo.terminarVenta(cliente,0);
 						
 		}
@@ -550,10 +570,12 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		if ( valor == JOptionPane.YES_OPTION)
 		{
 			JOptionPane.showMessageDialog(this,"Gracias por venir, pronto regreso al supermercado y Feliz Navidad!","¡FELIZ NAVIDAD!",JOptionPane.INFORMATION_MESSAGE);
-			try {
+			try 
+			{
 				modelo.salvarInventario();
-			} catch (PersistenciaException e) {
-				// TODO Auto-generated catch block
+			} 
+			catch (PersistenciaException e) 
+			{
 				e.printStackTrace();
 			}
 			System.exit(0);
@@ -570,8 +592,5 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		ventana.setLocationRelativeTo(null);
 		// Hace que se vea la ventana
 		ventana.setVisible(true);
-
 	}
-
-
 }

@@ -57,7 +57,7 @@ public class Cliente implements Serializable
 
 	public void sumarAcumuladoPuntos(int acumuladoPuntos) 
 	{
-		this.acumuladoPuntos = acumuladoPuntos;
+		this.acumuladoPuntos += acumuladoPuntos;
 	}
 	
 	

@@ -1,9 +1,22 @@
-Id: No registrado
-Cliente: No registrado
+Id: 1005966025
+Cliente: Daniel
+-----------------------------------------------
 
-Productos:
+PRODUCTOS:
+Coca Cola		2000.0x5
+	Descuento del 50% aplicado:	5000.0
 
+-----------------------------------------------
 
-Precio Neto: $0.0
-IVA: $0.0
-Precio Total: $0.0
+Puntos anteriores: 81
+Puntos redimidos: 300
+Puntos ganados: 5
+Puntos disponibles: -214
+Coca Cola		2000.0x5
+	Descuento del 50% aplicado:	5000.0
+
+-----------------------------------------------
+
+Precio Neto: $5000.0
+IVA: $950.0
+Precio Total: $5950.0

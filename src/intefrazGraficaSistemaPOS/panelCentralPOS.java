@@ -12,6 +12,13 @@ import javax.swing.border.TitledBorder;
 public class panelCentralPOS extends JPanel
 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	private JLabel lblTitulo;
 
 	

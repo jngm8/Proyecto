@@ -6,6 +6,10 @@ import javax.swing.JPanel;
 
 public class ImagenPOS extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel lblImagen;
 	
 	public ImagenPOS()
