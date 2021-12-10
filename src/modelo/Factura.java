@@ -80,7 +80,7 @@ public class Factura implements Serializable
         }
 	}
 	
-	public void generarFacturaSinCliente(int numFactura) 
+	public void generarFacturaSinCliente(int numFactura, Cliente cliente) 
 	{
 		String Path="./facturas/Pedido-" + numFactura + ".txt";
 		File Factura =new File(Path);
@@ -100,6 +100,11 @@ public class Factura implements Serializable
 	 		Facturado += "IVA: $" + iva + "\n";
 	 		double total = valorTotalCompra + iva;
 	 		Facturado += "Precio Total: $" + total;
+	 		Facturado += "Total de punto antes de la compra";
+	 		Facturado += "Puntos redimidos en la compra";
+	 		Facturado += "Puntos acumulados en la compra";
+	 		Facturado += "Total de puntos al final de la compra";
+
 	            bw.write(Facturado);
             bw.close();
         } 
