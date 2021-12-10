@@ -435,10 +435,12 @@ public class Inventario
 	 *  Metodos relacionados con PRODUCTO
 	 *  +getProductoByName(): Producto
 	 *  +getProductoByCodigoDeBarras(): Producto
+	 *  +getCodigoProducto(): long
 	 *  +verificarProducto(): boolean
 	 */
 	
-	public Producto getProductoByName(String nombreProducto) {
+	public Producto getProductoByName(String nombreProducto) 
+	{
 		Producto Producto = null;
 		if (CodigosProductos.containsKey(nombreProducto)) {
 			long codigoDeBarras = CodigosProductos.get(nombreProducto);
@@ -447,10 +449,21 @@ public class Inventario
 		return Producto;
 	}
 	
-	public Producto getProductoByCodigoDeBarras(long codigoDeBarras) {
+	public Producto getProductoByCodigoDeBarras(long codigoDeBarras) 
+	{
 		Producto Producto = null;
 		Producto = Productos.get(codigoDeBarras);
 		return Producto;
+	}
+	
+	public long getCodigoProducto(String nombreProducto) 
+	{
+		long codigoDeBarras = -1;
+		if (CodigosProductos.containsKey(nombreProducto)) 
+		{
+			codigoDeBarras = CodigosProductos.get(nombreProducto);
+		}
+		return codigoDeBarras;
 	}
 
 	public boolean verificarProducto(long codigoDeBarras) {
@@ -460,7 +473,7 @@ public class Inventario
 		return false;
 	}
 	
-	public boolean verificarProductoNombre(String nombre) {
+	public boolean verificarNombreProducto(String nombre) {
 		if (CodigosProductos.containsKey(nombre))
 		{
 			return true;

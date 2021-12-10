@@ -320,10 +320,11 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		if (comando.equals(AGREGAR)) 
 		{
 			String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto");
-			boolean existeProducto = modelo.verificarProductoNombre(nombre);
-			Producto Producto = modelo.getProductoByName(nombre);
+			long codigoDeBarras = modelo.getCodigoProducto(nombre);
+			boolean existeProducto = modelo.verificarNombreProducto(nombre);
 			if (existeProducto) 
 			{
+				Producto Producto = modelo.getProductoByName(nombre);
 				if (Producto.getNombre().equals("Coca Cola"))
 				{
 					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO COCA COLA",JOptionPane.INFORMATION_MESSAGE,coca);
@@ -505,7 +506,6 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		
 		modelo.terminarVenta(cliente,0);
-		dialogVenta.dispose();
 		
 		
 	}

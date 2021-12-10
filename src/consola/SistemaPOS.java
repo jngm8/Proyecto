@@ -190,7 +190,7 @@ public class SistemaPOS
 				else if (opcion_seleccionada == 2){
 					
 					
-					Inventario.terminarVenta(Cliente);
+					Inventario.terminarVenta(Cliente,0);
 					continuar = false;
 				}
 				else{
