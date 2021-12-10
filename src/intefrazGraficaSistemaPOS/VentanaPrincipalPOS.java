@@ -236,7 +236,7 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		}
 	}
 	
-	public void ConsultarInfoPuntos() throws IOException
+	public void ConsultarInfoPuntos()
 	
 	{
 		Cliente Cliente;
