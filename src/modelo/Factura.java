@@ -80,7 +80,7 @@ public class Factura implements Serializable
         }
 	}
 	
-	public void generarFacturaSinCliente(int numFactura, Cliente cliente) 
+	public void generarFacturaSinCliente(int numFactura) 
 	{
 		String Path="./facturas/Pedido-" + numFactura + ".txt";
 		File Factura =new File(Path);

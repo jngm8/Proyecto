@@ -184,12 +184,7 @@ public class BotonesVenta extends JPanel implements ActionListener
 		}
 		else if (comando.equals(INFO))
 		{
-			try {
-				principal.ConsultarInfoPuntos();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			principal.ConsultarInfoPuntos();
 		}
 	
 	}
