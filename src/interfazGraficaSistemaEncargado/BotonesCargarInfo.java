@@ -31,7 +31,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	
 	private Inventario modelo;	
 	private VentanaPrincipalE vent;
-
+	private VentanaGraficas graficas;
 	
 	//Constantes para que los botones reaccione distinto. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
@@ -48,14 +48,13 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	
 	private VentanaPrincipalE principal;
 	
-	private Grafica grafica;
 	
 	public BotonesCargarInfo(VentanaPrincipalE principalp)
 	
 	{
 		
 		principal = principalp;
-
+		
 		
 		// Define que forma deben tener los botones y su distribución
 		setLayout(new GridLayout(3,1));
@@ -169,7 +168,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		else if (comando.equals(GRAFICA))
 		{
 
-			principal.grafica();
+			graficas.grafico();
 	
 		}
 		

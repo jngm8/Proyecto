@@ -27,4 +27,20 @@ public class Regalo
 	{
 		return lleva;
 	}
+	
+	public Calendar getFechaDeInicio() 
+	{		
+		return fechaInicio;
+	}
+	
+	public Calendar getFechaDeVencimiento() 
+	{		
+		return fechaVencimiento;
+	}
+	
+	public long getcodigoDeBarras() 
+	{		
+		return codigoDeBarras;
+	}
+	
 }

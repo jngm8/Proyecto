@@ -3,6 +3,7 @@ package interfazGraficaSistemaEncargado;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,8 +18,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
@@ -149,6 +157,7 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		} catch (PersistenciaException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
@@ -332,23 +341,6 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		return nombreProduc;
 	}
 	
-	public void grafica()
-	
-	{
-		double[] xData = new double[] { 0.0, 1.0, 2.0 };
-		double[] yData = new double[] { 2.0, 1.0, 0.0 };
-
-		// Create Chart
-		XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-
-		// Show it
-		new SwingWrapper(chart).displayChart();
-		
-		repaint();
-		
-	}
-	
-	
 	public void salirAPP() throws PersistenciaException
 	{
 		try 
@@ -392,13 +384,12 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	
 	
 	// Main para iniciar la aplicación
-	public static void main (String[] args) throws IOException
+	public static void main (String[] args) throws IOException, InvocationTargetException, InterruptedException
 	{
-		VentanaPrincipalE ventana = new VentanaPrincipalE();
-		// Ubica la ventana en el centro de la pantalla
-		ventana.setLocationRelativeTo(null);
-		// Hace que se vea la ventana
-		ventana.setVisible(true);
-
+	
+			VentanaPrincipalE ventana = new VentanaPrincipalE();
+			ventana.setLocationRelativeTo(null);
+			ventana.setVisible(true);
+	
 	}
 }

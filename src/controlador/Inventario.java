@@ -394,7 +394,13 @@ public class Inventario
 		return Descuentos.values();
 
 	}
+	
+	
+	public Collection<Regalo> valoresRegalos()
+	{
+		return Regalos.values();
 
+	}
 	/* 
 	 *  Metodos para cargar los lotes:
 	 *  +cargarLote(): void

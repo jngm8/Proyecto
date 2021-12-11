@@ -23,6 +23,7 @@ import interfazGraficaSistemaEncargado.VentanaPrincipalE;
 import modelo.Cliente;
 import modelo.Descuento;
 import modelo.Producto;
+import modelo.Regalo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -116,6 +117,22 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	private JLabel lblInicio;
 	
 	private JLabel lblFinal;
+	
+	// panel regalos
+	
+	private JPanel panelRegalos;
+	
+	private JLabel lblreg1;
+	
+	private JLabel lblreg2;
+	
+	private JLabel lblreg3;
+	
+	private JLabel lblreg4;
+	
+	private JLabel lblreg5;
+
+	
 	
 	
 	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
@@ -457,7 +474,25 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		else if (comando.equals(REGALOS))
 			
 		{
-			JOptionPane.showMessageDialog(this,"COMO","¡REGALOS!",JOptionPane.INFORMATION_MESSAGE);
+			panelRegalos= new JPanel();
+			panelRegalos.setLayout(new GridLayout(4,1));
+			JDialog dialogDesc = new JDialog();
+			dialogDesc.setSize(400,400);
+			dialogDesc.setLocationRelativeTo(this);
+			dialogDesc.add(panelRegalos);
+			dialogDesc.setVisible(true);
+			
+			Color colores = new Color(255, 255, 255);
+			panelRegalos.setBackground(colores);
+			
+			Collection<Regalo> valores = modelo.valoresRegalos();
+		    
+			for (Regalo regalo:valores)
+			{
+				lblreg1= new JLabel("Nombre del producto en regalo: " + modelo.getNombreProducto(regalo.getcodigoDeBarras())+"    Pague:" + regalo.getPague()+ "     LLeve:"+regalo.getLleva());
+				panelRegalos.add(lblreg1);
+
+			}
 		}
 		
 		
