@@ -177,7 +177,12 @@ public class SistemaPOS
 						}
 						int cantidad = Integer.parseInt(input(""));
 						if (cantidad > 0 && cantidad <= producto.getCantidad()) {
-							Inventario.venderProducto(codigoDeBarras, cantidad);
+							try {
+								Inventario.venderProducto(codigoDeBarras, cantidad);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						else {
 							System.out.println("La cantidad ingresada no es válida");

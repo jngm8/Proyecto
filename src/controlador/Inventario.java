@@ -332,7 +332,6 @@ public class Inventario
 	        {
 	        	String[] partes = linea.split(",");
 	        	String nombreCombo = partes[0];
-	        	System.out.println(nombreCombo + "====");
 	        	long codigo = Long.parseLong(partes[1]); 
 	            int descuento = Integer.parseInt(partes[2]);
 	            String productos = partes[3];
@@ -911,9 +910,7 @@ public class Inventario
 			double precioCombo = 0;
 			for(String nombreProducto: productosCombo.keySet())
 			{
-				System.out.println(nombreProducto);
 				Producto producto = getProductoByName(nombreProducto);
-				System.out.println(producto.getNombre());
 				precioCombo += producto.getPrecio();
 				producto.vender(cantidad*productosCombo.get(nombreProducto));
 			}

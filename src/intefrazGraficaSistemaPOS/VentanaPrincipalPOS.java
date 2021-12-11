@@ -359,11 +359,9 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		if (comando.equals(AGREGAR)) 
 		{
 			String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto:");
-			System.out.println(nombre);
 			long codigoDeBarras = modelo.getCodigoProducto(nombre);
 			boolean existeProducto = modelo.verificarNombreProducto(nombre);
 			boolean existeCombo = modelo.verificarNombreCombo(nombre);
-			System.out.println(existeCombo);
 			if (existeProducto) 
 			{
 				Producto Producto = modelo.getProductoByName(nombre);
