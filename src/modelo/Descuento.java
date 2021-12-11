@@ -22,4 +22,20 @@ public class Descuento
 		return porcentaje;
 	}
 	
+	public long getcodigoDeBarras() 
+	{		
+		return codigoDeBarras;
+	}
+	
+	public Calendar getFechaDeInicio() 
+	{		
+		return fechaInicio;
+	}
+	
+	public Calendar getFechaDeVencimiento() 
+	{		
+		return fechaVencimiento;
+	}
+	
+	
 }	

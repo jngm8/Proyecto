@@ -12,6 +12,7 @@ import controlador.PersistenciaException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -25,7 +26,7 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private JButton btnDesempeñoProducto;
 	private JButton btnInfoProducto;
 	private JButton btnModificar;
-	private JButton btnSalir;
+	private JButton btnGrafica;
 	private JPanel panelBotonesE;
 	
 	private Inventario modelo;	
@@ -40,17 +41,21 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 	private final static String DESEMPENO = "DESEMPEÑO PRODUCTOS";
 	private final static String INFOPROD = "INFORMACION DE UN PRODUCTO";
 	private final static String MODIFICAR = "MODIFICAR IMAGENES";
+	private final static String GRAFICA = "GRAFICA";
+
 
 	/// Atributo ventana pricipal
 	
 	private VentanaPrincipalE principal;
+	
+	private Grafica grafica;
 	
 	public BotonesCargarInfo(VentanaPrincipalE principalp)
 	
 	{
 		
 		principal = principalp;
-		
+
 		
 		// Define que forma deben tener los botones y su distribución
 		setLayout(new GridLayout(3,1));
@@ -103,6 +108,13 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 		btnModificar.setActionCommand(MODIFICAR);
 		panelBotonesE.add(btnModificar);
 		
+		btnGrafica = new JButton("GRAFICA DEL PRODUCTO");
+		btnGrafica.setBackground(new java.awt.Color(143,171,237));
+		btnGrafica.setForeground(Color.BLACK);
+		btnGrafica.addActionListener(this);
+		btnGrafica.setActionCommand(GRAFICA);
+		panelBotonesE.add(btnGrafica);
+		
 
 		Color colores = new Color(252, 248, 171);
 		panelBotonesE.setBackground(colores);
@@ -153,6 +165,15 @@ public class BotonesCargarInfo  extends JPanel implements ActionListener
 
 			principal.modificar();
 		}
+		
+		else if (comando.equals(GRAFICA))
+		{
+
+			principal.grafica();
+	
+		}
+		
+
 		
 
 		

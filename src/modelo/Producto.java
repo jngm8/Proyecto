@@ -53,7 +53,8 @@ public abstract class Producto implements Serializable
 					String unidadDeMedida,
 					double peso,
 					double cantidad,
-					ArrayList<Lote> lotes) 
+					ArrayList<Lote> lotes
+					) 
 	{
 		nombre = nombreProducto;
 		precio = precioAlPublico;
@@ -68,6 +69,7 @@ public abstract class Producto implements Serializable
 		this.peso = peso;
 		this.cantidad = cantidad;
 		this.lotes = lotes;
+		this.imagen = "./data/"+nombre+"jpg";
 	}
 
 	//METODOS NO ABSTRACTOS - IMPLEMENTADOS

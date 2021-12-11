@@ -40,7 +40,6 @@ public class BotonesVenta extends JPanel implements ActionListener
 	// Inicia los botones que va tener este panel
 	private JButton btnIniciarVenta;
 	private JButton btnInfoCliente;
-	private JButton btnSalirApp;
 	private JPanel panelBotones;
 	private JPanel panelClientes;
 	

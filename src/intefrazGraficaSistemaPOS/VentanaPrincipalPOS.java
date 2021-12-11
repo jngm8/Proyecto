@@ -2,6 +2,10 @@ package intefrazGraficaSistemaPOS;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -13,14 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
-
 import controlador.Inventario;
 import controlador.PersistenciaException;
 import interfazGraficaSistemaEncargado.VentanaPrincipalE;
 import modelo.Cliente;
+import modelo.Descuento;
 import modelo.Producto;
 
 import java.awt.BorderLayout;
@@ -92,11 +93,6 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	
 	private JButton btnTerminar;
 	
-	// Graficos con JFreeChart
-	
-	private JTextField txt1;
-	private JTextField txt2;
-	private JTextField txt3;
 	// Iconos
 	
 	Icon coca;
@@ -108,6 +104,19 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	Icon jabulani;
 	
 	Icon imagen;
+	
+	// panel descuento
+	
+	private JPanel panelDesc;
+	
+	private JLabel lblDesc;
+	
+	private JLabel lblBarras;
+	
+	private JLabel lblInicio;
+	
+	private JLabel lblFinal;
+	
 	
 	//Constantes para que los de venta. Final(Siempre va tener ese valor) Static(Pertenece a la clase no al objeto)
 	
@@ -326,7 +335,6 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		String comando = e.getActionCommand();
-		coca = new ImageIcon("./data/coca.jpg");
 		PanFresco = new ImageIcon("./data/pan.jpg");
 		cerdo = new ImageIcon("./data/cerdo.jpg");
 		jabulani = new ImageIcon("./data/jabulani.png");
@@ -339,23 +347,25 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			if (existeProducto) 
 			{
 				Producto Producto = modelo.getProductoByName(nombre);
-				if (Producto.getNombre().equals("Coca Cola"))
+				try
 				{
-					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO COCA COLA",JOptionPane.INFORMATION_MESSAGE,coca);
+					imagen = new ImageIcon("./data/"+Producto.getNombre()+".jpg");
 				}
-				else if (Producto.getNombre().equals("Pan Fresco"))
+				catch(Exception e1)
 				{
-					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO PAN FRESCO",JOptionPane.INFORMATION_MESSAGE,PanFresco);
-				}
-				else if (Producto.getNombre().equals("Carne de cerdo"))
-				{
-					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO CARNE DE CERDO",JOptionPane.INFORMATION_MESSAGE,cerdo);
+					imagen = new ImageIcon("./data/question.jpg");
 				}
 				
-				else if (Producto.getNombre().equals("Balones Jabulani"))
+				
+				if (Producto.getNombre().equals(nombre))
 				{
-					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO BALONES JABULANI",JOptionPane.INFORMATION_MESSAGE,jabulani);
+	
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO COCA COLA",JOptionPane.INFORMATION_MESSAGE,imagen);
+					
 				}
+			
+				
+				
 				
 				else
 				{
@@ -391,16 +401,36 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		else if (comando.equals(DESCUENTOS))
 			
 		{
-			String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto");
-
-			Producto Producto = modelo.getProductoByName(nombre);
-
-			//JOptionPane.showMessageDialog(this,"Esta es la promoción para el producto: "+Producto.getNombre()+Producto.descuentos(),"¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
 			
-			JOptionPane.showMessageDialog(this,"Este descuento es valido desde"+"9/12/21"+"hasta"+"13/12/21","¡DESCUENTOS!",JOptionPane.INFORMATION_MESSAGE);
+			panelDesc= new JPanel();
+			panelDesc.setLayout(new GridLayout(4,1));
+			JDialog dialogDesc = new JDialog();
+			dialogDesc.setSize(500,500);
+			dialogDesc.setLocationRelativeTo(this);
+			dialogDesc.add(panelDesc);
+			dialogDesc.setVisible(true);
+			
+			Color colores = new Color(174, 255, 115);
+			panelDesc.setBackground(colores);
+			
+			Collection<Descuento> valores = modelo.valoresDescuentos();
+		    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		    
+			for (Descuento descuento:valores)
+			{
+				lblDesc= new JLabel("--Porcentaje del descuento: " + descuento.getPorcentaje()+" %");
+				panelDesc.add(lblDesc);
+				lblBarras= new JLabel("--Nombre del producto con descuento: " + modelo.getNombreProducto(descuento.getcodigoDeBarras()));
+				panelDesc.add(lblBarras);
+				lblInicio= new JLabel("--Va desde : " +dateFormat.format(descuento.getFechaDeInicio().getTime()));
+				panelDesc.add(lblInicio);
+				lblFinal= new JLabel("--Hasta: " + dateFormat.format(descuento.getFechaDeVencimiento().getTime()));
+				panelDesc.add(lblFinal);
+				
+			}
 
-		}
 		
+		}
 		
 		else if (comando.equals(REGALOS))
 			
@@ -522,6 +552,10 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 					this.setVisible(true);
 					success = true;
 				}
+				JOptionPane.showMessageDialog(this," ESTAS","¡COMBOS!",JOptionPane.INFORMATION_MESSAGE);
+
+				
+
 			}
 			
 			
@@ -529,15 +563,13 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 			
 		else if (comando.equals(TERMINARV))
 		{
-			this.setVisible(false);
+			this.setVisible(true);
 			modelo.terminarVenta(cliente,0);
 						
 		}
-		
-		
-
-	}
 	
+	}
+		
 	//Salida aplicacion grande
 	public void salirAPP() throws PersistenciaException
 	{
