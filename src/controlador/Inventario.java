@@ -789,35 +789,42 @@ public class Inventario
 	public void venderProducto(long codigoDeBarras, int cantidad) 
 	{
 		Producto producto = Productos.get(codigoDeBarras);
-		if (producto.getDescuento())
-		{
-			Descuento descuento = Descuentos.get(codigoDeBarras); // Obtenemos el descuento del producto
-			int porcentajeDescuento = descuento.getPorcentaje();
-			double valorConDescuento = producto.getPrecio()-((producto.getPrecio()*porcentajeDescuento)/100); // precioNormal - valorDescuento
-			producto.vender(cantidad);
-			String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tDescuento del " + porcentajeDescuento + "% aplicado:\t" + valorConDescuento*cantidad + "\n";
-			factura.agregarProducto(registroFactura, valorConDescuento*cantidad);
-		}
-		else if (producto.getRegalo()) // se usa elif porque las promociones no son acumulables
+		try
 		{
 			Regalo regalo = Regalos.get(codigoDeBarras);
-			int pague = regalo.getPague();
-			int lleva = regalo.getLleva();
-			int numeroPromos = (int)(cantidad/lleva);	// saca el numero de promociones que caben en la cantidad que se quiere llevar
-			int unidadesQuePagan = numeroPromos*pague;		// unidades que hacen parte de la promocion
-			int unidadesQueLlevan = numeroPromos*lleva;
-			if (unidadesQueLlevan == cantidad)		// si toda la cantidad que lleva hace parte de la promo
+		}
+		finally
+		{
+			Regalo regalo = new Regalo(0,0,0,Calendar.getInstance(), Calendar.getInstance());
+			if (producto.getDescuento())
 			{
-				String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tRegalo: pague " + pague + " lleve " + lleva + "\t" + unidadesQuePagan*producto.getPrecio() + "\n";
-				factura.agregarProducto(registroFactura, unidadesQuePagan*producto.getPrecio());
+				Descuento descuento = Descuentos.get(codigoDeBarras); // Obtenemos el descuento del producto
+				int porcentajeDescuento = descuento.getPorcentaje();
+				double valorConDescuento = producto.getPrecio()-((producto.getPrecio()*porcentajeDescuento)/100); // precioNormal - valorDescuento
+				producto.vender(cantidad);
+				String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tDescuento del " + porcentajeDescuento + "% aplicado:\t" + valorConDescuento*cantidad + "\n";
+				factura.agregarProducto(registroFactura, valorConDescuento*cantidad);
 			}
-			else
+			else if (producto.getRegalo() && cantidad >= regalo.getLleva()) // se usa elif porque las promociones no son acumulables
 			{
-				String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tRegalo: pague " + pague + " lleve " + lleva + "\t" + unidadesQuePagan*producto.getPrecio() + "\n";
-				factura.agregarProducto(registroFactura, unidadesQuePagan*producto.getPrecio());
-				int unidadesFueraPromo = cantidad - unidadesQueLlevan;
-				String registroFactura2 = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + unidadesFueraPromo + "\n\t\t\t" + unidadesFueraPromo*producto.getPrecio() + "\n";
-				factura.agregarProducto(registroFactura2, unidadesFueraPromo*producto.getPrecio());
+				regalo = Regalos.get(codigoDeBarras);
+				int pague = regalo.getPague();
+				int lleva = regalo.getLleva();
+				int numeroPromos = (int)(cantidad/lleva);	// saca el numero de promociones que caben en la cantidad que se quiere llevar
+				int unidadesQuePagan = numeroPromos*pague;		// unidades que hacen parte de la promocion
+				int unidadesQueLlevan = numeroPromos*lleva;
+				if (unidadesQueLlevan == cantidad)		// si toda la cantidad que lleva hace parte de la promo
+				{
+					String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tRegalo: pague " + pague + " lleve " + lleva + "\t" + unidadesQuePagan*producto.getPrecio() + "\n";
+					factura.agregarProducto(registroFactura, unidadesQuePagan*producto.getPrecio());
+				}
+				else
+				{
+					String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + unidadesQueLlevan + "\n\tRegalo: pague " + pague + " lleve " + lleva + "\t" + unidadesQuePagan*producto.getPrecio() + "\n";
+					factura.agregarProducto(registroFactura, unidadesQuePagan*producto.getPrecio());
+					int unidadesFueraPromo = cantidad - unidadesQueLlevan;
+					String registroFactura2 = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + unidadesFueraPromo + "\n\t\t\t" + unidadesFueraPromo*producto.getPrecio() + "\n";
+					factura.agregarProducto(registroFactura2, unidadesFueraPromo*producto.getPrecio());
 			}
 		}
 		else
@@ -825,6 +832,7 @@ public class Inventario
 			producto.vender(cantidad);
 			String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\t\t\t" + producto.getPrecio()*cantidad + "\n";
 			factura.agregarProducto(registroFactura, producto.getPrecio()*cantidad);
+		}
 		}
 	}
 
