@@ -18,6 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +56,8 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	private JPanel panelDesempeno;
 	
 	private JPanel panelInfoProducto;
+	
+	private JPanel panelGrafica;
 	
 	// Importa la lógica del programa
 	
@@ -105,10 +112,6 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 	private static final long serialVersionUID = 100L;
 	
 	// labels desepeño financiero
-	
-
-	
-
 	
 	public VentanaPrincipalE()
 	{
@@ -327,6 +330,21 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		String nombreProduc = JOptionPane.showInputDialog("Ingrese el nombre del producto ");
 			
 		return nombreProduc;
+	}
+	
+	public void grafica()
+	
+	{
+		double[] xData = new double[] { 0.0, 1.0, 2.0 };
+		double[] yData = new double[] { 2.0, 1.0, 0.0 };
+
+		// Create Chart
+		XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
+
+		// Show it
+		new SwingWrapper(chart).displayChart();
+		
+		repaint();
 	}
 	
 	public void salirAPP() throws PersistenciaException

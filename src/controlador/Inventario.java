@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -213,6 +214,11 @@ public class Inventario
 			Descuentos.put(codigoDeBarras, nuevoDescuento);
 		}
 		
+	}
+	
+	public Collection<Descuento> valoresDescuentos()
+	{
+		return Descuentos.values();
 	}
 
 	/* 
@@ -563,6 +569,13 @@ public class Inventario
 		Producto Producto = null;
 		Producto = Productos.get(codigoDeBarras);
 		return Producto;
+	}
+	
+	public String getNombreProducto(long codigoDeBarras)
+	{
+		Producto prod = Productos.get(codigoDeBarras);
+		
+		return prod.getNombre();
 	}
 	
 	public long getCodigoProducto(String nombreProducto) 
