@@ -303,6 +303,7 @@ public class Inventario
 	public Collection<Descuento> valoresDescuentos()
 	{
 		return Descuentos.values();
+
 	}
 
 	/* 
