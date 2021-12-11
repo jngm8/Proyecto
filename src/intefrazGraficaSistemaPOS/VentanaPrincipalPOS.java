@@ -355,18 +355,12 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 				{
 					imagen = new ImageIcon("./data/question.jpg");
 				}
-				
-				
+			
 				if (Producto.getNombre().equals(nombre))
 				{
-	
-						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO COCA COLA",JOptionPane.INFORMATION_MESSAGE,imagen);
-					
+						JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"PRODUCTO DISPONIBLE",JOptionPane.INFORMATION_MESSAGE,imagen);
 				}
-			
-				
-				
-				
+		
 				else
 				{
 					JOptionPane.showMessageDialog(this,"Producto: " + Producto.getNombre(),"NO EXISTE",JOptionPane.ERROR_MESSAGE);
@@ -551,11 +545,10 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 					modelo.terminarVenta(cliente, 0);
 					this.setVisible(true);
 					success = true;
+					JOptionPane.showMessageDialog(this, "Gracias por venir, ¡FELIZ NAVIDAD!", "¡GRACIAS!",JOptionPane.INFORMATION_MESSAGE);
+
 				}
-				JOptionPane.showMessageDialog(this," ESTAS","¡COMBOS!",JOptionPane.INFORMATION_MESSAGE);
-
 				
-
 			}
 			
 			

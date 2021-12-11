@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Id: 1005966025
 Cliente: Daniel
 -----------------------------------------------
@@ -24,3 +25,29 @@ Valor puntos redimidos: $0
 Valor Total Sin IVA: $10500.0
 IVA: $1995.0
 Precio Total: $12495.0
+=======
+Id: 1000286716
+Cliente: Jairo Nicolas
+-----------------------------------------------
+
+PRODUCTOS:
+Carne de cerdo		13000.0x10
+			130000.0
+
+-----------------------------------------------
+
+Puntos anteriores: 130
+Puntos redimidos: 0
+Puntos ganados: 130
+Puntos disponibles: 260
+
+-----------------------------------------------
+
+Valor Neto A Pagar: $130000.0
+
+Valor puntos redimidos: $0
+
+Valor Total Sin IVA: $130000.0
+IVA: $24700.0
+Precio Total: $154700.0
+>>>>>>> Stashed changes

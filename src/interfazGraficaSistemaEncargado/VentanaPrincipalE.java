@@ -345,7 +345,9 @@ public class VentanaPrincipalE extends JFrame implements ActionListener
 		new SwingWrapper(chart).displayChart();
 		
 		repaint();
+		
 	}
+	
 	
 	public void salirAPP() throws PersistenciaException
 	{

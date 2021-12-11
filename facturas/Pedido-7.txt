@@ -3,8 +3,13 @@ Cliente: Daniel
 -----------------------------------------------
 
 PRODUCTOS:
+<<<<<<< Updated upstream
 Queso Pera		8500.0x10
 			85000.0
+=======
+Coca Cola		2000.0x20
+	Descuento del 50% aplicado:	20000.0
+>>>>>>> Stashed changes
 
 -----------------------------------------------
 
@@ -19,6 +24,12 @@ Valor Neto A Pagar: $85000.0
 
 Valor puntos redimidos: $0
 
+<<<<<<< Updated upstream
 Valor Total Sin IVA: $85000.0
 IVA: $16150.0
 Precio Total: $101150.0
+=======
+Precio Neto: $20000.0
+IVA: $3800.0
+Precio Total: $23800.0Total de punto antes de la compraPuntos redimidos en la compraPuntos acumulados en la compraTotal de puntos al final de la compra
+>>>>>>> Stashed changes
