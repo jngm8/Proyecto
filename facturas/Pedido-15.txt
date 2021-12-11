@@ -1,0 +1,24 @@
+Id: 1000286716
+Cliente: Jairo Nicolas
+-----------------------------------------------
+
+PRODUCTOS:
+combo Pan CocaCola		5400.0x1
+			5400.0
+
+-----------------------------------------------
+
+Puntos anteriores: 260
+Puntos redimidos: 2
+Puntos ganados: 5
+Puntos disponibles: 263
+
+-----------------------------------------------
+
+Valor Neto A Pagar: $5430.0
+
+Valor puntos redimidos: $30
+
+Valor Total Sin IVA: $5400.0
+IVA: $1026.0
+Precio Total: $6426.0
