@@ -1,0 +1,30 @@
+Id: 1005966025
+Cliente: Daniel
+-----------------------------------------------
+
+PRODUCTOS:
+Pan Fresco		4000.0x5
+	Regalo: pague 3 lleve 5	12000.0
+Pan Fresco		4000.0x3
+			12000.0
+Coca Cola		2000.0x9
+	Descuento del 50% aplicado:	9000.0
+combo Pan CocaCola		5400.0x1
+			5400.0
+
+-----------------------------------------------
+
+Puntos anteriores: 62
+Puntos redimidos: 0
+Puntos ganados: 38
+Puntos disponibles: 100
+
+-----------------------------------------------
+
+Valor Neto A Pagar: $38400.0
+
+Valor puntos redimidos: $0
+
+Valor Total Sin IVA: $38400.0
+IVA: $7296.0
+Precio Total: $45696.0

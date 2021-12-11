@@ -341,9 +341,12 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 		
 		if (comando.equals(AGREGAR)) 
 		{
-			String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto");
+			String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto:");
+			System.out.println(nombre);
 			long codigoDeBarras = modelo.getCodigoProducto(nombre);
 			boolean existeProducto = modelo.verificarNombreProducto(nombre);
+			boolean existeCombo = modelo.verificarNombreCombo(nombre);
+			System.out.println(existeCombo);
 			if (existeProducto) 
 			{
 				Producto Producto = modelo.getProductoByName(nombre);
@@ -379,13 +382,38 @@ public class VentanaPrincipalPOS extends JFrame implements ActionListener
 
 				if (cantidad > 0 && cantidad < Producto.getCantidad()) 
 				{
-					modelo.venderProducto(codigoDeBarras, cantidad);//se hace con el codigo de barras
+					try {
+						modelo.venderProducto(codigoDeBarras, cantidad);//se hace con el codigo de barras
+					} catch (Exception e2) {
+						
+						JOptionPane.showMessageDialog(this,e2.getMessage(),"Mensaje de error",JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else 
 				{
 					JOptionPane.showMessageDialog(this,"La cantidad ingresada no es válida","Mensaje de error",JOptionPane.ERROR_MESSAGE);
 				}
 			}
+			else if (existeCombo)
+			{
+				int cantidad = 	Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese cuantas unidades desea del Combo"));
+
+				if (cantidad > 0) 
+				{
+					try {
+						codigoDeBarras = modelo.getCodigoCombo(nombre);
+						modelo.venderProducto(codigoDeBarras, cantidad);
+					} catch (Exception e2) {
+						
+						JOptionPane.showMessageDialog(this,e2.getMessage(),"Mensaje de error",JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(this,"La cantidad ingresada no es válida","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			
 			else 
 			{
 				JOptionPane.showMessageDialog(this,"El producto con codigo de barras " + codigoDeBarras + " no fue encontrado","Mensaje de error",JOptionPane.ERROR_MESSAGE);

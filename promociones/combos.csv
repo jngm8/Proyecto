@@ -1,1 +1,2 @@
-nombre	id	fechaInicio	fechaFinal
+nombre,codigo,descuento,productos,fechaInicio,fechaVencimiento
+combo Pan CocaCola,30,10,Pan Fresco: 2/Coca Cola: 1,12-10-2021,15-12-2022

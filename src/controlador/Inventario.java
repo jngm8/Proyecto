@@ -37,6 +37,7 @@ public class Inventario
 	private HashMap<Long, Descuento> Descuentos;
 	private HashMap<Long, Regalo> Regalos;
 	private HashMap<Long, Combo> Combos;
+	private HashMap<String, Long> CodigosCombos;
 	private HashMap<Long, Integer> multiplicadores;
 	private Factura factura;
 	private int numeroFacturas;
@@ -69,7 +70,8 @@ public class Inventario
 		File fileCategorias = new File( archivoCategorias );
 		File fileClientes = new File( archivoClientes );
 		File fileFacturas = new File( archivoFacturas);
-        if( fileProductos.exists( ) && fileCodigosProductos.exists( ) && fileLotes.exists( ) && fileCategorias.exists( ) && fileClientes.exists( ) )
+        
+		if( fileProductos.exists( ) && fileCodigosProductos.exists( ) && fileLotes.exists( ) && fileCategorias.exists( ) && fileClientes.exists( ) )
         {
             // El archivo existe: se debe recuperar de allí el estado del modelo del mundo
             try
@@ -102,11 +104,14 @@ public class Inventario
                 Descuentos = new HashMap<Long, Descuento>();
         		Regalos = new HashMap<Long, Regalo>();
         		Combos = new HashMap<Long, Combo>();
+        		CodigosCombos = new HashMap<String, Long>();
         		multiplicadores = new HashMap<Long, Integer>();
             	File archivoDescuentos = new File ("./promociones/descuentos.csv");
             	cargarDescuentos(archivoDescuentos);
             	File archivoRegalos = new File ("./promociones/regalos.csv");
             	cargarRegalos(archivoRegalos);
+            	File archivoCombos = new File ("./promociones/combos.csv");
+            	cargarCombos(archivoCombos);
             }
             catch( Exception e )
             {
@@ -127,7 +132,14 @@ public class Inventario
     		Descuentos = new HashMap<Long, Descuento>();
     		Regalos = new HashMap<Long, Regalo>();
     		Combos = new HashMap<Long, Combo>();
+    		CodigosCombos = new HashMap<String, Long>();
     		multiplicadores = new HashMap<Long, Integer>();
+    		File archivoDescuentos = new File ("./promociones/descuentos.csv");
+        	cargarDescuentos(archivoDescuentos);
+        	File archivoRegalos = new File ("./promociones/regalos.csv");
+        	cargarRegalos(archivoRegalos);
+        	File archivoCombos = new File ("./promociones/combos.csv");
+        	cargarCombos(archivoCombos);
         }
 		
 	}
@@ -235,7 +247,7 @@ public class Inventario
 	        while(linea!=null) 
 	        {
 	        	String[] partes = linea.split(",");
-	        	long codigoDeBarras = Long.parseLong(partes[0]); // Identifica el producto al cual se le va a aplicar el descuento
+	        	long codigoDeBarras = Long.parseLong(partes[0]); 
 	            int pague = Integer.parseInt(partes[1]);
 	            int lleva = Integer.parseInt(partes[2]);
 	            
@@ -300,6 +312,83 @@ public class Inventario
 			Regalos.put(codigoDeBarras, nuevoRegalo);
 		}
 	}
+	
+	private void cargarCombos(File archivoCombos)
+	{
+		FileReader fr = null;
+	    BufferedReader br = null;
+	    try 
+	    {
+	        // Apertura del fichero y creacion de BufferedReader para poder
+	        // hacer una lectura comoda (disponer del metodo readLine()).
+	        fr = new FileReader (archivoCombos);
+	        br = new BufferedReader(fr);
+	
+	        // Lectura del fichero
+	        String linea;
+	        linea = br.readLine();
+	        linea = br.readLine();
+	        while(linea!=null) 
+	        {
+	        	String[] partes = linea.split(",");
+	        	String nombreCombo = partes[0];
+	        	System.out.println(nombreCombo + "====");
+	        	long codigo = Long.parseLong(partes[1]); 
+	            int descuento = Integer.parseInt(partes[2]);
+	            String productos = partes[3];
+	            
+	            String formatoFecha = partes[4];
+	            String formatoFecha2 = partes[5];
+	            
+	            Date date1 = sdf.parse(formatoFecha);
+	            Date date2 = sdf.parse(formatoFecha2);
+	            
+	            Calendar fechaInicio = Calendar.getInstance();
+	            Calendar fechaVencimiento = Calendar.getInstance();
+	            
+	            fechaInicio.setTime(date1);
+	            fechaVencimiento.setTime(date2);
+	            
+	            agregarCombo(nombreCombo, codigo, descuento, productos, fechaInicio, fechaVencimiento);
+	            
+	            linea = br.readLine();
+	        }
+		}	
+	    catch(Exception e)
+	    {
+         e.printStackTrace();
+	    }
+	    finally
+	    {
+	         // En el finally cerramos el fichero, para asegurarnos
+	         // que se cierra tanto si todo va bien como si salta 
+	         // una excepcion.
+	         try
+	         {                    
+	            if( null != fr )
+	            {   
+	               fr.close();     
+	            }                  
+	         }
+	         catch (Exception e2)
+	         { 
+	            e2.printStackTrace();
+	         }
+	     }
+	    // Luego de cargar los descuentos en Descuentos, se itera sobre todos los productos para activarles/desactivales el descuento con el atributo descuento.
+	    
+	}
+	
+	private void agregarCombo(String nombreCombo,long codigo,  int descuento, String productos, Calendar fechaInicio, Calendar fechaVencimiento) 
+	{
+		if (fechaInicio.before(Calendar.getInstance()) && fechaVencimiento.after(Calendar.getInstance())) // Se verica que la promocion siga siendo valida
+		{
+			Combo nuevoCombo = new Combo(nombreCombo, codigo, descuento, productos, fechaInicio, fechaVencimiento);
+			Combos.put(codigo, nuevoCombo);
+			CodigosCombos.put(nombreCombo, codigo);
+		}
+	}
+	
 	public Collection<Descuento> valoresDescuentos()
 	{
 		return Descuentos.values();
@@ -642,7 +731,8 @@ public class Inventario
 	public Producto getProductoByName(String nombreProducto) 
 	{
 		Producto Producto = null;
-		if (CodigosProductos.containsKey(nombreProducto)) {
+		if (CodigosProductos.containsKey(nombreProducto)) 
+		{
 			long codigoDeBarras = CodigosProductos.get(nombreProducto);
 			Producto = Productos.get(codigoDeBarras);
 		}
@@ -786,18 +876,50 @@ public class Inventario
 	}
 	
 	
-	public void venderProducto(long codigoDeBarras, int cantidad) 
+	public void venderProducto(long codigoDeBarras, int cantidad) throws Exception 
 	{
-		Producto producto = Productos.get(codigoDeBarras);
-		try
+		
+		Regalo regalo;
+		if (Regalos.containsKey(codigoDeBarras))
 		{
-			Regalo regalo = Regalos.get(codigoDeBarras);
+			regalo = Regalos.get(codigoDeBarras);
 		}
-		finally
+		else 
 		{
-			Regalo regalo = new Regalo(0,0,0,Calendar.getInstance(), Calendar.getInstance());
+			regalo = new Regalo(0,0,0,Calendar.getInstance(), Calendar.getInstance());
+		}
+			
+		if (Combos.containsKey(codigoDeBarras))
+		{
+			Combo combo = Combos.get(codigoDeBarras);
+			int descuento = combo.getDescuento();
+			HashMap<String, Integer> productosCombo = combo.getProductos();
+			for(String nombreProducto: productosCombo.keySet())
+			{
+				double unidadesDisponibles = getProductoByName(nombreProducto).getCantidad();
+				if(unidadesDisponibles < cantidad*productosCombo.get(nombreProducto))
+				{
+					throw new Exception("No hay unidades disponibles suficientes para los combos que se desean comprar");
+				}
+			}
+			double precioCombo = 0;
+			for(String nombreProducto: productosCombo.keySet())
+			{
+				System.out.println(nombreProducto);
+				Producto producto = getProductoByName(nombreProducto);
+				System.out.println(producto.getNombre());
+				precioCombo += producto.getPrecio();
+				producto.vender(cantidad*productosCombo.get(nombreProducto));
+			}
+			String registroFactura = combo.getNombre() + "\t\t" + ((precioCombo-(precioCombo*descuento)/100)) + "x" + cantidad + "\n\t\t\t" + ((precioCombo-(precioCombo*descuento)/100))*cantidad + "\n";
+			factura.agregarProducto(registroFactura, ((precioCombo-(precioCombo*descuento)/100))*cantidad);
+		}
+		else 
+		{
+			Producto producto = Productos.get(codigoDeBarras);
 			if (producto.getDescuento())
 			{
+				
 				Descuento descuento = Descuentos.get(codigoDeBarras); // Obtenemos el descuento del producto
 				int porcentajeDescuento = descuento.getPorcentaje();
 				double valorConDescuento = producto.getPrecio()-((producto.getPrecio()*porcentajeDescuento)/100); // precioNormal - valorDescuento
@@ -825,17 +947,18 @@ public class Inventario
 					int unidadesFueraPromo = cantidad - unidadesQueLlevan;
 					String registroFactura2 = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + unidadesFueraPromo + "\n\t\t\t" + unidadesFueraPromo*producto.getPrecio() + "\n";
 					factura.agregarProducto(registroFactura2, unidadesFueraPromo*producto.getPrecio());
+				}
+			}
+			else
+			{
+				producto.vender(cantidad);
+				String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\t\t\t" + producto.getPrecio()*cantidad + "\n";
+				factura.agregarProducto(registroFactura, producto.getPrecio()*cantidad);
 			}
 		}
-		else
-		{
-			producto.vender(cantidad);
-			String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\t\t\t" + producto.getPrecio()*cantidad + "\n";
-			factura.agregarProducto(registroFactura, producto.getPrecio()*cantidad);
-		}
-		}
+		
 	}
-
+	
 	public void terminarVenta(Cliente cliente, int puntosRedimidos) 
 	{
 		if (cliente != null) 
@@ -862,6 +985,16 @@ public class Inventario
 			factura.generarFacturaSinCliente(numeroFacturas);
 			numeroFacturas += 1;
 		}		
+	}
+
+	public boolean verificarNombreCombo(String nombre) 
+	{
+		return CodigosCombos.containsKey(nombre);
+	}
+
+	public long getCodigoCombo(String nombre) {
+		
+		return CodigosCombos.get(nombre);
 	}
 }
 	
