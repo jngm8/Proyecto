@@ -300,11 +300,14 @@ public class Inventario
 			Regalos.put(codigoDeBarras, nuevoRegalo);
 		}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	}
 	
 	public Collection<Descuento> valoresDescuentos()
 	{
 		return Descuentos.values();
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 	}
