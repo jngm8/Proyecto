@@ -25,6 +25,8 @@ public abstract class Producto implements Serializable
 	private boolean refrigerado;
 	private boolean congelado;
 	private boolean descuento;
+	private boolean regalo;
+	private boolean multiplicador;
 	
 	
 	private long codigoDeBarras;
@@ -216,6 +218,23 @@ public abstract class Producto implements Serializable
 		return descuento;
 	}
 	
+	public void activarRegalo() 
+	{
+		regalo = true;
+	}
+	
+	public void desactivarRegalo() 
+	{
+		regalo = false;
+	}
+	
+	public boolean getRegalo() 
+	{
+		return regalo;
+	}
+	
+	
+	
 	public void desempenoFinanciero() 
 	{
 		System.out.println("Ganancia Neta: " + gananciaNeta);
@@ -250,5 +269,6 @@ public abstract class Producto implements Serializable
 	//METODOS ABSTRACTOS
 	abstract public double getPrecioPorUnidadDeMedida();
 	abstract public void mostrarInfo();
+
 	
 }

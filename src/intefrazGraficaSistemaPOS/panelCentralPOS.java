@@ -34,9 +34,5 @@ public class panelCentralPOS extends JPanel
 		ImageIcon imagen = new ImageIcon("./data/mercado.jpg");
 		lblMercado.setIcon(imagen);
 		add(lblMercado);
-		
-
-
-			
 	}
 }

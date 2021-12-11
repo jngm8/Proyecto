@@ -105,6 +105,8 @@ public class Inventario
         		multiplicadores = new HashMap<Long, Integer>();
             	File archivoDescuentos = new File ("./promociones/descuentos.csv");
             	cargarDescuentos(archivoDescuentos);
+            	File archivoRegalos = new File ("./promociones/regalos.csv");
+            	cargarRegalos(archivoRegalos);
             }
             catch( Exception e )
             {
@@ -130,7 +132,7 @@ public class Inventario
 		
 	}
 	
-	public void cargarDescuentos(File archivoDescuentos)
+	private void cargarDescuentos(File archivoDescuentos)
 	{
 	    
 		FileReader fr = null;
@@ -213,7 +215,90 @@ public class Inventario
 			Descuento nuevoDescuento = new Descuento(codigoDeBarras, porcentaje, fechaInicio, fechaVencimiento);
 			Descuentos.put(codigoDeBarras, nuevoDescuento);
 		}
-		
+	}
+	
+	private void cargarRegalos(File archivoDescuentos)
+	{
+		FileReader fr = null;
+	    BufferedReader br = null;
+	    try 
+	    {
+	        // Apertura del fichero y creacion de BufferedReader para poder
+	        // hacer una lectura comoda (disponer del metodo readLine()).
+	        fr = new FileReader (archivoDescuentos);
+	        br = new BufferedReader(fr);
+	
+	        // Lectura del fichero
+	        String linea;
+	        linea = br.readLine();
+	        linea = br.readLine();
+	        while(linea!=null) 
+	        {
+	        	String[] partes = linea.split(",");
+	        	long codigoDeBarras = Long.parseLong(partes[0]); // Identifica el producto al cual se le va a aplicar el descuento
+	            int pague = Integer.parseInt(partes[1]);
+	            int lleva = Integer.parseInt(partes[2]);
+	            
+	            String formatoFecha = partes[3];
+	            String formatoFecha2 = partes[4];
+	            
+	            Date date1 = sdf.parse(formatoFecha);
+	            Date date2 = sdf.parse(formatoFecha2);
+	            
+	            Calendar fechaInicio = Calendar.getInstance();
+	            Calendar fechaVencimiento = Calendar.getInstance();
+	            
+	            fechaInicio.setTime(date1);
+	            fechaVencimiento.setTime(date2);
+	            
+	            agregarRegalo(codigoDeBarras, pague, lleva, fechaInicio, fechaVencimiento);
+	            
+	            linea = br.readLine();
+	        }
+		}	
+	    catch(Exception e)
+	    {
+         e.printStackTrace();
+	    }
+	    finally
+	    {
+	         // En el finally cerramos el fichero, para asegurarnos
+	         // que se cierra tanto si todo va bien como si salta 
+	         // una excepcion.
+	         try
+	         {                    
+	            if( null != fr )
+	            {   
+	               fr.close();     
+	            }                  
+	         }
+	         catch (Exception e2)
+	         { 
+	            e2.printStackTrace();
+	         }
+	     }
+	    // Luego de cargar los descuentos en Descuentos, se itera sobre todos los productos para activarles/desactivales el descuento con el atributo descuento.
+	    for(long codigoDeBarras: Productos.keySet()) 
+	    {
+	    	Producto producto = getProductoByCodigoDeBarras(codigoDeBarras);
+	    	if(Regalos.containsKey(codigoDeBarras)) // se verifica si el producto hace parte de los descuentos
+	    	{
+	    		producto.activarRegalo();
+	    	}
+	    	else 
+	    	{
+	    		producto.desactivarRegalo();	// se desactivan los productos que no figuran con descuento (sirve cuando los productos se cargan por persistencia)
+	    	}
+	    }
+	}
+	
+	private void agregarRegalo(long codigoDeBarras, int pague, int lleva, Calendar fechaInicio, Calendar fechaVencimiento) 
+	{
+		if (fechaInicio.before(Calendar.getInstance()) && fechaVencimiento.after(Calendar.getInstance())) // Se verica que la promocion siga siendo valida
+		{
+			Regalo nuevoRegalo = new Regalo(codigoDeBarras, pague, lleva, fechaInicio, fechaVencimiento);
+			Regalos.put(codigoDeBarras, nuevoRegalo);
+		}
 	}
 	
 	public Collection<Descuento> valoresDescuentos()
@@ -703,21 +788,43 @@ public class Inventario
 	
 	public void venderProducto(long codigoDeBarras, int cantidad) 
 	{
-		Producto Producto = Productos.get(codigoDeBarras);
-		if (Producto.getDescuento())
+		Producto producto = Productos.get(codigoDeBarras);
+		if (producto.getDescuento())
 		{
 			Descuento descuento = Descuentos.get(codigoDeBarras); // Obtenemos el descuento del producto
 			int porcentajeDescuento = descuento.getPorcentaje();
-			double valorConDescuento = Producto.getPrecio()-((Producto.getPrecio()*porcentajeDescuento)/100); // precioNormal - valorDescuento
-			Producto.vender(cantidad);
-			String registroFactura = Producto.getNombre() + "\t\t" + Producto.getPrecio() + "x" + cantidad + "\n\tDescuento del " + porcentajeDescuento + "% aplicado:\t" + valorConDescuento*cantidad + "\n";
+			double valorConDescuento = producto.getPrecio()-((producto.getPrecio()*porcentajeDescuento)/100); // precioNormal - valorDescuento
+			producto.vender(cantidad);
+			String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tDescuento del " + porcentajeDescuento + "% aplicado:\t" + valorConDescuento*cantidad + "\n";
 			factura.agregarProducto(registroFactura, valorConDescuento*cantidad);
+		}
+		else if (producto.getRegalo()) // se usa elif porque las promociones no son acumulables
+		{
+			Regalo regalo = Regalos.get(codigoDeBarras);
+			int pague = regalo.getPague();
+			int lleva = regalo.getLleva();
+			int numeroPromos = (int)(cantidad/lleva);	// saca el numero de promociones que caben en la cantidad que se quiere llevar
+			int unidadesQuePagan = numeroPromos*pague;		// unidades que hacen parte de la promocion
+			int unidadesQueLlevan = numeroPromos*lleva;
+			if (unidadesQueLlevan == cantidad)		// si toda la cantidad que lleva hace parte de la promo
+			{
+				String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tRegalo: pague " + pague + " lleve " + lleva + "\t" + unidadesQuePagan*producto.getPrecio() + "\n";
+				factura.agregarProducto(registroFactura, unidadesQuePagan*producto.getPrecio());
+			}
+			else
+			{
+				String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\tRegalo: pague " + pague + " lleve " + lleva + "\t" + unidadesQuePagan*producto.getPrecio() + "\n";
+				factura.agregarProducto(registroFactura, unidadesQuePagan*producto.getPrecio());
+				int unidadesFueraPromo = cantidad - unidadesQueLlevan;
+				String registroFactura2 = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + unidadesFueraPromo + "\n\t\t\t" + unidadesFueraPromo*producto.getPrecio() + "\n";
+				factura.agregarProducto(registroFactura2, unidadesFueraPromo*producto.getPrecio());
+			}
 		}
 		else
 		{
-			Producto.vender(cantidad);
-			String registroFactura = Producto.getNombre() + "\t\t" + Producto.getPrecio() + "x" + cantidad + "\n\t\t\t" + Producto.getPrecio()*cantidad + "\n";
-			factura.agregarProducto(registroFactura, Producto.getPrecio()*cantidad);
+			producto.vender(cantidad);
+			String registroFactura = producto.getNombre() + "\t\t" + producto.getPrecio() + "x" + cantidad + "\n\t\t\t" + producto.getPrecio()*cantidad + "\n";
+			factura.agregarProducto(registroFactura, producto.getPrecio()*cantidad);
 		}
 	}
 

@@ -1,0 +1,30 @@
+Id: 1005966025
+Cliente: Daniel
+-----------------------------------------------
+
+PRODUCTOS:
+Pan Fresco		4000.0x5
+	Regalo: pague 3 lleve 5	12000.0
+Pega Stick		1500.0x7
+	Regalo: pague 2 lleve 3	6000.0
+Pega Stick		1500.0x1
+			1500.0
+Coca Cola		2000.0x10
+	Descuento del 50% aplicado:	10000.0
+
+-----------------------------------------------
+
+Puntos anteriores: 57
+Puntos redimidos: 0
+Puntos ganados: 29
+Puntos disponibles: 86
+
+-----------------------------------------------
+
+Valor Neto A Pagar: $29500.0
+
+Valor puntos redimidos: $0
+
+Valor Total Sin IVA: $29500.0
+IVA: $5605.0
+Precio Total: $35105.0
