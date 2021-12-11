@@ -1,0 +1,24 @@
+Id: 1005966025
+Cliente: Daniel
+-----------------------------------------------
+
+PRODUCTOS:
+Pan Fresco		4000.0x5
+	Regalo: pague 3 lleve 5	12000.0
+
+-----------------------------------------------
+
+Puntos anteriores: 171
+Puntos redimidos: 0
+Puntos ganados: 12
+Puntos disponibles: 183
+
+-----------------------------------------------
+
+Valor Neto A Pagar: $12000.0
+
+Valor puntos redimidos: $0
+
+Valor Total Sin IVA: $12000.0
+IVA: $2280.0
+Precio Total: $14280.0
