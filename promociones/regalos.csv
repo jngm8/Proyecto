@@ -1,1 +1,4 @@
-id	descuento	fechaInicio	fechaFinal
+codigoDeBarras,pague,lleve,fechaInicio,fechaFinal
+9876543210101,3,5,12-11-2021,13-12-2021
+9998887776665,2,3,13-11-2021,14-11-2021
+1009998887776,2,3,14-11-2021,15-12-2021
