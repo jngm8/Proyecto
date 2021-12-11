@@ -299,17 +299,10 @@ public class Inventario
 			Regalo nuevoRegalo = new Regalo(codigoDeBarras, pague, lleva, fechaInicio, fechaVencimiento);
 			Regalos.put(codigoDeBarras, nuevoRegalo);
 		}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 	}
-	
 	public Collection<Descuento> valoresDescuentos()
 	{
 		return Descuentos.values();
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	}
 
 	/* 
